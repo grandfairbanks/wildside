@@ -2,6 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function decrease_window_size(){
 window_scale--;
+gui_scale--;
 window_set_size(SCREEN_WIDTH*window_scale,SCREEN_HEIGHT*window_scale);
 show_debug_message("window_scale: " + string(window_scale));
 

@@ -6,4 +6,5 @@ drag_x=0;
 drag_y=0;
 view_width=SCREEN_WIDTH;
 view_height=SCREEN_HEIGHT;
+gui_scale=2;
 display_set_gui_size(640,448);
