@@ -27,6 +27,6 @@ if keyboard_check_pressed(fulscrn_key)
 		window_set_fullscreen(true);
 		display_set_gui_size(display_get_gui_width(),display_get_gui_height());
 		//display_set_gui_maximize();
-		gui_scale=window_scale;//*2;
+		gui_scale=window_scale;
 		}
 	}
