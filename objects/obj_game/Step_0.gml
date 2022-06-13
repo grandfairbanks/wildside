@@ -1,10 +1,13 @@
 /// @description Insert description here
 /// @param
+
+#region QUICK ESCAPE KEY [DEBUGGING]
 if (keyboard_check_pressed(vk_escape))
 	{
 	game_end();	
 	}
-	
+#endregion
+
 #region TILE WINDOW
 
 	#region DETERMINE IF CURSOR IS WITHIN TILE WINDOW
@@ -86,7 +89,7 @@ if (keyboard_check_pressed(vk_escape))
 	#region DETERMINE IF CURSOR IS WITHIN ENTITY DISPLAY
 	if (point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x+8,entity_window_y+24,entity_window_x+entity_window_w+7,entity_window_y+entity_window_h+7))
 		{
-		within_entity_display=true;//set status to true indicating mouse cursor is within tile display
+		within_entity_display=true;//set status to true indicating mouse cursor is within entity display
 		}
 	else
 		{
@@ -94,13 +97,13 @@ if (keyboard_check_pressed(vk_escape))
 		}
 	#endregion
 	
-	#region DETERMINE MOUSE POSITION WITHIN TILE DISPLAY
+	#region DETERMINE MOUSE POSITION WITHIN ENTITY DISPLAY
 	if (within_entity_display)
 		{
-		//MOUSE X POSITION WITHIN THE TILE WINDOW GRID (0-15)
+		//MOUSE X POSITION WITHIN THE ENTITY WINDOW GRID (0-15)
 		_ex=floor((device_mouse_x_to_gui(0)-entity_display_x)/16);
 		
-		//MOUSE Y POSITION WITHIN THE TILE WINDOW GRID (0-15)
+		//MOUSE Y POSITION WITHIN THE ENTITY WINDOW GRID (0-15)
 		_ey=floor((device_mouse_y_to_gui(0)-entity_display_y)/16);
 		
 		if mouse_check_button_pressed(mb_left)
@@ -119,3 +122,4 @@ if (keyboard_check_pressed(vk_escape))
 	#endregion
 	
 #endregion
+

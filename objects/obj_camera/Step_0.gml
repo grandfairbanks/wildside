@@ -1,20 +1,30 @@
 /// @description Insert description here
 /// @param
-
-mouse_drag_view(); //DRAG CAMERA AROUND ROOM WITH MIDDLE MOUSE BUTTON
+#region DRAG CAMERA AROUND ROOM WITH MIDDLE MOUSE BUTTON
+mouse_drag_view();
+#endregion
  
-if keyboard_check_pressed(win_enl_key)
-	{
-	if window_scale<4
-	increase_window_size();
-	}
+#region CHANGE WINDOW SIZE
 	
-if keyboard_check_pressed(win_red_key)
-	{
-	if window_scale>2
-	decrease_window_size();
-	}
+	#region INCREASE WINDOW SIZE
+	if keyboard_check_pressed(win_enl_key)
+		{
+		if window_scale<max_window_scale
+		increase_window_size();
+		}
+	#endregion
+	
+	#region DECREASE WINDOW SIZE
+	if keyboard_check_pressed(win_red_key)
+		{
+		if window_scale>2
+		decrease_window_size();
+		}
+	#endregion
+	
+#endregion
 
+#region FULLSCREEN TOGGLE AND SETTINGS
 if keyboard_check_pressed(fulscrn_key)
 	{
 	if window_get_fullscreen()
@@ -30,3 +40,4 @@ if keyboard_check_pressed(fulscrn_key)
 		gui_scale=window_scale;
 		}
 	}
+#endregion

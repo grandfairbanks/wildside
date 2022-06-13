@@ -37,7 +37,7 @@
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},"order":1,},
     {"id":{"name":"spr_cloud_pal_1","path":"sprites/spr_cloud_pal_1/spr_cloud_pal_1.yy",},"order":5,},
     {"id":{"name":"spr_drip_trc_walk","path":"sprites/spr_drip_trc_walk/spr_drip_trc_walk.yy",},"order":5,},
-    {"id":{"name":"mouse_drag_view","path":"scripts/mouse_drag_view/mouse_drag_view.yy",},"order":0,},
+    {"id":{"name":"mouse_drag_view","path":"scripts/mouse_drag_view/mouse_drag_view.yy",},"order":2,},
     {"id":{"name":"spr_fire_demon_trail","path":"sprites/spr_fire_demon_trail/spr_fire_demon_trail.yy",},"order":5,},
     {"id":{"name":"increase_window_size","path":"scripts/increase_window_size/increase_window_size.yy",},"order":1,},
     {"id":{"name":"spr_elevator","path":"sprites/spr_elevator/spr_elevator.yy",},"order":3,},

@@ -3,7 +3,7 @@
 function mouse_drag_view(){
 	
 #region MOUSE VIEW DRAG
-	if !(inGame)
+	if !(obj_game.inGame)
 		//{
 		//IF LEFT MOUSE BUTTON IS CLICKED
 	    if (mouse_check_button_pressed(mb_middle)) 

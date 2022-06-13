@@ -1,7 +1,7 @@
 /// @description Insert description here
 /// @param
 //center view on player
-if ( instance_exists(obj_player) && inGame==true)//
+if ( instance_exists(obj_player) && obj_game.inGame==true)//
 	{
 	//get x offset
 	var _x = clamp(obj_player.x-view_width/2,0,room_width-view_width);

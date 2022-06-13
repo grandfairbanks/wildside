@@ -11,8 +11,6 @@ DEBUG=true;
 #endregion
 
 #region SET UP GAME VARIBLES
-#macro SCREEN_WIDTH 320
-#macro SCREEN_HEIGHT 224
 #macro TILE_SIZE 16
 #endregion
 
@@ -60,7 +58,7 @@ within_tile_display=false;
 
 #region SET UP ENTITY WINDOW VARIABLES
 entity_window_w=144;
-entity_window_x=display_get_gui_width()-8
+entity_window_x=display_get_gui_width()-8;
 entity_window_y=32;
 entity_window_h=112;
 spr_entity_window=scr_create_window(entity_window_w,entity_window_h);
