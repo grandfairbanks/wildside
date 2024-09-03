@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Palette Swap",
-    "path": "folders/Scripts/Palette Swap.yy",
+  "$GMScript":"v1",
+  "%Name":"pal_swap_init_system",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"pal_swap_init_system",
+  "parent":{
+    "name":"Palette Swap",
+    "path":"folders/Scripts/Palette Swap.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "pal_swap_init_system",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

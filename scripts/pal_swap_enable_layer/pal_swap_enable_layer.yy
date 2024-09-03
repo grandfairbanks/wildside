@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "LayerSwapping",
-    "path": "folders/Scripts/Palette Swap/LayerSwapping.yy",
+  "$GMScript":"v1",
+  "%Name":"pal_swap_enable_layer",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"pal_swap_enable_layer",
+  "parent":{
+    "name":"LayerSwapping",
+    "path":"folders/Scripts/Palette Swap/LayerSwapping.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "pal_swap_enable_layer",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

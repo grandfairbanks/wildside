@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Camera",
-    "path": "folders/Scripts/Camera.yy",
+  "$GMScript":"v1",
+  "%Name":"increase_window_size",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"increase_window_size",
+  "parent":{
+    "name":"Camera",
+    "path":"folders/Scripts/Camera.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "increase_window_size",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
