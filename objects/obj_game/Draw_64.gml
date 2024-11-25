@@ -1,6 +1,7 @@
 /// @description Insert description here
 /// @param
-var gui_scale=obj_camera.gui_scale
+
+//var gui_scale=obj_camera.gui_scale
 
 #region DRAW TILE WINDOW AND TILE DISPLAY
 var str="TILES";

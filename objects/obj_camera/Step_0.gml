@@ -10,15 +10,20 @@ mouse_drag_view();
 	if keyboard_check_pressed(win_enl_key)
 		{
 		if window_scale<max_window_scale
-		increase_window_size();
+		{increase_window_size();}
+		else if window_scale >= max_window_scale
+		{window_set_fullscreen(true);}
 		}
 	#endregion
 	
 	#region DECREASE WINDOW SIZE
 	if keyboard_check_pressed(win_red_key)
 		{
+		if window_scale == max_window_scale
+		{window_set_fullscreen(false); window_scale=max_window_scale-1;}
+		else
 		if window_scale>2
-		decrease_window_size();
+		{decrease_window_size();}
 		}
 	#endregion
 	
@@ -30,14 +35,16 @@ if keyboard_check_pressed(fulscrn_key)
 	if window_get_fullscreen()
 		{
 		window_set_fullscreen(false);
-		display_set_gui_size(640,448);
+		//display_set_gui_size(640,448);
 		}
 	else
 		{
 		window_set_fullscreen(true);
-		display_set_gui_size(display_get_gui_width(),display_get_gui_height());
-		//display_set_gui_maximize();
-		gui_scale=window_scale;
+		//window_set_size(display_get_width(),display_get_height());
+		//surface_resize(application_surface,window_width*window_scale,window_height*window_scale);
+		
+		//surface_resize(application_surface,320,240)
+		//gui_scale=window_scale;
 		}
 	}
 #endregion

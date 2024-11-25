@@ -83,8 +83,10 @@
   "name":"wildside",
   "resources":[
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
+    {"id":{"name":"obj_debug","path":"objects/obj_debug/obj_debug.yy",},},
     {"id":{"name":"obj_game","path":"objects/obj_game/obj_game.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
+    {"id":{"name":"obj_test_camera","path":"objects/obj_test_camera/obj_test_camera.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
     {"id":{"name":"_pal_swap_layer_end","path":"scripts/_pal_swap_layer_end/_pal_swap_layer_end.yy",},},
     {"id":{"name":"_pal_swap_layer_start","path":"scripts/_pal_swap_layer_start/_pal_swap_layer_start.yy",},},
@@ -351,6 +353,7 @@
     {"id":{"name":"spr_window","path":"sprites/spr_window/spr_window.yy",},},
     {"id":{"name":"spr_woods_bkg","path":"sprites/spr_woods_bkg/spr_woods_bkg.yy",},},
     {"id":{"name":"spr_woods","path":"sprites/spr_woods/spr_woods.yy",},},
+    {"id":{"name":"test_background_level","path":"sprites/test_background_level/test_background_level.yy",},},
     {"id":{"name":"holo_tiles","path":"tilesets/holo_tiles/holo_tiles.yy",},},
     {"id":{"name":"tile_cave_bkg","path":"tilesets/tile_cave_bkg/tile_cave_bkg.yy",},},
     {"id":{"name":"tile_cave","path":"tilesets/tile_cave/tile_cave.yy",},},
