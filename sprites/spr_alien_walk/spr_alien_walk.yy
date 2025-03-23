@@ -31,7 +31,7 @@
   "origin":0,
   "parent":{
     "name":"Alien",
-    "path":"folders/Sprites/Enemies/Alien.yy",
+    "path":"folders/Sprites/GUI/Enemies/Alien.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

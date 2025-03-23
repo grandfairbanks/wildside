@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Frederik",
-    "path":"folders/Sprites/Enemies/Frederik.yy",
+    "path":"folders/Sprites/GUI/Enemies/Frederik.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

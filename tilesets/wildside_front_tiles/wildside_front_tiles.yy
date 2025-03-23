@@ -1,13 +1,13 @@
 {
   "$GMTileSet":"v1",
-  "%Name":"wildside_tiles",
+  "%Name":"wildside_front_tiles",
   "autoTileSets":[],
   "macroPageTiles":{
     "SerialiseHeight":0,
     "SerialiseWidth":0,
     "TileSerialiseData":[],
   },
-  "name":"wildside_tiles",
+  "name":"wildside_front_tiles",
   "out_columns":10,
   "out_tilehborder":2,
   "out_tilevborder":2,
@@ -21,7 +21,7 @@
     "name":"spr_wildside",
     "path":"sprites/spr_wildside/spr_wildside.yy",
   },
-  "spriteNoExport":true,
+  "spriteNoExport":false,
   "textureGroupId":{
     "name":"Default",
     "path":"texturegroups/Default",

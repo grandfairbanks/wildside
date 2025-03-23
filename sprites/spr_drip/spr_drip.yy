@@ -30,7 +30,7 @@
   "origin":1,
   "parent":{
     "name":"Drip",
-    "path":"folders/Sprites/Enemies/Drip.yy",
+    "path":"folders/Sprites/GUI/Enemies/Drip.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

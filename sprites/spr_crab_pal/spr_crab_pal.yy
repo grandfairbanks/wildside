@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Crab",
-    "path":"folders/Sprites/Enemies/Crab.yy",
+    "path":"folders/Sprites/GUI/Enemies/Crab.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

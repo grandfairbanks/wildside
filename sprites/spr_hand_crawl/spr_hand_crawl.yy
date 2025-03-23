@@ -28,7 +28,7 @@
   "origin":0,
   "parent":{
     "name":"Hand",
-    "path":"folders/Sprites/Enemies/Hand.yy",
+    "path":"folders/Sprites/GUI/Enemies/Hand.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

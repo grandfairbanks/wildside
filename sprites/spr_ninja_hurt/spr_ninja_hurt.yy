@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Ninja",
-    "path":"folders/Sprites/Enemies/Ninja.yy",
+    "path":"folders/Sprites/GUI/Enemies/Ninja.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

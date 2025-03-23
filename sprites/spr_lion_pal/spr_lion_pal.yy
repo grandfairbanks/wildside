@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Lion",
-    "path":"folders/Sprites/Enemies/Lion.yy",
+    "path":"folders/Sprites/GUI/Enemies/Lion.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

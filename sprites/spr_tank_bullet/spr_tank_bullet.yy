@@ -27,7 +27,7 @@
   "origin":9,
   "parent":{
     "name":"Tank",
-    "path":"folders/Sprites/Enemies/Tank.yy",
+    "path":"folders/Sprites/GUI/Enemies/Tank.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

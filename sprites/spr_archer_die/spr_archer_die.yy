@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Archer",
-    "path":"folders/Sprites/Enemies/Archer.yy",
+    "path":"folders/Sprites/GUI/Enemies/Archer.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

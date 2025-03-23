@@ -27,7 +27,7 @@
   "origin":0,
   "parent":{
     "name":"Robot",
-    "path":"folders/Sprites/Enemies/Robot.yy",
+    "path":"folders/Sprites/GUI/Enemies/Robot.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

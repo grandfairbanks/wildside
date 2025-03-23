@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Cloud",
-    "path":"folders/Sprites/Enemies/Cloud.yy",
+    "path":"folders/Sprites/GUI/Enemies/Cloud.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

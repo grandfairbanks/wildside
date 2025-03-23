@@ -27,7 +27,7 @@
   "origin":0,
   "parent":{
     "name":"Ram",
-    "path":"folders/Sprites/Enemies/Ram.yy",
+    "path":"folders/Sprites/GUI/Enemies/Ram.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Diving Rock",
-    "path":"folders/Sprites/Enemies/Diving Rock.yy",
+    "path":"folders/Sprites/GUI/Enemies/Diving Rock.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

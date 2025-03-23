@@ -31,7 +31,7 @@
   "origin":0,
   "parent":{
     "name":"Ice Rock",
-    "path":"folders/Sprites/Enemies/Ice Rock.yy",
+    "path":"folders/Sprites/GUI/Enemies/Ice Rock.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -27,7 +27,7 @@
   "origin":0,
   "parent":{
     "name":"Mini Hopping Skull",
-    "path":"folders/Sprites/Enemies/Mini Hopping Skull.yy",
+    "path":"folders/Sprites/GUI/Enemies/Mini Hopping Skull.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

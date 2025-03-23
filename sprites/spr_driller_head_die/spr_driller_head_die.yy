@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Driller",
-    "path":"folders/Sprites/Enemies/Driller.yy",
+    "path":"folders/Sprites/GUI/Enemies/Driller.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

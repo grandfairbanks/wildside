@@ -42,7 +42,7 @@
   "origin":4,
   "parent":{
     "name":"Boss",
-    "path":"folders/Sprites/Enemies/Boss.yy",
+    "path":"folders/Sprites/GUI/Enemies/Boss.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

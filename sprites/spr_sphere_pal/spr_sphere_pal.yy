@@ -26,7 +26,7 @@
   "origin":0,
   "parent":{
     "name":"Sphere",
-    "path":"folders/Sprites/Enemies/Sphere.yy",
+    "path":"folders/Sprites/GUI/Enemies/Sphere.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

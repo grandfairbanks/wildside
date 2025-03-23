@@ -119,8 +119,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"GUI",
-    "path":"folders/Sprites/GUI.yy",
+    "name":"Fonts",
+    "path":"folders/Sprites/GUI/Fonts.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

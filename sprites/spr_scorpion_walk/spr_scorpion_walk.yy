@@ -31,7 +31,7 @@
   "origin":0,
   "parent":{
     "name":"Scorpion",
-    "path":"folders/Sprites/Enemies/Scorpion.yy",
+    "path":"folders/Sprites/GUI/Enemies/Scorpion.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

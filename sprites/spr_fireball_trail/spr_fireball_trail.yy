@@ -29,7 +29,7 @@
   "origin":0,
   "parent":{
     "name":"Fireball",
-    "path":"folders/Sprites/Enemies/Fireball.yy",
+    "path":"folders/Sprites/GUI/Enemies/Fireball.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Big Hopping Skull",
-    "path":"folders/Sprites/Enemies/Big Hopping Skull.yy",
+    "path":"folders/Sprites/GUI/Enemies/Big Hopping Skull.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

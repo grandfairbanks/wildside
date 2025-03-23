@@ -28,7 +28,7 @@
   "origin":9,
   "parent":{
     "name":"Armadillo",
-    "path":"folders/Sprites/Enemies/Armadillo.yy",
+    "path":"folders/Sprites/GUI/Enemies/Armadillo.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

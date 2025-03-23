@@ -32,7 +32,7 @@
   "origin":0,
   "parent":{
     "name":"Tar Monster",
-    "path":"folders/Sprites/Enemies/Tar Monster.yy",
+    "path":"folders/Sprites/GUI/Enemies/Tar Monster.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

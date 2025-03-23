@@ -30,7 +30,7 @@
   "origin":9,
   "parent":{
     "name":"Crystal",
-    "path":"folders/Sprites/Enemies/Crystal.yy",
+    "path":"folders/Sprites/GUI/Enemies/Crystal.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

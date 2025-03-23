@@ -27,7 +27,7 @@
   "origin":0,
   "parent":{
     "name":"Orca",
-    "path":"folders/Sprites/Enemies/Orca.yy",
+    "path":"folders/Sprites/GUI/Enemies/Orca.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

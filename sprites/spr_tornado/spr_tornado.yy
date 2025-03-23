@@ -28,7 +28,7 @@
   "origin":0,
   "parent":{
     "name":"Tornado",
-    "path":"folders/Sprites/Enemies/Tornado.yy",
+    "path":"folders/Sprites/GUI/Enemies/Tornado.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

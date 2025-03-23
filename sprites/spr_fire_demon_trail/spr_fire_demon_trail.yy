@@ -31,7 +31,7 @@
   "origin":0,
   "parent":{
     "name":"Fire Demon",
-    "path":"folders/Sprites/Enemies/Fire Demon.yy",
+    "path":"folders/Sprites/GUI/Enemies/Fire Demon.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
