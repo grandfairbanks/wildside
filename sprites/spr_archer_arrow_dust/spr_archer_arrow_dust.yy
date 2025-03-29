@@ -29,13 +29,13 @@
   "origin":9,
   "parent":{
     "name":"Archer",
-    "path":"folders/Sprites/GUI/Enemies/Archer.yy",
+    "path":"folders/Sprites/Enemies/Archer.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,
@@ -85,7 +85,10 @@
               },"Disabled":false,"id":"ee0d20d9-4b3c-40b4-b6dc-3f888cad1189","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
-    "visibleRange":null,
+    "visibleRange":{
+      "x":0.0,
+      "y":0.0,
+    },
     "volume":1.0,
     "xorigin":6,
     "yorigin":6,

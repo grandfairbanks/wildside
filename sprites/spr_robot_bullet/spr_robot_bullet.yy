@@ -28,13 +28,13 @@
   "origin":0,
   "parent":{
     "name":"Robot",
-    "path":"folders/Sprites/GUI/Enemies/Robot.yy",
+    "path":"folders/Sprites/Enemies/Robot.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_robot_bullet",
     "autoRecord":true,
     "backdropHeight":768,

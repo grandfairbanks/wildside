@@ -26,13 +26,13 @@
   "origin":0,
   "parent":{
     "name":"Sphere",
-    "path":"folders/Sprites/GUI/Enemies/Sphere.yy",
+    "path":"folders/Sprites/Enemies/Sphere.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_sphere_pal",
     "autoRecord":true,
     "backdropHeight":768,

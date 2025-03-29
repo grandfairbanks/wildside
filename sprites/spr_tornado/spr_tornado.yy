@@ -28,13 +28,13 @@
   "origin":0,
   "parent":{
     "name":"Tornado",
-    "path":"folders/Sprites/GUI/Enemies/Tornado.yy",
+    "path":"folders/Sprites/Enemies/Tornado.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_tornado",
     "autoRecord":true,
     "backdropHeight":768,

@@ -25,14 +25,14 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"Palettes",
-    "path":"folders/Sprites/GUI/Palettes.yy",
+    "name":"GUI",
+    "path":"folders/Sprites/GUI.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,

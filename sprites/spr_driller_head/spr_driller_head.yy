@@ -27,13 +27,13 @@
   "origin":9,
   "parent":{
     "name":"Driller",
-    "path":"folders/Sprites/GUI/Enemies/Driller.yy",
+    "path":"folders/Sprites/Enemies/Driller.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,

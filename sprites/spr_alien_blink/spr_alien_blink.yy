@@ -27,13 +27,13 @@
   "origin":0,
   "parent":{
     "name":"Alien",
-    "path":"folders/Sprites/GUI/Enemies/Alien.yy",
+    "path":"folders/Sprites/Enemies/Alien.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_alien_blink",
     "autoRecord":true,
     "backdropHeight":768,

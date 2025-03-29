@@ -28,13 +28,13 @@
   "origin":0,
   "parent":{
     "name":"UFO",
-    "path":"folders/Sprites/GUI/Enemies/UFO.yy",
+    "path":"folders/Sprites/Enemies/UFO.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_ufo_destroyed",
     "autoRecord":true,
     "backdropHeight":768,

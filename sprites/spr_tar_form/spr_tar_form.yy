@@ -32,13 +32,13 @@
   "origin":0,
   "parent":{
     "name":"Tar Monster",
-    "path":"folders/Sprites/GUI/Enemies/Tar Monster.yy",
+    "path":"folders/Sprites/Enemies/Tar Monster.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_tar_form",
     "autoRecord":true,
     "backdropHeight":768,

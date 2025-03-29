@@ -30,13 +30,13 @@
   "origin":0,
   "parent":{
     "name":"Diving Rock",
-    "path":"folders/Sprites/GUI/Enemies/Diving Rock.yy",
+    "path":"folders/Sprites/Enemies/Diving Rock.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_diving_rock_die",
     "autoRecord":true,
     "backdropHeight":768,

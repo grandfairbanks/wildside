@@ -31,13 +31,13 @@
   "origin":0,
   "parent":{
     "name":"Ram",
-    "path":"folders/Sprites/GUI/Enemies/Ram.yy",
+    "path":"folders/Sprites/Enemies/Ram.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_ram_walk",
     "autoRecord":true,
     "backdropHeight":768,

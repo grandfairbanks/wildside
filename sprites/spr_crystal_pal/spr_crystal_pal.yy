@@ -26,13 +26,13 @@
   "origin":0,
   "parent":{
     "name":"Crystal",
-    "path":"folders/Sprites/GUI/Enemies/Crystal.yy",
+    "path":"folders/Sprites/Enemies/Crystal.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,
@@ -73,7 +73,10 @@
               },"Disabled":false,"id":"14c16e7a-1f6d-4bd4-a957-7cba48c786a8","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
-    "visibleRange":null,
+    "visibleRange":{
+      "x":0.0,
+      "y":0.0,
+    },
     "volume":1.0,
     "xorigin":0,
     "yorigin":0,

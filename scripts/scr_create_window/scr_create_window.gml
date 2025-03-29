@@ -1,7 +1,7 @@
-/// @scr_draw_window(length,height,round_corners)
-/// @param (integer) length
-/// @param (integer) height
-/// @param (boolean) round_corners_if_true
+/// @scr_draw_window(x,y,length,height,round_corners)
+/// @param length
+/// @param height
+/// @param round_corners_if_true
 function scr_create_window(argument0, argument1, argument2)
 	{
 	var xx = 0;
@@ -29,13 +29,9 @@ function scr_create_window(argument0, argument1, argument2)
 	    }
 
 	surface_set_target(window);
-	
-	var col=make_color_rgb(28,11,55);
-	
-	draw_rectangle_color(xx+8,yy+8,length+8,height+8,col,col,col,col,false);
+
 
 	//WINDOW SCREEN
-	/*
 	for(i=0; i<length; i+=2)
 	    {
 	    for(j=0; j<height; j+=2)
@@ -43,7 +39,7 @@ function scr_create_window(argument0, argument1, argument2)
 	        draw_sprite_part_ext(spr_window,12,0,0,2,2,(xx+8)+i,(yy+8)+j,1,1,c_white,1);
 	        }
 	    }
-	*/
+
 
 	//draw top left corner
 	draw_sprite_ext(spr_window,ltc,xx,yy,1,1,0,c_white,1);

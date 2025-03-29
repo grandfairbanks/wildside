@@ -23,7 +23,7 @@
   ],
   "name":"spr_kid_stand",
   "nineSlice":null,
-  "origin":7,
+  "origin":9,
   "parent":{
     "name":"Kid",
     "path":"folders/Sprites/Kid.yy",
@@ -32,7 +32,7 @@
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,
@@ -73,10 +73,13 @@
               },"Disabled":false,"id":"e4d28b4e-fc14-4424-b257-dca8943a1d80","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
-    "visibleRange":null,
+    "visibleRange":{
+      "x":0.0,
+      "y":0.0,
+    },
     "volume":1.0,
     "xorigin":10,
-    "yorigin":32,
+    "yorigin":31,
   },
   "swatchColours":null,
   "swfPrecision":2.525,

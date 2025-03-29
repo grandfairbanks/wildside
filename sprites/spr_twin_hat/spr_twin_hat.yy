@@ -28,13 +28,13 @@
   "origin":0,
   "parent":{
     "name":"Spinning Twins",
-    "path":"folders/Sprites/GUI/Enemies/Spinning Twins.yy",
+    "path":"folders/Sprites/Enemies/Spinning Twins.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_twin_hat",
     "autoRecord":true,
     "backdropHeight":768,

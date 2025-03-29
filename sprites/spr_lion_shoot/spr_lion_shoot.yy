@@ -30,13 +30,13 @@
   "origin":0,
   "parent":{
     "name":"Lion",
-    "path":"folders/Sprites/GUI/Enemies/Lion.yy",
+    "path":"folders/Sprites/Enemies/Lion.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_lion_shoot",
     "autoRecord":true,
     "backdropHeight":768,

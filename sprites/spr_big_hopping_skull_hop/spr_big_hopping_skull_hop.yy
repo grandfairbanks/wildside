@@ -30,13 +30,13 @@
   "origin":9,
   "parent":{
     "name":"Big Hopping Skull",
-    "path":"folders/Sprites/GUI/Enemies/Big Hopping Skull.yy",
+    "path":"folders/Sprites/Enemies/Big Hopping Skull.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,
@@ -89,7 +89,10 @@
               },"Disabled":false,"id":"d9605fe9-d6d9-4812-9272-d003c0976088","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
-    "visibleRange":null,
+    "visibleRange":{
+      "x":0.0,
+      "y":0.0,
+    },
     "volume":1.0,
     "xorigin":16,
     "yorigin":31,

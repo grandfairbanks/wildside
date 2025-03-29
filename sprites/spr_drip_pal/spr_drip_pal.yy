@@ -26,13 +26,13 @@
   "origin":0,
   "parent":{
     "name":"Drip",
-    "path":"folders/Sprites/GUI/Enemies/Drip.yy",
+    "path":"folders/Sprites/Enemies/Drip.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"",
     "autoRecord":true,
     "backdropHeight":1080,

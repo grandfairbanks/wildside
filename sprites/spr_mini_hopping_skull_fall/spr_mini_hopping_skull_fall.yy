@@ -27,13 +27,13 @@
   "origin":0,
   "parent":{
     "name":"Mini Hopping Skull",
-    "path":"folders/Sprites/GUI/Enemies/Mini Hopping Skull.yy",
+    "path":"folders/Sprites/Enemies/Mini Hopping Skull.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_mini_hopping_skull_fall",
     "autoRecord":true,
     "backdropHeight":768,

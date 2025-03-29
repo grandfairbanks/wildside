@@ -43,13 +43,13 @@
   "origin":0,
   "parent":{
     "name":"Fireball",
-    "path":"folders/Sprites/GUI/Enemies/Fireball.yy",
+    "path":"folders/Sprites/Enemies/Fireball.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_fireball",
     "autoRecord":true,
     "backdropHeight":768,

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_init_fonts",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_init_fonts",
+  "parent":{
+    "name":"Inits",
+    "path":"folders/Scripts/Inits.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

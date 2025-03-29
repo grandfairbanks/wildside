@@ -27,13 +27,13 @@
   "origin":0,
   "parent":{
     "name":"Ninja",
-    "path":"folders/Sprites/GUI/Enemies/Ninja.yy",
+    "path":"folders/Sprites/Enemies/Ninja.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_ninja_jump",
     "autoRecord":true,
     "backdropHeight":768,

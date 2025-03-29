@@ -29,13 +29,13 @@
   "origin":0,
   "parent":{
     "name":"Fire Demon",
-    "path":"folders/Sprites/GUI/Enemies/Fire Demon.yy",
+    "path":"folders/Sprites/Enemies/Fire Demon.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_fire_demon",
     "autoRecord":true,
     "backdropHeight":768,

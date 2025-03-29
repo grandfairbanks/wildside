@@ -26,13 +26,13 @@
   "origin":0,
   "parent":{
     "name":"Ice Rock",
-    "path":"folders/Sprites/GUI/Enemies/Ice Rock.yy",
+    "path":"folders/Sprites/Enemies/Ice Rock.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_ice_rock_pal",
     "autoRecord":true,
     "backdropHeight":768,

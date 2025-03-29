@@ -27,13 +27,13 @@
   "origin":0,
   "parent":{
     "name":"Scorpion",
-    "path":"folders/Sprites/GUI/Enemies/Scorpion.yy",
+    "path":"folders/Sprites/Enemies/Scorpion.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_scorpion_die",
     "autoRecord":true,
     "backdropHeight":768,

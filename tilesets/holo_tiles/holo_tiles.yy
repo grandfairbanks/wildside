@@ -12,14 +12,14 @@
   "out_tilehborder":2,
   "out_tilevborder":2,
   "parent":{
-    "name":"Intro",
-    "path":"folders/Tile Sets/Intro.yy",
+    "name":"Tile Sets",
+    "path":"folders/Tile Sets.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"spr_holo",
-    "path":"sprites/spr_holo/spr_holo.yy",
+    "name":"spr_holo_tiles",
+    "path":"sprites/spr_holo_tiles/spr_holo_tiles.yy",
   },
   "spriteNoExport":true,
   "textureGroupId":{

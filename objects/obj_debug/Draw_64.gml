@@ -1,1 +1,0 @@
-//draw_text(50,50,"CAMERA WIDTH: " + string(camera_get_view_width()));

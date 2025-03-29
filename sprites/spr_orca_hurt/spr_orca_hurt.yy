@@ -26,13 +26,13 @@
   "origin":0,
   "parent":{
     "name":"Orca",
-    "path":"folders/Sprites/GUI/Enemies/Orca.yy",
+    "path":"folders/Sprites/Enemies/Orca.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
   "resourceVersion":"2.0",
   "sequence":{
-    "$GMSequence":"",
+    "$GMSequence":"v1",
     "%Name":"spr_orca_hurt",
     "autoRecord":true,
     "backdropHeight":768,
