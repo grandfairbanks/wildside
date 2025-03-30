@@ -5,6 +5,8 @@
 debug=false;
 #endregion
 
+
+
 #region LEVEL PROPERTIES
 enum THEME
 	{
@@ -25,7 +27,7 @@ level_num=-1;
 level_name="LEVEL NAME";
 level_x=room_width/SCREEN_WIDTH;
 level_y=room_height/SCREEN_HEIGHT;
-level_theme=10;
+level_theme=THEME.ICE;
 level_attr=0;
 start_x=-1;
 start_y=-1;
@@ -36,6 +38,16 @@ path_bonus=0;
 total_screens=(level_x*level_y);
 grid_size=(level_x*TILE_SIZE)+(level_y*TILE_SIZE);
 tileset=scr_update_theme();
+#endregion
+
+#region CREATE COLLISION AND TERRAIN TILEMAPS
+collision_layer=layer_create(-2);
+terrain_back_layer=layer_create(1);
+terrain_front_layer=layer_create(0);
+collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
+terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+room_grid=ds_grid_create(room_width/TILE_SIZE,room_height/TILE_SIZE);
 #endregion
 
 #region EDITOR PROPERTIES
@@ -211,12 +223,3 @@ visual=1;
 line_origin=obj_player;
 #endregion
 
-#region CREATE COLLISION AND TERRAIN TILEMAPS
-collision_layer=layer_create(-2);
-terrain_back_layer=layer_create(1);
-terrain_front_layer=layer_create(0);
-collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
-terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-room_grid=ds_grid_create(room_width/TILE_SIZE,room_height/TILE_SIZE);
-#endregion

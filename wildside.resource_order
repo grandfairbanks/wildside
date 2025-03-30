@@ -44,6 +44,7 @@
     {"name":"spr_big_hopping_skull_die","order":3,"path":"sprites/spr_big_hopping_skull_die/spr_big_hopping_skull_die.yy",},
     {"name":"spr_big_hopping_skull_hop","order":1,"path":"sprites/spr_big_hopping_skull_hop/spr_big_hopping_skull_hop.yy",},
     {"name":"spr_big_hopping_skull_stuck","order":2,"path":"sprites/spr_big_hopping_skull_stuck/spr_big_hopping_skull_stuck.yy",},
+    {"name":"spr_boss_eye","order":2,"path":"sprites/spr_boss_eye/spr_boss_eye.yy",},
     {"name":"spr_boss_shoot","order":1,"path":"sprites/spr_boss_shoot/spr_boss_shoot.yy",},
     {"name":"spr_cave","order":7,"path":"sprites/spr_cave/spr_cave.yy",},
     {"name":"spr_city","order":9,"path":"sprites/spr_city/spr_city.yy",},

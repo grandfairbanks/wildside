@@ -66,14 +66,32 @@ if keyboard_check_pressed(vk_pageup)
 	{
 	if level_theme<10
 	level_theme++;
+	scr_update_theme();
+	scr_entity_display();
 	}
 if keyboard_check_pressed(vk_pagedown)
 	{
 	if level_theme>1
 	level_theme--;
+	scr_update_theme();
+	scr_entity_display();
 	}
 #endregion
 
+#region ATTRIBUTE TOGGLE
+if keyboard_check_pressed(vk_end)
+	{
+	if level_attr<7
+	level_attr++;
+	scr_entity_display();
+	}
+if keyboard_check_pressed(vk_home)
+	{
+	if level_attr>0
+	level_attr--;
+	scr_entity_display();
+	}
+#endregion
 
 #region END GAME KEY
 //if escape key is pressed
@@ -256,6 +274,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_win
 			{
 			tile_window_x=(tile_window_x-1);
 			}
+			
 		if (canPick)
 			{
 			current_tile=_x+16*_y;

@@ -17,6 +17,7 @@ function scr_entity_display(){
 	draw_sprite(spr_v_platform,0,48,16);
 	draw_sprite(spr_vanishing,0,64,16);
 	draw_sprite(spr_teleporter,0,80,16);
+	if !level_attr==5
 	draw_sprite_part(spr_flag,0,0,0,16,16,96,16);
 	pal_swap_reset();
 	
@@ -63,6 +64,11 @@ function scr_entity_display(){
 		draw_sprite_part(spr_robot,0,0,0,16,16,96,96);
 		draw_sprite_part(spr_ufo,0,0,0,16,16,112,96);
 		draw_sprite_part(spr_alien_walk,6,0,0,16,16,128,96);
+		}
+		
+	if level_attr==6
+		{
+		draw_sprite_part_ext(spr_boss,0,0,0,64,24,8,64,2,2,c_white,1);
 		}
 		
 	surface_reset_target();

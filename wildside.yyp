@@ -143,6 +143,7 @@
     {"id":{"name":"spr_big_hopping_skull_hop","path":"sprites/spr_big_hopping_skull_hop/spr_big_hopping_skull_hop.yy",},},
     {"id":{"name":"spr_big_hopping_skull_pal","path":"sprites/spr_big_hopping_skull_pal/spr_big_hopping_skull_pal.yy",},},
     {"id":{"name":"spr_big_hopping_skull_stuck","path":"sprites/spr_big_hopping_skull_stuck/spr_big_hopping_skull_stuck.yy",},},
+    {"id":{"name":"spr_boss_eye","path":"sprites/spr_boss_eye/spr_boss_eye.yy",},},
     {"id":{"name":"spr_boss_shoot","path":"sprites/spr_boss_shoot/spr_boss_shoot.yy",},},
     {"id":{"name":"spr_boss","path":"sprites/spr_boss/spr_boss.yy",},},
     {"id":{"name":"spr_cave","path":"sprites/spr_cave/spr_cave.yy",},},

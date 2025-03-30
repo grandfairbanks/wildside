@@ -257,6 +257,8 @@ if (debug)
 	draw_text_transformed(0,116,"WINDOW HEIGHT: " + string(window_get_height()),1,1,0);
 	draw_text_transformed(0,125,"FPS: " + string(fps),1,1,0);
 	draw_text_transformed(0,134,"CAN PLACE TILE/OBJECT?: " + string(_cpltxt),1,1,0);
+	draw_text_transformed(0,143,"CAN CURRENT TILE: " + string(current_tile),1,1,0);
+	
 	#endregion
 	}
 #endregion
