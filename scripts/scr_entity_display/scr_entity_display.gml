@@ -69,6 +69,8 @@ function scr_entity_display(){
 	if level_attr==6
 		{
 		draw_sprite_part_ext(spr_boss,0,0,0,64,24,8,64,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,0,0,0,16,8,34,64,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,0,0,0,16,8,74,64,2,2,c_white,1);
 		}
 		
 	surface_reset_target();
