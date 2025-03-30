@@ -281,8 +281,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_pa
 #endregion
 
 #region DETECT IF MOUSE IS AT OBJECT WINDOW
-/*
-if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15)*2,entity_window_y+(entity_window_h+15)*2)
+if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15),entity_window_y+(entity_window_h+15))
 	{
 	canPlace=false;
 	}
@@ -290,7 +289,6 @@ else
 	{
 	canPlace=true;
 	}
-*/
 #endregion
 
 #region TILE/OBJECT/COLLISION PLACEMENT

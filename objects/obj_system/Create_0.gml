@@ -164,7 +164,7 @@ ds_grid_destroy(ws_grid);
 #endregion
 
 #region TILE WINDOW STUFF
-tile_window_x=display_get_gui_width()-4;
+tile_window_x=display_get_width()-4;
 tile_window_y=0;
 tile_window_w=128;
 tile_window_h=136;
