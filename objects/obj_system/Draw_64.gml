@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+
+
 #region EDITOR STUFF
 
 	#region DRAW CURRENT TILE LAYER
@@ -73,11 +75,32 @@
 			}
 		else
 			{
+			var _notset="";
 			pal_swap_set(pal_font,4,false)
 			//DRAW STARTING X POSITION
-			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+72,"START X: " + string(start_x),1,1,0);
+			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+72,"START X: " + string(_notset),1,1,0);
+			//DRAW STARTING Y POSITION
+			draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+72,"START Y: " + string(_notset),1,1,0);
+			pal_swap_reset();
+			}
+			
+if (instance_exists(obj_entity))
+			{
+			pal_swap_set(pal_font,3,false);
+			//DRAW STARTING X POSITION
+			scr_text_button(room_info_window_x+txt_x,room_info_window_y+72,"START X: " + string(start_x));
 			//DRAW STARTING Y POSITION
 			draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+72,"START Y: " + string(start_y),1,1,0);
+			pal_swap_reset();
+			}
+		else
+			{
+			var _notset="";
+			pal_swap_set(pal_font,4,false)
+			//DRAW STARTING X POSITION
+			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+72,"START X: " + string(_notset),1,1,0);
+			//DRAW STARTING Y POSITION
+			draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+72,"START Y: " + string(_notset),1,1,0);
 			pal_swap_reset();
 			}
 		
@@ -97,6 +120,7 @@
 	#region DRAW TILE WINDOW
 	draw_sprite(tile_window,0,tile_window_x,tile_window_y);
 	draw_text(tile_window_x+32,tile_window_y+9,"LEVEL TILES");
+	
 	if !surface_exists(tile_theme_surface) 
 		{
 		scr_tile_display();
@@ -109,8 +133,8 @@
 	#region DRAW TILE CURSOR
 	if (canPick==true)
 		{
-		var xx=floor(mouse_x/(TILE_SIZE/2))*TILE_SIZE/2;
-		var yy=floor(mouse_y/(TILE_SIZE/2))*TILE_SIZE/2;
+		var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
+		var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 		draw_set_alpha(0.5);
 		draw_rectangle_color(xx+1,yy+1,xx+8,yy+8,c_white,c_white,c_white,c_white,false);
 		draw_set_alpha(1);
@@ -176,8 +200,8 @@
 #region Draw Debug Info
 if (debug)
 	{
-	#region DRAW WINDOW SCALING TEXT)
-	var _scale, _pscale, itxt, etxt, gtxt;
+	#region DRAW WINDOW SCALING TEXT
+	var _scale, _pscale, _itxt, _etxt, _gtxt, _cpltxt;
 	switch(window_scale)
 		{
 		case 1: _scale="1X SCALE"; break;
@@ -196,20 +220,26 @@ if (debug)
 		
 	switch(inIntro)
 		{
-		case 0: itxt="FALSE"; break;
-		case 1: itxt="TRUE"; break;
+		case 0: _itxt="FALSE"; break;
+		case 1: _itxt="TRUE"; break;
 		}
 		
 	switch(inEditor)
 		{
-		case 0: etxt="FALSE"; break;
-		case 1: etxt="TRUE"; break;
+		case 0: _etxt="FALSE"; break;
+		case 1: _etxt="TRUE"; break;
 		}
 
 	switch(inGame)
 		{
-		case 0: gtxt="FALSE"; break;
-		case 1: gtxt="TRUE"; break;
+		case 0: _gtxt="FALSE"; break;
+		case 1: _gtxt="TRUE"; break;
+		}
+		
+	switch(canPlace)
+		{
+		case 0: _cpltxt="FALSE"; break;
+		case 1: _cpltxt="TRUE"; break;
 		}
 	
 	draw_text_transformed(0,8,"WINDOW SCALE: " + string(_scale),1,1,0);
@@ -217,8 +247,8 @@ if (debug)
 	draw_text_transformed(0,26,"RM INFO WINDOW Y POS: " + string(room_info_window_y),1,1,0);
 	draw_text_transformed(0,35,"GUI WIDTH: " + string(display_get_gui_width()),1,1,0);
 	draw_text_transformed(0,44,"GUI HEIGHT: " + string(display_get_gui_height()),1,1,0);
-	draw_text_transformed(0,53,"Editor mode: " + string(etxt),1,1,0);
-	draw_text_transformed(0,62,"Game mode: " + string(gtxt),1,1,0);
+	draw_text_transformed(0,53,"Editor mode: " + string(_etxt),1,1,0);
+	draw_text_transformed(0,62,"Game mode: " + string(_gtxt),1,1,0);
 	draw_text_transformed(0,71,"MOUSE X: " + string(device_mouse_x_to_gui(0)),1,1,0);
 	draw_text_transformed(0,80,"MOUSE Y: " + string(device_mouse_y_to_gui(0)),1,1,0);
 	draw_text_transformed(0,89,"WINDOW X POS: " + string(window_get_x()),1,1,0);
@@ -226,6 +256,7 @@ if (debug)
 	draw_text_transformed(0,107,"WINDOW WIDTH: " + string(window_get_width()),1,1,0);
 	draw_text_transformed(0,116,"WINDOW HEIGHT: " + string(window_get_height()),1,1,0);
 	draw_text_transformed(0,125,"FPS: " + string(fps),1,1,0);
+	draw_text_transformed(0,134,"CAN PLACE TILE/OBJECT?: " + string(_cpltxt),1,1,0);
 	#endregion
 	}
 #endregion

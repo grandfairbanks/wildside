@@ -25,7 +25,7 @@ level_num=-1;
 level_name="LEVEL NAME";
 level_x=room_width/SCREEN_WIDTH;
 level_y=room_height/SCREEN_HEIGHT;
-level_theme=THEME.CITY;
+level_theme=10;
 level_attr=0;
 start_x=-1;
 start_y=-1;
@@ -71,7 +71,7 @@ gui_scale=1;
 
 //set window size
 window_set_size(view_width*window_scale,view_height*window_scale);
-display_set_gui_size(view_width,view_height);
+display_set_gui_size(view_width*window_scale,view_height*window_scale);
 //center window
 alarm[0]=1;
 
@@ -164,7 +164,7 @@ ds_grid_destroy(ws_grid);
 #endregion
 
 #region TILE WINDOW STUFF
-tile_window_x=display_get_width()-4;
+tile_window_x=view_width-18;
 tile_window_y=0;
 tile_window_w=128;
 tile_window_h=136;

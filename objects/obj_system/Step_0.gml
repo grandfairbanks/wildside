@@ -61,6 +61,20 @@ if keyboard_check_pressed(vk_f4)
 	}
 #endregion
 
+#region THEME TOGGLE
+if keyboard_check_pressed(vk_pageup)
+	{
+	if level_theme<10
+	level_theme++;
+	}
+if keyboard_check_pressed(vk_pagedown)
+	{
+	if level_theme>1
+	level_theme--;
+	}
+#endregion
+
+
 #region END GAME KEY
 //if escape key is pressed
 if (keyboard_check_pressed(vk_escape))
@@ -188,12 +202,14 @@ if (keyboard_check_pressed(vk_f5))
 	}
 #endregion
 
+canPlace=true;
+
 #region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
 
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_info_window_x,room_info_window_y,room_info_window_x+(room_info_window_w+15),room_info_window_y+(room_info_window_h+15))
 	{
 	canPlace=false;
-	show_debug_message("HOVERING OVER INFO WINDOW");
+	//show_debug_message("HOVERING OVER INFO WINDOW");
 	if mouse_check_button_pressed(mb_left)
 		{	
 		while (room_info_window_y>display_get_gui_height()-(room_info_window_h+15))
@@ -205,7 +221,6 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_inf
 	}
 else
 	{
-	canPlace=true;
 	
 	while (room_info_window_y<display_get_gui_height()-4)
 		{
@@ -225,7 +240,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_win
 	_y=floor((device_mouse_y_to_gui(0)-tile_window_y+sprite_get_height(spr_window)-24)/8);
 	show_debug_message("MOUSE X WITHIN TILE WINDOW: " + string(_x));
 	show_debug_message("MOUSE Y WITHIN TILE WINDOW: " + string(_y));
-	//show_debug_message("HOVERING OVER TILE WINDOW");
+
 	if (_x>=0 && _x<=15) && (_y>=0 && _y<=15)
 		{
 		canPick=true;	
@@ -253,8 +268,7 @@ else
 		{
 		tile_window_x=(tile_window_x+1);
 		}
-	canPick=false;
-	canPlace=true;
+	//canPick=false;
 	}
 #endregion
 
@@ -287,7 +301,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_w
 	}
 else
 	{
-	canPlace=true;
+	//canPlace=true;
 	}
 #endregion
 

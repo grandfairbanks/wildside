@@ -2,7 +2,7 @@ function scr_update_theme() {
 	switch(level_theme)
 		{
 		default:
-		case THEME.NULL: tileset=spr_null; break; 
+		case THEME.NULL: tileset=spr_null; break;
 		case THEME.SKY: tileset=sky_tiles; break; 
 		case THEME.ICE: tileset=crag_tiles; break; 
 		case THEME.HILLS: tileset=isle_tiles; break; 
