@@ -52,7 +52,9 @@ if keyboard_check_pressed(vk_f4)
 	{
 	if window_get_fullscreen()==false
 		{
+		
 		window_set_fullscreen(true);
+		view_height=display_get_height()/6;
 		}
 	else
 		{
@@ -67,14 +69,12 @@ if keyboard_check_pressed(vk_pageup)
 	if level_theme<10
 	level_theme++;
 	scr_update_theme();
-	scr_entity_display();
 	}
 if keyboard_check_pressed(vk_pagedown)
 	{
 	if level_theme>1
 	level_theme--;
 	scr_update_theme();
-	scr_entity_display();
 	}
 #endregion
 
@@ -221,6 +221,7 @@ if (keyboard_check_pressed(vk_f5))
 #endregion
 
 canPlace=true;
+canPick=false;
 
 #region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
 
@@ -254,8 +255,8 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_win
 	{
 	canPlace=false;
 	var _x, _y;
-	_x=floor((device_mouse_x_to_gui(0)-tile_window_x+sprite_get_width(spr_window)-16)/8);
-	_y=floor((device_mouse_y_to_gui(0)-tile_window_y+sprite_get_height(spr_window)-24)/8);
+	_x=floor((device_mouse_x_to_gui(0)-tile_window_x+(sprite_get_width(spr_window))-16)/8);
+	_y=floor((device_mouse_y_to_gui(0)-tile_window_y+(sprite_get_height(spr_window))-24)/8);
 	show_debug_message("MOUSE X WITHIN TILE WINDOW: " + string(_x));
 	show_debug_message("MOUSE Y WITHIN TILE WINDOW: " + string(_y));
 
@@ -265,7 +266,6 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_win
 		}
 	else
 		{
-		canPick=false;
 		}
 	
 	if mouse_check_button_pressed(mb_left)
@@ -317,10 +317,17 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_pa
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15),entity_window_y+(entity_window_h+15))
 	{
 	canPlace=false;
+	
+	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-15)/8);
+	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-23)/8);
+	
+	if (_x>=0 && _x<=8) && (_y>=0 && _y<=1) || (_y>=4 && _y<=6)
+		{
+		canPick=true;	
+		}
 	}
 else
 	{
-	//canPlace=true;
 	}
 #endregion
 

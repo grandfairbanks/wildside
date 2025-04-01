@@ -127,7 +127,8 @@ if (instance_exists(obj_entity))
 		}
 	else 
 		{
-		draw_surface_stretched(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,128,128);
+		draw_surface_ext(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,0.5,0.5,0,c_white,1);
+		//draw_surface_stretched(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,128,128);
 		}
 		
 	#region DRAW TILE CURSOR
@@ -135,7 +136,7 @@ if (instance_exists(obj_entity))
 		{
 		var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 		var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
-		draw_set_alpha(0.5);
+		draw_set_alpha(1);
 		draw_rectangle_color(xx+1,yy+1,xx+8,yy+8,c_white,c_white,c_white,c_white,false);
 		draw_set_alpha(1);
 		}
@@ -171,7 +172,6 @@ if (instance_exists(obj_entity))
 		draw_surface_ext(ent_display_surface,entity_window_x+sprite_get_width(spr_window),entity_window_y+sprite_get_width(spr_window)*2+1,0.5,0.5,0,c_white,1);
 		//draw enemy menu text
 		var _en_txt;
-		
 		if level_attr <6
 		_en_txt="ENEMIES";
 		else
@@ -182,6 +182,20 @@ if (instance_exists(obj_entity))
 		_en_txt="FINAL BOSS";
 		
 		draw_text((entity_window_x+8)+(entity_window_w/2)-(string_width(_en_txt)/2),entity_window_y+sprite_get_height(spr_window)+33,string(_en_txt));
+		
+		#region DRAW ENTITY CURSOR
+		if (canPick==true)
+			{
+			var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
+			var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
+			draw_set_alpha(0.5);
+			draw_rectangle_color(xx,yy,xx+8,yy+8,c_white,c_white,c_white,c_white,false);
+			draw_set_alpha(1);
+			}
+		else
+			{	
+			}
+	#endregion
 		}
 	else 
 		{

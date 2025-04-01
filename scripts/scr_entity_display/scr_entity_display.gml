@@ -70,17 +70,18 @@ function scr_entity_display(){
 		
 	if level_attr==6
 		{
-		draw_sprite_part_ext(spr_boss,0,0,0,64,24,8,64,2,2,c_white,1);
-		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,5,32,102,2,2,c_white,1);
-		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,5,80,102,2,2,c_white,1);
+		var boss_x, boss_y;
+		boss_x=8;
+		boss_y=64;
+		draw_sprite_part_ext(spr_boss,0,0,19,64,24,boss_x,boss_y,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,16,boss_x+24,boss_y,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,16,boss_x+72,boss_y,2,2,c_white,1);
 		}
 		
 	if level_attr==7
 		{
-		draw_sprite_part_ext(spr_headdy_metal,0,0,112,64,24,8,64,2,2,c_white,1);
+		draw_sprite_part_ext(spr_headdy_metal,0,0,100,64,24,8,64,2,2,c_white,1);
 		}
-		
-		
 		
 	surface_reset_target();
 	layer_tilemap_destroy(_tmap);

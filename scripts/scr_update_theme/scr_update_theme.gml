@@ -1,9 +1,14 @@
 
 function scr_update_theme() {
+	
+	if surface_exists(ent_display_surface)
+	surface_free(ent_display_surface);
+	if surface_exists(tile_theme_surface)
+	surface_free(tile_theme_surface);
+	
 	switch(level_theme)
 		{
 		default:
-		surface_free(ent_display_surface);
 		case THEME.NULL: tileset=spr_null; break;
 		case THEME.SKY: tileset=sky_tiles; break; 
 		case THEME.ICE: tileset=crag_tiles; break; 
@@ -17,6 +22,9 @@ function scr_update_theme() {
 		case THEME.CITY: tileset=city_tiles; break; 
 		}
 		
+	tilemap_tileset(terrain_back_layer,tileset);
+	tilemap_tileset(terrain_front_layer,tileset);
+	
 	return tileset;
 
 
