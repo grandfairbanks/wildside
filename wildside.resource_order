@@ -105,6 +105,7 @@
     {"name":"spr_hand_die","order":2,"path":"sprites/spr_hand_die/spr_hand_die.yy",},
     {"name":"spr_hand_grab","order":1,"path":"sprites/spr_hand_grab/spr_hand_grab.yy",},
     {"name":"spr_hand_pal","order":3,"path":"sprites/spr_hand_pal/spr_hand_pal.yy",},
+    {"name":"spr_headdy_metal","order":1,"path":"sprites/spr_headdy_metal/spr_headdy_metal.yy",},
     {"name":"spr_hills","order":2,"path":"sprites/spr_hills/spr_hills.yy",},
     {"name":"spr_hitpoint","order":1,"path":"sprites/spr_hitpoint/spr_hitpoint.yy",},
     {"name":"spr_holo_insert","order":2,"path":"sprites/spr_holo_insert/spr_holo_insert.yy",},

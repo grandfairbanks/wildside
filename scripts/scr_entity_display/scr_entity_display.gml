@@ -17,8 +17,10 @@ function scr_entity_display(){
 	draw_sprite(spr_v_platform,0,48,16);
 	draw_sprite(spr_vanishing,0,64,16);
 	draw_sprite(spr_teleporter,0,80,16);
-	if !level_attr==5
+	
+	if level_attr!=5
 	draw_sprite_part(spr_flag,0,0,0,16,16,96,16);
+	
 	pal_swap_reset();
 	
 		var _layer, _tmap;
@@ -69,9 +71,16 @@ function scr_entity_display(){
 	if level_attr==6
 		{
 		draw_sprite_part_ext(spr_boss,0,0,0,64,24,8,64,2,2,c_white,1);
-		draw_sprite_part_ext(spr_boss_eye,0,0,0,16,8,34,64,2,2,c_white,1);
-		draw_sprite_part_ext(spr_boss_eye,0,0,0,16,8,74,64,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,5,32,102,2,2,c_white,1);
+		draw_sprite_part_ext(spr_boss_eye,1,0,0,16,5,80,102,2,2,c_white,1);
 		}
+		
+	if level_attr==7
+		{
+		draw_sprite_part_ext(spr_headdy_metal,0,0,112,64,24,8,64,2,2,c_white,1);
+		}
+		
+		
 		
 	surface_reset_target();
 	layer_tilemap_destroy(_tmap);

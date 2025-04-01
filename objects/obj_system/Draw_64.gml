@@ -170,7 +170,18 @@ if (instance_exists(obj_entity))
 		//draw entity display
 		draw_surface_ext(ent_display_surface,entity_window_x+sprite_get_width(spr_window),entity_window_y+sprite_get_width(spr_window)*2+1,0.5,0.5,0,c_white,1);
 		//draw enemy menu text
-		draw_text(entity_window_x+sprite_get_width(spr_window)+12,entity_window_y+sprite_get_height(spr_window)+33,"ENEMIES");
+		var _en_txt;
+		
+		if level_attr <6
+		_en_txt="ENEMIES";
+		else
+		if level_attr ==6
+		_en_txt="BOSS";
+		else
+		if level_attr ==7
+		_en_txt="FINAL BOSS";
+		
+		draw_text((entity_window_x+8)+(entity_window_w/2)-(string_width(_en_txt)/2),entity_window_y+sprite_get_height(spr_window)+33,string(_en_txt));
 		}
 	else 
 		{
