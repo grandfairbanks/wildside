@@ -137,7 +137,7 @@ if (instance_exists(obj_entity))
 		var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 		var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 		draw_set_alpha(1);
-		draw_rectangle_color(xx+1,yy+1,xx+8,yy+8,c_white,c_white,c_white,c_white,false);
+		draw_rectangle_color(xx,yy,xx+7,yy+7,c_white,c_white,c_white,c_white,false);
 		draw_set_alpha(1);
 		}
 		else
