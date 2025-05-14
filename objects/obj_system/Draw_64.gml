@@ -119,7 +119,8 @@ if (instance_exists(obj_entity))
 
 	#region DRAW TILE WINDOW
 	draw_sprite(tile_window,0,tile_window_x,tile_window_y);
-	draw_text(tile_window_x+32,tile_window_y+9,"LEVEL TILES");
+	draw_sprite_part_ext(spr_theme_bkg_pal,0,level_theme-1,0,1,1,tile_window_x+8,tile_window_y+8,tile_window_w,tile_window_h,c_white,1);
+	draw_text(tile_window_x+32,tile_window_y+8,"LEVEL TILES");
 	
 	if !surface_exists(tile_theme_surface) 
 		{
@@ -127,17 +128,18 @@ if (instance_exists(obj_entity))
 		}
 	else 
 		{
-		draw_surface_ext(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,0.5,0.5,0,c_white,1);
+		draw_surface_ext(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2,0.5,0.5,0,c_white,1);
 		//draw_surface_stretched(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,128,128);
 		}
 		
 	#region DRAW TILE CURSOR
-	if (canPick==true)
+	if (canPick==true) && (within_tile_window==true)
 		{
 		var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 		var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
-		draw_set_alpha(1);
-		draw_rectangle_color(xx,yy,xx+7,yy+7,c_white,c_white,c_white,c_white,false);
+		draw_set_alpha(0.5);
+		draw_rectangle_color(xx+1,yy,xx+8,yy+7,c_white,c_white,c_white,c_white,false);
+		draw_text(xx+1,yy+1,current_tile);
 		draw_set_alpha(1);
 		}
 		else
@@ -184,12 +186,12 @@ if (instance_exists(obj_entity))
 		draw_text((entity_window_x+8)+(entity_window_w/2)-(string_width(_en_txt)/2),entity_window_y+sprite_get_height(spr_window)+33,string(_en_txt));
 		
 		#region DRAW ENTITY CURSOR
-		if (canPick==true)
+		if (canPick==true) && (within_entity_window==true)
 			{
 			var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 			var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 			draw_set_alpha(0.5);
-			draw_rectangle_color(xx,yy,xx+8,yy+8,c_white,c_white,c_white,c_white,false);
+			draw_rectangle_color(xx,yy+1,xx+7,yy+8,c_white,c_white,c_white,c_white,false);
 			draw_set_alpha(1);
 			}
 		else
@@ -220,6 +222,27 @@ if (instance_exists(obj_entity))
 		}
 	#endregion
 	
+#endregion
+
+#region DRAW MAP
+
+//var str="ELSEWHERE";
+//var strw=string_width(str);
+//var test_window=scr_create_window((strw-1)+12,16,true);
+//pal_swap_set(spr_theme_win_pal,THEME.DESERT,false);
+//draw_sprite(test_window,0,100,64)
+//pal_swap_reset();
+//scr_text_button(114,76,str);
+
+
+//var str2="ELSEWHERE 23";
+//var strw=string_width(str2);
+//var test_window2=scr_create_window((strw-1)+12,16,true);
+//pal_swap_set(spr_theme_win_pal,THEME.CAVE,false);
+//draw_sprite(test_window2,0,100,112)
+//pal_swap_reset();
+//scr_text_button(114,124,str2);
+
 #endregion
 
 #region Draw Debug Info

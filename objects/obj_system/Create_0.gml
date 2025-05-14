@@ -1,6 +1,10 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+#region CREATE BACKGROUND COLOR OBJECT
+instance_create_depth(0,0,4,obj_bkg_col);
+#endregion
+
 #region DEBUG
 debug=false;
 #endregion
@@ -110,6 +114,10 @@ fade_color=choose(c_tele,c_demo);
 fade_alpha=0;
 #endregion
 
+#region GAME MAP
+game_map=ds_list_create();
+#endregion
+
 #region INTRO DEMO SET UP (CURRENTLY DISABLED)
 /*
 //create tile grid to store tile data inside
@@ -186,6 +194,7 @@ tile_window_h=136;
 tile_window=scr_create_window(tile_window_w,tile_window_h,false);
 current_tile=0;
 tile_current_layer=0// 0 - forground, 1, background, -2 collision
+within_tile_window=false;
 #endregion
 
 #region THEME PALETTE WINDOW STUFF
@@ -211,6 +220,7 @@ entity_window_h=64;
 entity_window_y=0;
 entity_window_x=0//entity_window_w-sprite_get_width(spr_window)-1;
 entity_window=scr_create_window(entity_window_w,entity_window_h,false);
+within_entity_window=false;
 #endregion
 
 #region COLLISION VISUALS
@@ -221,4 +231,3 @@ line=false;// Collision Line display
 visual=1;
 line_origin=obj_player;
 #endregion
-

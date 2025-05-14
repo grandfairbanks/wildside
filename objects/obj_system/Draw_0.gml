@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-//draw_sprite_part_ext(spr_theme_bkg_pal,0,level_theme-1,0,1,1,0,0,room_width,room_height,c_white,1);
+
 
 #region INTRODUCTION SEQUENCE
 //draw neon sign
@@ -91,7 +91,7 @@ if (visual==2)
     }
 #endregion
 
-#region DRAW CURSOR
+#region DRAW ROOM CURSOR
 if (canPlace==true)
 	{
 	var xx=floor(mouse_x/TILE_SIZE)*TILE_SIZE;
@@ -105,25 +105,3 @@ if (canPlace==true)
 	}
 #endregion
 
-
-
-#region DRAW MAP
-/*
-var str="ELSEWHERE";
-var strw=string_width(str);
-var test_window=scr_create_window((strw-1)+12,16,true);
-pal_swap_set(spr_theme_win_pal,THEME.DESERT,false);
-draw_sprite(test_window,0,100,64)
-pal_swap_reset();
-scr_text_button(114,76,str);
-
-
-var str2="ELSEWHERE 23";
-var strw=string_width(str2);
-var test_window2=scr_create_window((strw-1)+12,16,true);
-pal_swap_set(spr_theme_win_pal,THEME.CAVE,false);
-draw_sprite(test_window2,0,100,112)
-pal_swap_reset();
-scr_text_button(114,124,str2);
-*/
-#endregion

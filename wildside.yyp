@@ -2,7 +2,7 @@
   "$GMProject":"v1",
   "%Name":"wildside",
   "AudioGroups":[
-    {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
+    {"$GMAudioGroup":"v1","%Name":"audiogroup_default","exportDir":"","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
   ],
   "configs":{
     "children":[],
@@ -81,11 +81,12 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.1300.0.785",
+    "IDEVersion":"2024.1400.0.795",
   },
   "name":"wildside",
   "resources":[
     {"id":{"name":"notes","path":"notes/notes/notes.yy",},},
+    {"id":{"name":"obj_bkg_col","path":"objects/obj_bkg_col/obj_bkg_col.yy",},},
     {"id":{"name":"obj_entity","path":"objects/obj_entity/obj_entity.yy",},},
     {"id":{"name":"obj_player","path":"objects/obj_player/obj_player.yy",},},
     {"id":{"name":"obj_system","path":"objects/obj_system/obj_system.yy",},},

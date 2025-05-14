@@ -2,6 +2,7 @@
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function scr_entity_display(){
 	ent_display_surface=surface_create(256,256);
+	draw_rectangle_color(entity_window_x,entity_window_y,entity_window_x+entity_window_w,entity_window_y+entity_window_h,c_navy,c_navy,c_navy,c_navy,false)
 	surface_set_target(ent_display_surface);
 	pal_swap_set(spr_theme_pal,level_theme-1,false);
 	draw_sprite(spr_prize,0,0,0);

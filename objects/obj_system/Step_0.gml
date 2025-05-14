@@ -48,18 +48,9 @@ if keyboard_check_pressed(vk_f3)
 #endregion
 
 #region FULLSCREEN TOGGLE
-if keyboard_check_pressed(vk_f4)
+if window_get_fullscreen()
 	{
-	if window_get_fullscreen()==false
-		{
-		
-		window_set_fullscreen(true);
-		view_height=display_get_height()/6;
-		}
-	else
-		{
-		window_set_fullscreen(false);
-		}
+	
 	}
 #endregion
 
@@ -253,12 +244,19 @@ else
 #region DETECT IF MOUSE IS AT TILE WINDOW
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_window_x,tile_window_y,tile_window_x+(tile_window_w+15),tile_window_y+(tile_window_h+15))
 	{
+	within_tile_window=true;
+	}
+else
+	{
+	within_tile_window=false;
+	}
+	
+if (within_tile_window)
+	{
 	canPlace=false;
 	var _x, _y;
 	_x=floor((device_mouse_x_to_gui(0)-tile_window_x+(sprite_get_width(spr_window))-16)/8);
 	_y=floor((device_mouse_y_to_gui(0)-tile_window_y+(sprite_get_height(spr_window))-24)/8);
-	show_debug_message("MOUSE X WITHIN TILE WINDOW: " + string(_x));
-	show_debug_message("MOUSE Y WITHIN TILE WINDOW: " + string(_y));
 
 	if (_x>=0 && _x<=15) && (_y>=0 && _y<=15)
 		{
@@ -287,12 +285,10 @@ else
 		{
 		tile_window_x=(tile_window_x+1);
 		}
-	//canPick=false;
 	}
 #endregion
 
 #region DETECT IF MOUSE IS AT PALETTE WINDOW 
-
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_palette_window_x,theme_palette_window_y,theme_palette_window_x+(theme_palette_window_w+15),theme_palette_window_y+(theme_palette_window_h+15))
 	{
 	if mouse_check_button_pressed(mb_left)
@@ -316,8 +312,16 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_pa
 #region DETECT IF MOUSE IS AT OBJECT WINDOW
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15),entity_window_y+(entity_window_h+15))
 	{
-	canPlace=false;
+	within_entity_window=true;
+	}
+else
+	{
+	within_entity_window=false;	
+	}
 	
+if (within_entity_window)
+	{
+	canPlace=false
 	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-15)/8);
 	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-23)/8);
 	
