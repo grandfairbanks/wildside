@@ -206,7 +206,6 @@ theme_palette_window=scr_create_window(theme_palette_window_w,theme_palette_wind
 #endregion
 
 #region ROOM INFO WINDOW STUFF
-
 room_info_window_y=display_get_gui_height()-4;
 room_info_window_w=200;
 room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
@@ -220,7 +219,7 @@ room_info_window=scr_create_window(room_info_window_w,room_info_window_h,false)
 entity_window_w=72;
 entity_window_h=64;
 entity_window_y=0;
-entity_window_x=0//entity_window_w-sprite_get_width(spr_window)-1;
+entity_window_x=(display_get_gui_width()-display_get_gui_width())-entity_window_w-sprite_get_width(spr_window);//entity_window_w-sprite_get_width(spr_window)-1;
 entity_window=scr_create_window(entity_window_w,entity_window_h,false);
 within_entity_window=false;
 #endregion

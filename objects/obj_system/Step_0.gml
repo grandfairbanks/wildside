@@ -55,17 +55,11 @@ if keyboard_check_pressed(vk_f11)
 
 if (fullscreen==true)
 	{
-	room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
 	display_set_gui_size(display_get_width()/4,display_get_height()/4);
 	surface_resize(application_surface,display_get_width(),display_get_height());
 	}
 else
 	{
-	
-	room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
-	room_info_window_y=display_get_gui_height()-4;
-	tile_window_x=display_get_gui_width()-4;
-	
 	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
 	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
 	}
@@ -355,9 +349,21 @@ if (within_entity_window)
 		{
 		canPick=true;	
 		}
+		
+	if mouse_check_button_pressed(mb_left)
+			{	
+			while (entity_window_x<(display_get_gui_width()-display_get_gui_width()))
+				{
+				entity_window_x=(entity_window_x+1);
+				}
+			}
 	}
 else
 	{
+	while (entity_window_x>(display_get_gui_width()-display_get_gui_width())-entity_window_w-sprite_get_width(spr_window))
+		{
+		entity_window_x=(entity_window_x-1);
+		}
 	}
 #endregion
 
