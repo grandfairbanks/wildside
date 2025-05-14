@@ -70,7 +70,7 @@ directory_create("Levels");
 
 #region VIEW SET UP
 alarm[0]=1; //center the window
-
+fullscreen=window_get_fullscreen();
 //ideal width
 view_width=320;
 
@@ -90,7 +90,7 @@ gui_scale=1;
 
 //set window size
 window_set_size(view_width*window_scale,view_height*window_scale);
-display_set_gui_size(view_width*window_scale,view_height*window_scale);
+display_set_gui_size(view_width*gui_scale,view_height*gui_scale);
 //center window
 alarm[0]=1;
 
@@ -187,7 +187,7 @@ ds_grid_destroy(ws_grid);
 #endregion
 
 #region TILE WINDOW STUFF
-tile_window_x=view_width-18;
+tile_window_x=display_get_gui_width()-4;
 tile_window_y=0;
 tile_window_w=128;
 tile_window_h=136;
@@ -206,10 +206,12 @@ theme_palette_window=scr_create_window(theme_palette_window_w,theme_palette_wind
 #endregion
 
 #region ROOM INFO WINDOW STUFF
-room_info_window_x=48;
+
 room_info_window_y=display_get_gui_height()-4;
 room_info_window_w=200;
+room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
 room_info_window_h=108;
+within_rinfo_window=false;
 info_window_alpha=0.5;
 room_info_window=scr_create_window(room_info_window_w,room_info_window_h,false)
 #endregion

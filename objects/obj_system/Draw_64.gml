@@ -119,7 +119,7 @@ if (instance_exists(obj_entity))
 
 	#region DRAW TILE WINDOW
 	draw_sprite(tile_window,0,tile_window_x,tile_window_y);
-	draw_sprite_part_ext(spr_theme_bkg_pal,0,level_theme-1,0,1,1,tile_window_x+8,tile_window_y+8,tile_window_w,tile_window_h,c_white,1);
+	
 	draw_text(tile_window_x+32,tile_window_y+8,"LEVEL TILES");
 	
 	if !surface_exists(tile_theme_surface) 

@@ -40,17 +40,34 @@ if keyboard_check_pressed(vk_f3)
 		alarm[0]=1;
 		}
 		
-//if window_scale==4
-//		{
-//		window_set_fullscreen(true);
-//		}
+if window_scale==4
+		{
+		window_set_fullscreen(true);
+		}
 	}
 #endregion
 
 #region FULLSCREEN TOGGLE
-if window_get_fullscreen()
+if keyboard_check_pressed(vk_f11)
+	{
+	fullscreen=!fullscreen;	
+	}
+
+if (fullscreen==true)
+	{
+	room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
+	display_set_gui_size(display_get_width()/4,display_get_height()/4);
+	surface_resize(application_surface,display_get_width(),display_get_height());
+	}
+else
 	{
 	
+	room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
+	room_info_window_y=display_get_gui_height()-4;
+	tile_window_x=display_get_gui_width()-4;
+	
+	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
+	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
 	}
 #endregion
 
@@ -218,6 +235,15 @@ canPick=false;
 
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_info_window_x,room_info_window_y,room_info_window_x+(room_info_window_w+15),room_info_window_y+(room_info_window_h+15))
 	{
+	within_rinfo_window=true;	
+	}
+else
+	{
+	within_rinfo_window=false;
+	}
+	
+if (within_rinfo_window)
+	{
 	canPlace=false;
 	//show_debug_message("HOVERING OVER INFO WINDOW");
 	if mouse_check_button_pressed(mb_left)
@@ -322,8 +348,8 @@ else
 if (within_entity_window)
 	{
 	canPlace=false
-	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-15)/8);
-	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-23)/8);
+	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-16)/8);
+	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-24)/8);
 	
 	if (_x>=0 && _x<=8) && (_y>=0 && _y<=1) || (_y>=4 && _y<=6)
 		{
