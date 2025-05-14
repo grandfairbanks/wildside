@@ -345,7 +345,7 @@ if (within_entity_window)
 	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-16)/8);
 	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-24)/8);
 	
-	if (_x>=0 && _x<=8) && (_y>=0 && _y<=1) || (_y>=4 && _y<=6)
+	if (_x>=0 && _x<=8) && (_y>=0 && _y<=1) ^^ (_y>=4 && _y<=6)
 		{
 		canPick=true;	
 		}
