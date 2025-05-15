@@ -222,6 +222,7 @@ entity_window_y=0;
 entity_window_x=(display_get_gui_width()-display_get_gui_width())-entity_window_w-sprite_get_width(spr_window);//entity_window_w-sprite_get_width(spr_window)-1;
 entity_window=scr_create_window(entity_window_w,entity_window_h,false);
 within_entity_window=false;
+entity_selected=0;
 #endregion
 
 #region COLLISION VISUALS
