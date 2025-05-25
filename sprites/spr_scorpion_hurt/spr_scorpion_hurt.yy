@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_scorpion_hurt",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"2f54c3b4-fd12-40cf-ac22-9e0437f7197d","name":"2f54c3b4-fd12-40cf-ac22-9e0437f7197d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"2f54c3b4-fd12-40cf-ac22-9e0437f7197d","name":"2f54c3b4-fd12-40cf-ac22-9e0437f7197d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

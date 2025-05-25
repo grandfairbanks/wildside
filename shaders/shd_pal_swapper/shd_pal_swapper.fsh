@@ -10,26 +10,55 @@ uniform vec4 u_Uvs;
 uniform float u_paletteId;
 uniform vec2 u_pixelSize;
 
+//vec4 findAltColor(vec4 inCol, vec2 corner)
+//{
+//    if(inCol.a == 0.) return Transparent;
+    
+//    float dist;
+//    vec2 testPos;
+//    vec4 leftCol;
+//    for(float i = corner.y; i < u_Uvs.w; i+=u_pixelSize.y )
+//    {
+//			testPos = vec2(corner.x,i);
+//      leftCol = texture2D( u_palTexture, testPos);
+        
+//			dist = distance(leftCol,inCol);
+
+//			if(dist < Tolerance)
+//      {
+//				testPos = vec2(corner.x + u_pixelSize.x * floor(u_paletteId + 1.0), i);
+//        return mix(texture2D(u_palTexture, vec2(testPos.x - u_pixelSize.x, testPos.y)), texture2D(u_palTexture, testPos), fract(u_paletteId));
+//      }
+//    }
+//    return inCol;
+//}
+
 vec4 findAltColor(vec4 inCol, vec2 corner)
 {
-    if(inCol.a == 0.) return Transparent;
-    
+    if(inCol.a == 0.0) return Transparent;
+
     float dist;
     vec2 testPos;
     vec4 leftCol;
-    for(float i = corner.y; i < u_Uvs.w; i+=u_pixelSize.y )
-    {
-			testPos = vec2(corner.x,i);
-      leftCol = texture2D( u_palTexture, testPos);
-        
-			dist = distance(leftCol,inCol);
 
-			if(dist < Tolerance)
-      {
-				testPos = vec2(corner.x + u_pixelSize.x * floor(u_paletteId + 1.0), i);
-        return mix(texture2D(u_palTexture, vec2(testPos.x - u_pixelSize.x, testPos.y)), texture2D(u_palTexture, testPos), fract(u_paletteId));
-      }
+    for(int j = 0; j < 16; ++j) {
+        float i = float(j) * u_pixelSize.y + corner.y;
+        if(i >= u_Uvs.w) break;
+
+        testPos = vec2(corner.x, i);
+        leftCol = texture2D(u_palTexture, testPos);
+        dist = distance(leftCol, inCol);
+
+        if(dist < Tolerance) {
+            testPos = vec2(corner.x + u_pixelSize.x * floor(u_paletteId + 1.0), i);
+            return mix(
+                texture2D(u_palTexture, vec2(testPos.x - u_pixelSize.x, testPos.y)),
+                texture2D(u_palTexture, testPos),
+                fract(u_paletteId)
+            );
+        }
     }
+
     return inCol;
 }
 

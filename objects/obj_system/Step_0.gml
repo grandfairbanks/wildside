@@ -296,6 +296,7 @@ if (within_tile_window)
 		if (canPick)
 			{
 			current_tile=_x+16*_y;
+			mode=0;
 			}
 		}
 	}
@@ -342,6 +343,7 @@ else
 if (within_entity_window)
 	{
 	canPlace=false
+	var _x, _y;
 	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-16)/8);
 	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-24)/8);
 	
@@ -358,14 +360,27 @@ if (within_entity_window)
 				}
 				
 			if (canPick)
-			{
-
-			//if obj_system.level_attr
-			if _y>=4
-			_y=_y-2;
+				{
+				var _sel;
 			
-			entity_selected=_x+9*_y;
-			}
+				if _y>=4
+					{
+					if obj_system.level_attr<6
+					_sel=_y-2;
+					else
+					if obj_system.level_attr==6
+					entity_selected=45
+					else
+					if obj_system.level_attr==7
+					entity_selected=46
+					
+					}
+				else
+				_sel=_y;
+				
+				entity_selected=_x+9*_sel;
+				mode=1;
+				}
 			}
 	}
 else
@@ -392,8 +407,8 @@ if (inEditor)
 				{
 				if tile_current_layer==0
 					{
-					tilemap_set(terrain_tiles_b,0,xx,yy);
-					tilemap_set(terrain_tiles_f,current_tile,xx,yy);
+					tilemap_set(terrain_tiles_b,0,xx,yy);//delete tile on background layer at the position
+					tilemap_set(terrain_tiles_f,current_tile,xx,yy);//add new tile on the foreground at position
 					}
 				if tile_current_layer==1
 					{
@@ -403,7 +418,25 @@ if (inEditor)
 				}
 			else if mode==1
 				{
-				tilemap_set(collision_tiles,5,xx,yy);
+				if ds_grid_get(entity_grid,xx,yy)==-4
+					{
+					entity_info_window_visible=false;
+					ds_grid_set(entity_grid,xx,yy,new entity());
+					var _ent = ds_grid_get(entity_grid,xx,yy);
+					_ent.x=xx*TILE_SIZE;
+					_ent.y=yy*TILE_SIZE;
+					_ent._type=entity_selected;
+					_ent.update_entity();
+					}
+				else
+					{
+					current_ent=ds_grid_get(entity_grid,xx,yy);
+					entity_info_window_visible=true;
+					entity_info_window_x= current_ent.x+ 16;
+					entity_info_window_y= current_ent.y;
+					
+					}
+				//tilemap_set(collision_tiles,5,xx,yy);
 				}
 			}
 		}

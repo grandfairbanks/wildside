@@ -24,7 +24,7 @@ function scr_entity_display(){
 	
 	pal_swap_reset();
 	
-		var _layer, _tmap;
+	var _layer, _tmap;
 	_layer=layer_create(-99);
 	_tmap=layer_tilemap_create(_layer,112,0,holo_tiles,2,2);
 	tilemap_set(_tmap,5,0,0);

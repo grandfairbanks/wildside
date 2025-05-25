@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scrollbar_create",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scrollbar_create",
+  "parent":{
+    "name":"Scollbar",
+    "path":"folders/Scripts/Scollbar.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

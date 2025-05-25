@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_driller_head_die",
   "bboxMode":0,
   "bbox_bottom":15,
@@ -12,9 +12,9 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b4f1f618-1c0c-47a6-9643-27a7b9c0152f","name":"b4f1f618-1c0c-47a6-9643-27a7b9c0152f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"a8525952-fe2d-4421-8077-8c0ef3922879","name":"a8525952-fe2d-4421-8077-8c0ef3922879","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"63d6e04d-3a25-4d3a-97f7-aa0e2c0a239e","name":"63d6e04d-3a25-4d3a-97f7-aa0e2c0a239e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"b4f1f618-1c0c-47a6-9643-27a7b9c0152f","name":"b4f1f618-1c0c-47a6-9643-27a7b9c0152f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a8525952-fe2d-4421-8077-8c0ef3922879","name":"a8525952-fe2d-4421-8077-8c0ef3922879","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"63d6e04d-3a25-4d3a-97f7-aa0e2c0a239e","name":"63d6e04d-3a25-4d3a-97f7-aa0e2c0a239e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

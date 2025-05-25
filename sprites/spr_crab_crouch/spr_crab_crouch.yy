@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_crab_crouch",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"c499d970-a8c1-48ed-8f97-aaeb5bc9cb22","name":"c499d970-a8c1-48ed-8f97-aaeb5bc9cb22","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7d6303d3-ce8c-4c40-bbed-3b7822331910","name":"7d6303d3-ce8c-4c40-bbed-3b7822331910","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c499d970-a8c1-48ed-8f97-aaeb5bc9cb22","name":"c499d970-a8c1-48ed-8f97-aaeb5bc9cb22","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7d6303d3-ce8c-4c40-bbed-3b7822331910","name":"7d6303d3-ce8c-4c40-bbed-3b7822331910","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

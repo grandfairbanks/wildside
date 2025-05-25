@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_big_hopping_skull_pal",
   "bboxMode":0,
   "bbox_bottom":6,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"aee67ead-acd7-4e9c-bfb6-c14da60564b9","name":"aee67ead-acd7-4e9c-bfb6-c14da60564b9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"aee67ead-acd7-4e9c-bfb6-c14da60564b9","name":"aee67ead-acd7-4e9c-bfb6-c14da60564b9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

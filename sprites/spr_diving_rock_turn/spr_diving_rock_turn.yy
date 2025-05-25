@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_diving_rock_turn",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"afd5c89f-e1a6-4d7a-b666-cc0b7e31375e","name":"afd5c89f-e1a6-4d7a-b666-cc0b7e31375e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"afd5c89f-e1a6-4d7a-b666-cc0b7e31375e","name":"afd5c89f-e1a6-4d7a-b666-cc0b7e31375e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

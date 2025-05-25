@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_scorpion_attack",
   "bboxMode":0,
   "bbox_bottom":46,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"f2e944f8-0e46-4f62-8e7c-bc7174821888","name":"f2e944f8-0e46-4f62-8e7c-bc7174821888","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"33e361ce-09dd-401b-a4f4-3a269b54296c","name":"33e361ce-09dd-401b-a4f4-3a269b54296c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f2e944f8-0e46-4f62-8e7c-bc7174821888","name":"f2e944f8-0e46-4f62-8e7c-bc7174821888","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"33e361ce-09dd-401b-a4f4-3a269b54296c","name":"33e361ce-09dd-401b-a4f4-3a269b54296c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

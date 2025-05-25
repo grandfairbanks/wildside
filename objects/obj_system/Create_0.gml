@@ -24,21 +24,94 @@ enum THEME
 	WOODS,
 	CITY
 	}
+	
+enum ATTRIBUTE
+	{
+	NORMAL,
+	LAVA,
+	STORM,
+	HAIL,
+	CHASE,
+	ELSEWHERE,
+	BOSS,
+	FINAL
+	}
 
 level_num=-1;
 level_name="LEVEL NAME";
 level_x=room_width/SCREEN_WIDTH;
 level_y=room_height/SCREEN_HEIGHT;
 level_theme=THEME.SKY;
-level_attr=0;
+level_attr=ATTRIBUTE.NORMAL;
 start_x=-1;
 start_y=-1;
 end_x=-1;
 end_y=-1;
+flag_exists=false;
 level_par=0;
 path_bonus=0;
 total_screens=(level_x*level_y);
 grid_size=(level_x*TILE_SIZE)+(level_y*TILE_SIZE);
+#endregion
+
+#region ENTITY/OBJECT STRUCT
+function entity() constructor
+	{
+	show_debug_message("ENTITY CREATED")
+	
+	_type=0;
+	x=0;
+	y=0;
+	name="";
+	sprite=spr_null;
+	opt1="";
+	var1=0;
+	
+	function update_entity()
+		{
+		switch (_type)
+			{
+			default: sprite=spr_null; 
+			break;
+			case 0: 
+			sprite=spr_prize;
+			name="Prize Block";
+			opt1="Prize: ";
+
+			break;
+			case 1: 
+			sprite=spr_rock;
+			name="Rock Block";
+			break;
+			case 15: 
+			sprite=spr_flag;
+			name="Flag";
+			break;
+			}
+		}
+		
+	#region DRAW EVENT
+	function draw_entity() {
+			
+	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
+	pal_swap_set(spr_theme_pal,obj_system.level_theme-1,false);
+	
+	draw_sprite(sprite,0,x,y);
+	
+	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
+	pal_swap_reset();
+	
+	}
+	#endregion
+
+
+	}
+#endregion
+
+#region CREATE ENTITY GRID
+entity_grid=ds_grid_create(room_width/16,room_height/16);
+ds_grid_set_region(entity_grid,0,0,room_width/16,room_height/16,-4);
+current_ent=undefined;
 #endregion
 
 #region CREATE COLLISION AND TERRAIN TILEMAPS
@@ -223,6 +296,16 @@ entity_window_x=(display_get_gui_width()-display_get_gui_width())-entity_window_
 entity_window=scr_create_window(entity_window_w,entity_window_h,false);
 within_entity_window=false;
 entity_selected=0;
+#endregion
+
+#region ENTITY INFO WINDOW
+entity_info_window_w=72;
+entity_info_window_h=64;
+entity_info_window_y=0;
+entity_info_window_x=0;
+spr_entity_info_window=scr_create_window(entity_window_w,entity_window_h,false);
+within_entity_info_window=false;
+entity_info_window_visible=false;
 #endregion
 
 #region COLLISION VISUALS

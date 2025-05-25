@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_mini_hopping_skull_hurt",
   "bboxMode":0,
   "bbox_bottom":10,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"d8ab3e85-6c60-4108-8bc0-8df7236de2b8","name":"d8ab3e85-6c60-4108-8bc0-8df7236de2b8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d8ab3e85-6c60-4108-8bc0-8df7236de2b8","name":"d8ab3e85-6c60-4108-8bc0-8df7236de2b8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

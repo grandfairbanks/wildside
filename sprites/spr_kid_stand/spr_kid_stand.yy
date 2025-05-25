@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_kid_stand",
   "bboxMode":2,
   "bbox_bottom":31,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"7dbe6f57-d67b-4a74-957d-94a4a2a1009d","name":"7dbe6f57-d67b-4a74-957d-94a4a2a1009d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7dbe6f57-d67b-4a74-957d-94a4a2a1009d","name":"7dbe6f57-d67b-4a74-957d-94a4a2a1009d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

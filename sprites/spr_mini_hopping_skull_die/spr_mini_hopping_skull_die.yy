@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_mini_hopping_skull_die",
   "bboxMode":0,
   "bbox_bottom":11,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"1c91ec29-2ac0-4b45-a9da-c8af8848cf71","name":"1c91ec29-2ac0-4b45-a9da-c8af8848cf71","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"2a5309a7-b8ca-4690-84ff-4d4236dd5936","name":"2a5309a7-b8ca-4690-84ff-4d4236dd5936","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1c91ec29-2ac0-4b45-a9da-c8af8848cf71","name":"1c91ec29-2ac0-4b45-a9da-c8af8848cf71","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"2a5309a7-b8ca-4690-84ff-4d4236dd5936","name":"2a5309a7-b8ca-4690-84ff-4d4236dd5936","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

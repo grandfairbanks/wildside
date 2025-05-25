@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_diving_rock_h",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"1873bbe5-f80a-4908-9f10-d9f1d6e065e4","name":"1873bbe5-f80a-4908-9f10-d9f1d6e065e4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"30e4131b-af6d-433b-bfd4-7b2b42d3d455","name":"30e4131b-af6d-433b-bfd4-7b2b42d3d455","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1873bbe5-f80a-4908-9f10-d9f1d6e065e4","name":"1873bbe5-f80a-4908-9f10-d9f1d6e065e4","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"30e4131b-af6d-433b-bfd4-7b2b42d3d455","name":"30e4131b-af6d-433b-bfd4-7b2b42d3d455","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

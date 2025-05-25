@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_orca_hurt",
   "bboxMode":0,
   "bbox_bottom":34,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"8ca57bbc-0ca5-4e6e-985a-2ed4fdfccb0a","name":"8ca57bbc-0ca5-4e6e-985a-2ed4fdfccb0a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"8ca57bbc-0ca5-4e6e-985a-2ed4fdfccb0a","name":"8ca57bbc-0ca5-4e6e-985a-2ed4fdfccb0a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

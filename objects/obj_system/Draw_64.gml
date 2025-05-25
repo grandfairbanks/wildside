@@ -84,7 +84,7 @@
 			pal_swap_reset();
 			}
 			
-if (instance_exists(obj_entity))
+		if (flag_exists)
 			{
 			pal_swap_set(pal_font,3,false);
 			//DRAW STARTING X POSITION
@@ -204,6 +204,15 @@ if (instance_exists(obj_entity))
 		{
 		scr_entity_display();
 		}
+	#endregion
+
+	#region ENTITY INFO WINDOW
+	if (entity_info_window_visible==true)
+	{
+	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
+	draw_text(entity_info_window_x+4,entity_info_window_y+4,string(current_ent.name))
+	draw_text(entity_info_window_x+4,entity_info_window_y+16,current_ent.opt1 + " " + string(current_ent.var1))
+	}
 	#endregion
 
 #endregion

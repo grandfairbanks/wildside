@@ -20,6 +20,7 @@ climbing=false;
 
 //states specific to red stealth
 swinging=false;
+downward_strike=false;
 
 ///Variables for Movement
 image_speed = 0;//

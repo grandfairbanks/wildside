@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_driller_head",
   "bboxMode":0,
   "bbox_bottom":14,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"c093dcca-863a-43ec-9d3c-4cb5538e750e","name":"c093dcca-863a-43ec-9d3c-4cb5538e750e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7fd82e35-c022-4740-bbaa-0483e1ae2776","name":"7fd82e35-c022-4740-bbaa-0483e1ae2776","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c093dcca-863a-43ec-9d3c-4cb5538e750e","name":"c093dcca-863a-43ec-9d3c-4cb5538e750e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7fd82e35-c022-4740-bbaa-0483e1ae2776","name":"7fd82e35-c022-4740-bbaa-0483e1ae2776","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

@@ -1,12 +1,27 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-
-
 #region INTRODUCTION SEQUENCE
 //draw neon sign
 //if (inIntro)
 //draw_sprite_part(spr_wild_sign,0,0,0,66,38,125,106);
+#endregion
+
+#region DRAW ENTITES
+for (var i=0; i<room_width/16; i++)
+	{
+	for (var j=0; j<room_height/16; j++)
+		{
+		var _ent_struct=ds_grid_get(entity_grid,i,j)
+		
+		if _ent_struct!=-4
+		_ent_struct.draw_entity();	
+		else
+		{}
+		}
+		
+	}
+	
 #endregion
 
 #region DRAW COLLISION VISUALIZATIONS

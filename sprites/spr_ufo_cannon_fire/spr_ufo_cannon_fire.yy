@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_ufo_cannon_fire",
   "bboxMode":0,
   "bbox_bottom":7,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"62538b1d-940f-4994-9ca5-d87ec33f6eb8","name":"62538b1d-940f-4994-9ca5-d87ec33f6eb8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"62538b1d-940f-4994-9ca5-d87ec33f6eb8","name":"62538b1d-940f-4994-9ca5-d87ec33f6eb8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

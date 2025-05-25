@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_ice_rock_die",
   "bboxMode":0,
   "bbox_bottom":21,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"51c5c529-193b-4f0f-a6ca-0693cad6fe2a","name":"51c5c529-193b-4f0f-a6ca-0693cad6fe2a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"14280986-1b22-43a0-b0e4-dcf4ee1455b7","name":"14280986-1b22-43a0-b0e4-dcf4ee1455b7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"51c5c529-193b-4f0f-a6ca-0693cad6fe2a","name":"51c5c529-193b-4f0f-a6ca-0693cad6fe2a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"14280986-1b22-43a0-b0e4-dcf4ee1455b7","name":"14280986-1b22-43a0-b0e4-dcf4ee1455b7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

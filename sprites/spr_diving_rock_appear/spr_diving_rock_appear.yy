@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_diving_rock_appear",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"402dd641-a437-416d-ba01-25a8b69159b0","name":"402dd641-a437-416d-ba01-25a8b69159b0","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"4ea544c5-0d9e-4c34-a556-8a4b2715e3fa","name":"4ea544c5-0d9e-4c34-a556-8a4b2715e3fa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"402dd641-a437-416d-ba01-25a8b69159b0","name":"402dd641-a437-416d-ba01-25a8b69159b0","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"4ea544c5-0d9e-4c34-a556-8a4b2715e3fa","name":"4ea544c5-0d9e-4c34-a556-8a4b2715e3fa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

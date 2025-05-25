@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_ninja_hurt",
   "bboxMode":0,
   "bbox_bottom":27,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"bd37ddfc-cc3a-46ee-8547-24e9bf3d0af5","name":"bd37ddfc-cc3a-46ee-8547-24e9bf3d0af5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"bd37ddfc-cc3a-46ee-8547-24e9bf3d0af5","name":"bd37ddfc-cc3a-46ee-8547-24e9bf3d0af5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

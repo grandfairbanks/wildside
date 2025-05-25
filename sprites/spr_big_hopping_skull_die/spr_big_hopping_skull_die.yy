@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"v1",
+  "$GMSprite":"v2",
   "%Name":"spr_big_hopping_skull_die",
   "bboxMode":0,
   "bbox_bottom":31,
@@ -12,9 +12,9 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"7e99d228-b92e-40d7-adf7-3f9ace442914","name":"7e99d228-b92e-40d7-adf7-3f9ace442914","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"d7cedb51-210a-45c4-9041-445ecd5ff8a5","name":"d7cedb51-210a-45c4-9041-445ecd5ff8a5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"2ed627f8-f9a5-42dc-a89c-c6356018059a","name":"2ed627f8-f9a5-42dc-a89c-c6356018059a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7e99d228-b92e-40d7-adf7-3f9ace442914","name":"7e99d228-b92e-40d7-adf7-3f9ace442914","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d7cedb51-210a-45c4-9041-445ecd5ff8a5","name":"d7cedb51-210a-45c4-9041-445ecd5ff8a5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"2ed627f8-f9a5-42dc-a89c-c6356018059a","name":"2ed627f8-f9a5-42dc-a89c-c6356018059a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
