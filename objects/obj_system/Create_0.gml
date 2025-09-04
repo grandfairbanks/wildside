@@ -24,7 +24,7 @@ enum THEME
 	WOODS,
 	CITY
 	}
-	
+	//test
 enum ATTRIBUTE
 	{
 	NORMAL,
