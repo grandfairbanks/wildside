@@ -373,7 +373,6 @@ if (within_entity_window)
 					else
 					if obj_system.level_attr==7
 					entity_selected=46
-					
 					}
 				else
 				_sel=_y;
@@ -418,15 +417,33 @@ if (inEditor)
 				}
 			else if mode==1
 				{
-				if ds_grid_get(entity_grid,xx,yy)==-4
+				if ds_grid_get(entity_grid,xx,yy)==-4 && tilemap_get(collision_layer,xx,yy)==0
 					{
-					entity_info_window_visible=false;
-					ds_grid_set(entity_grid,xx,yy,new entity());
-					var _ent = ds_grid_get(entity_grid,xx,yy);
-					_ent.x=xx*TILE_SIZE;
-					_ent.y=yy*TILE_SIZE;
-					_ent._type=entity_selected;
-					_ent.update_entity();
+					if (entity_selected != 7 && entity_selected != 8 && entity_selected != 16 && entity_selected != 17)
+						{
+						entity_info_window_visible=false;
+						ds_grid_set(entity_grid,xx,yy,new entity());
+						var _ent = ds_grid_get(entity_grid,xx,yy);
+						_ent.x=xx*TILE_SIZE;
+						_ent.y=yy*TILE_SIZE;
+						_ent._type=entity_selected;
+						_ent.update_entity();
+						//tilemap_set(collision_tiles,2,xx,yy);
+						}
+					else
+						{
+						if entity_selected == 7
+						tilemap_set(collision_tiles,5,xx,yy);
+						
+						if entity_selected == 8
+						tilemap_set(collision_tiles,1,xx,yy);
+						
+						if entity_selected == 16
+						tilemap_set(collision_tiles,3,xx,yy);
+						
+						if entity_selected ==17
+						tilemap_set(collision_tiles,4,xx,yy);
+						}
 					}
 				else
 					{
@@ -434,9 +451,8 @@ if (inEditor)
 					entity_info_window_visible=true;
 					entity_info_window_x= current_ent.x+ 16;
 					entity_info_window_y= current_ent.y;
-					
 					}
-				//tilemap_set(collision_tiles,5,xx,yy);
+				
 				}
 			}
 		}

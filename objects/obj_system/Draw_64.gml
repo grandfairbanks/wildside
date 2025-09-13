@@ -1,8 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-
-
 #region EDITOR STUFF
 
 	#region DRAW CURRENT TILE LAYER
@@ -14,6 +12,7 @@
 		}
 	draw_text_transformed(0,0,"Current Tile Layer: " + string(tile_layer_txt),1,1,0);
 	#endregion
+
 
 	#region DRAW LEVEL INFO WINDOW
 	draw_set_alpha(info_window_alpha);
@@ -210,8 +209,17 @@
 	if (entity_info_window_visible==true)
 	{
 	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
-	draw_text(entity_info_window_x+4,entity_info_window_y+4,string(current_ent.name))
-	draw_text(entity_info_window_x+4,entity_info_window_y+16,current_ent.opt1 + " " + string(current_ent.var1))
+	draw_text(entity_info_window_x+4,entity_info_window_y+4,string(current_ent.name));
+	if current_ent.opt1!=""
+	draw_text(entity_info_window_x+4,entity_info_window_y+16,current_ent.opt1 + "" + string(current_ent.var1));
+	if current_ent.opt2!=""
+	draw_text(entity_info_window_x+4,entity_info_window_y+28,current_ent.opt2 + "" + string(current_ent.var2));
+	if current_ent.opt3!=""
+	draw_text(entity_info_window_x+4,entity_info_window_y+40,current_ent.opt3 + "" + string(current_ent.var3));
+	if current_ent.opt4!=""
+	draw_text(entity_info_window_x+4,entity_info_window_y+52,current_ent.opt4 + "" + string(current_ent.var4));
+	if current_ent.opt5!=""
+	draw_text(entity_info_window_x+4,entity_info_window_y+64,current_ent.opt5 + "" + string(current_ent.var5));
 	}
 	#endregion
 

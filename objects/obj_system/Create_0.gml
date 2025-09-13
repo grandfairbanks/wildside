@@ -65,27 +65,116 @@ function entity() constructor
 	name="";
 	sprite=spr_null;
 	opt1="";
+	opt2="";
+	opt3="";
+	opt4="";
+	opt5="";
 	var1=0;
+	var2=0;
+	var3=4;
+	var4=0;
+	var5=0;
 	
 	function update_entity()
 		{
 		switch (_type)
 			{
-			default: sprite=spr_null; 
+			default: 
+			sprite=spr_null; 
+			name="";
+			opt1="";
+			opt2="";
+			opt3="";
+			opt4="";
+			opt5="";
 			break;
 			case 0: 
 			sprite=spr_prize;
 			name="Prize Block";
-			opt1="Prize: ";
-
+			opt1="Hidden: ";
+			opt2="Disguised: ";
+			opt3="Prize: ";
+			opt4="Helmet Type: ";
 			break;
 			case 1: 
 			sprite=spr_rock;
 			name="Rock Block";
+			opt1="Hidden: ";
+			break;
+			case 2: 
+			sprite=spr_iron;
+			name="Iron Block";
+			opt1="Hidden: ";
+			opt2="Left Drill";
+			opt3="Down Drill";
+			opt4="Right Drill";
+			opt5="Up Drill";
+			break;
+			case 3: 
+			sprite=spr_ice
+			name="Ice Block";
+			opt1="Hidden: ";
+			break;
+			case 4: 
+			sprite=spr_rubber;
+			name="Rubber Block";
+			opt1="Hidden: ";
+			break;
+			case 5: 
+			sprite=spr_shift;
+			name="Shifting Block";
+			opt1="Hidden: ";
+			break;
+			case 6: 
+			sprite=spr_mushroom;
+			name="Mushroom Block";
+			opt1="Hidden: ";
+			break;
+			case 9: 
+			sprite=spr_lift;
+			name="Lift Block";
+			opt1="Hidden: ";
+			break;
+			case 10: 
+			sprite=spr_ghost;
+			name="Ghost Block";
+			opt1="Hidden: ";
+			opt2="Disappear Time";
+			opt3="Appear Time";
+			break;
+			case 11: 
+			sprite=spr_h_platform;
+			name="Horizontal Platform";
+			opt1="Type: ";
+			opt2="Length: ";
+			break;
+			case 12: 
+			sprite=spr_v_platform;
+			name="Vertical Platform";
+			opt1="Type: ";
+			opt2="Height: ";
+			break;
+			case 13: 
+			sprite=spr_vanishing;
+			name="Vanishing Block";
+			opt1="Hidden: ";
+			opt2="Left Cannon: ";
+			opt3="Down Cannon: ";
+			opt4="Right Cannon: ";
+			opt5="Up Cannon: ";
+			break;
+			case 14: 
+			sprite=spr_teleporter;
+			name="Teleporter";
+			opt1="Hidden: ";
+			opt2="MAP: ";
+			opt3="X POS: ";
+			opt4="Y POS: ";
 			break;
 			case 15: 
 			sprite=spr_flag;
 			name="Flag";
+			opt1="Hidden: ";
 			break;
 			}
 		}
@@ -97,6 +186,41 @@ function entity() constructor
 	pal_swap_set(spr_theme_pal,obj_system.level_theme-1,false);
 	
 	draw_sprite(sprite,0,x,y);
+	
+	if _type=11
+		{
+		var _ext=0;
+		draw_sprite(sprite,0,x,y);
+		if var2>0
+			{
+			for(var _i=0; _i<var2; _i++)
+				{
+				draw_sprite(sprite,1,x+16+(16*_i),y);
+				}
+			}
+		draw_sprite_ext(sprite,2,x+16+(16*_i),y,1,1,0,c_white,1)
+		}
+	
+	if _type=12
+		{
+		var _ext=0;
+		draw_sprite(sprite,0,x,y);
+		if var2>0
+			{
+			for(var _i=0; _i<var2; _i++)
+				{
+				draw_sprite(sprite,1,x,y+16+(16*_i));
+				}
+			}
+		draw_sprite_ext(sprite,2,x,y+16+(16*_i),1,1,0,c_white,1)
+		}
+		
+	if _type=14
+		{
+		draw_sprite(sprite,0,x,y);
+		draw_sprite_ext(sprite,0,x+32,y,-1,1,0,c_white,1)
+		}
+	
 	
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
 	pal_swap_reset();
