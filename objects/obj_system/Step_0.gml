@@ -19,7 +19,7 @@ if keyboard_check_pressed(vk_f2)
 		
 		prev_scale=window_scale;
 		
-		if window_scale==4
+		if window_scale==7
 		window_set_fullscreen(false);
 		
 		window_scale--;
@@ -31,7 +31,7 @@ if keyboard_check_pressed(vk_f2)
 	
 if keyboard_check_pressed(vk_f3)
 	{
-	if window_scale<=3
+	if window_scale<=6
 		{
 		prev_scale=window_scale;
 		window_scale++;
@@ -40,7 +40,7 @@ if keyboard_check_pressed(vk_f3)
 		alarm[0]=1;
 		}
 		
-if window_scale==4
+if window_scale==7
 		{
 		window_set_fullscreen(true);
 		}
@@ -428,7 +428,7 @@ if (inEditor)
 						_ent.y=yy*TILE_SIZE;
 						_ent._type=entity_selected;
 						_ent.update_entity();
-						//tilemap_set(collision_tiles,2,xx,yy);
+						tilemap_set(collision_tiles,2,xx,yy);
 						}
 					else
 						{
@@ -452,7 +452,6 @@ if (inEditor)
 					entity_info_window_x= current_ent.x+ 16;
 					entity_info_window_y= current_ent.y;
 					}
-				
 				}
 			}
 		}

@@ -58,7 +58,7 @@
 		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+36,"X SCREENS: " + string(level_x),1,1,0);
 		//DRAW HEIGHT OF LEVEL (IN SCREENS)
 		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+36,"Y SCREENS: " + string(level_y),1,1,0);
-		//DRAW THEME OF LEVEL (IN SCREENS)
+		//DRAW THEME OF LEVEL
 		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+48,"THEME: " + string(theme_out),1,1,0);
 		//DRAW LEVEL ATTRIBUTE
 		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+60,"TYPE: " + string(attr_out),1,1,0);
@@ -243,27 +243,15 @@
 #endregion
 
 #region DRAW MAP
-
-//var str="ELSEWHERE";
-//var strw=string_width(str);
-//var test_window=scr_create_window((strw-1)+12,16,true);
-//pal_swap_set(spr_theme_win_pal,THEME.DESERT,false);
-//draw_sprite(test_window,0,100,64)
-//pal_swap_reset();
-//scr_text_button(114,76,str);
-
-
-//var str2="ELSEWHERE 23";
-//var strw=string_width(str2);
-//var test_window2=scr_create_window((strw-1)+12,16,true);
-//pal_swap_set(spr_theme_win_pal,THEME.CAVE,false);
-//draw_sprite(test_window2,0,100,112)
-//pal_swap_reset();
-//scr_text_button(114,124,str2);
-
+if (map_window_visible)
+	{
+	draw_sprite(map_window,0,map_window_x,map_window_y);
+	draw_text(map_window_x+map_window_w/2+(8),map_window_y+8,"GAME MAP");	
+	scr_draw_map();
+	}
 #endregion
 
-#region Draw Debug Info
+#region DRAW DEBUGGING INFORMATION
 if (debug)
 	{
 	#region DRAW WINDOW SCALING TEXT
@@ -323,7 +311,7 @@ if (debug)
 	draw_text_transformed(0,116,"WINDOW HEIGHT: " + string(window_get_height()),1,1,0);
 	draw_text_transformed(0,125,"FPS: " + string(fps),1,1,0);
 	draw_text_transformed(0,134,"CAN PLACE TILE/OBJECT?: " + string(_cpltxt),1,1,0);
-	draw_text_transformed(0,143,"CAN CURRENT TILE: " + string(current_tile),1,1,0);
+	draw_text_transformed(0,143,"CURRENT TILE: " + string(current_tile),1,1,0);
 	
 	#endregion
 	}

@@ -24,7 +24,7 @@ enum THEME
 	WOODS,
 	CITY
 	}
-	//test
+	
 enum ATTRIBUTE
 	{
 	NORMAL,
@@ -71,7 +71,7 @@ function entity() constructor
 	opt5="";
 	var1=0;
 	var2=0;
-	var3=4;
+	var3=0;
 	var4=0;
 	var5=0;
 	
@@ -94,7 +94,6 @@ function entity() constructor
 			opt1="Hidden: ";
 			opt2="Disguised: ";
 			opt3="Prize: ";
-			opt4="Helmet Type: ";
 			break;
 			case 1: 
 			sprite=spr_rock;
@@ -103,12 +102,19 @@ function entity() constructor
 			break;
 			case 2: 
 			sprite=spr_iron;
-			name="Iron Block";
 			opt1="Hidden: ";
 			opt2="Left Drill";
 			opt3="Down Drill";
 			opt4="Right Drill";
 			opt5="Up Drill";
+			if var2==0 && var3==0 && var4==0 && var5==0
+				{
+				name="Iron Block";
+				}
+			else
+				{
+				name="Drill Block";
+				}
 			break;
 			case 3: 
 			sprite=spr_ice
@@ -139,29 +145,52 @@ function entity() constructor
 			sprite=spr_ghost;
 			name="Ghost Block";
 			opt1="Hidden: ";
-			opt2="Disappear Time";
-			opt3="Appear Time";
+			opt2="Disappear Time: ";
+			opt3="Appear Time: ";
+			opt4="Delay Time: ";
 			break;
 			case 11: 
 			sprite=spr_h_platform;
-			name="Horizontal Platform";
+			//name="Horizontal Platform";
 			opt1="Type: ";
 			opt2="Length: ";
+			if var1==0
+				{
+				name="Horizontal Platform";
+				}
+			else
+				{
+				name="Horizontal Fake Steel";
+				}
 			break;
 			case 12: 
 			sprite=spr_v_platform;
-			name="Vertical Platform";
 			opt1="Type: ";
 			opt2="Height: ";
+			if var1==0
+				{
+				name="Vertical Platform";
+				}
+			else
+				{
+				name="Vertical Fake Steel";
+				}
 			break;
 			case 13: 
 			sprite=spr_vanishing;
-			name="Vanishing Block";
 			opt1="Hidden: ";
 			opt2="Left Cannon: ";
 			opt3="Down Cannon: ";
 			opt4="Right Cannon: ";
 			opt5="Up Cannon: ";
+			if var2==0 && var3==0 && var4==0 && var5==0
+				{
+				name="Vanishing Block";
+				}
+			else
+				{
+				name="Shooting Block";
+				}
 			break;
 			case 14: 
 			sprite=spr_teleporter;
@@ -181,19 +210,19 @@ function entity() constructor
 		
 	#region DRAW EVENT
 	function draw_entity() {
-			
+	//var _i;
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
 	pal_swap_set(spr_theme_pal,obj_system.level_theme-1,false);
 	
 	draw_sprite(sprite,0,x,y);
 	
-	if _type=11
+	if _type==11
 		{
-		var _ext=0;
+		var _i;
 		draw_sprite(sprite,0,x,y);
 		if var2>0
 			{
-			for(var _i=0; _i<var2; _i++)
+			for(_i=0; _i<var2; _i++)
 				{
 				draw_sprite(sprite,1,x+16+(16*_i),y);
 				}
@@ -201,13 +230,13 @@ function entity() constructor
 		draw_sprite_ext(sprite,2,x+16+(16*_i),y,1,1,0,c_white,1)
 		}
 	
-	if _type=12
+	if _type==12
 		{
-		var _ext=0;
+		var _i;
 		draw_sprite(sprite,0,x,y);
 		if var2>0
 			{
-			for(var _i=0; _i<var2; _i++)
+			for(_i=0; _i<var2; _i++)
 				{
 				draw_sprite(sprite,1,x,y+16+(16*_i));
 				}
@@ -215,12 +244,11 @@ function entity() constructor
 		draw_sprite_ext(sprite,2,x,y+16+(16*_i),1,1,0,c_white,1)
 		}
 		
-	if _type=14
+	if _type==14
 		{
 		draw_sprite(sprite,0,x,y);
 		draw_sprite_ext(sprite,0,x+32,y,-1,1,0,c_white,1)
 		}
-	
 	
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
 	pal_swap_reset();
@@ -275,7 +303,7 @@ view_width=320;
 view_height=224;
 
 //window scale
-window_scale=1;
+window_scale=2;
 prev_scale=window_scale;
 
 //view zoom
@@ -313,6 +341,18 @@ fade_alpha=0;
 
 #region GAME MAP
 game_map=ds_list_create();
+map_window_x=0;
+map_window_y=0;
+map_window_w=304;
+map_window_h=208;
+map_window=scr_create_window(map_window_w,map_window_h,false);
+within_map_window=false;
+map_window_visible=true;
+ds_list_add(game_map,"Blue Lake Woods I");
+ds_list_add(game_map,"Blue Lake Woods II");
+ds_list_add(game_map,"Highwater Pass I");
+ds_list_add(game_map,"Highwater Pass II");
+
 #endregion
 
 #region INTRO DEMO SET UP (CURRENTLY DISABLED)

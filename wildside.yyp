@@ -112,6 +112,7 @@
     {"id":{"name":"pal_swap_set","path":"scripts/pal_swap_set/pal_swap_set.yy",},},
     {"id":{"name":"scr_back_get_color","path":"scripts/scr_back_get_color/scr_back_get_color.yy",},},
     {"id":{"name":"scr_create_window","path":"scripts/scr_create_window/scr_create_window.yy",},},
+    {"id":{"name":"scr_draw_map","path":"scripts/scr_draw_map/scr_draw_map.yy",},},
     {"id":{"name":"scr_entity_display","path":"scripts/scr_entity_display/scr_entity_display.yy",},},
     {"id":{"name":"scr_init_fonts","path":"scripts/scr_init_fonts/scr_init_fonts.yy",},},
     {"id":{"name":"scr_init_scrollbars","path":"scripts/scr_init_scrollbars/scr_init_scrollbars.yy",},},

@@ -30,6 +30,8 @@ function scr_create_window(argument0, argument1, argument2)
 
 	surface_set_target(window);
 
+	//BLACK BACKGROUND
+	draw_rectangle_color(xx+8,yy+8,length+8,height+8,c_black,c_black,c_black,c_black,false)
 
 	//WINDOW SCREEN
 	for(i=0; i<length; i+=2)
