@@ -19,7 +19,7 @@ if keyboard_check_pressed(vk_f2)
 		
 		prev_scale=window_scale;
 		
-		if window_scale==7
+		if window_scale==window_max_scale
 		window_set_fullscreen(false);
 		
 		window_scale--;
@@ -31,7 +31,7 @@ if keyboard_check_pressed(vk_f2)
 	
 if keyboard_check_pressed(vk_f3)
 	{
-	if window_scale<=6
+	if window_scale<=window_max_scale-1
 		{
 		prev_scale=window_scale;
 		window_scale++;
@@ -40,28 +40,42 @@ if keyboard_check_pressed(vk_f3)
 		alarm[0]=1;
 		}
 		
-if window_scale==7
+	if window_scale==window_max_scale
 		{
 		window_set_fullscreen(true);
+		//display_set_gui_size(1280,896);
 		}
 	}
 #endregion
 
 #region FULLSCREEN TOGGLE
+
 if keyboard_check_pressed(vk_f11)
 	{
-	fullscreen=!fullscreen;	
+	//if (window_get_fullscreen())
+	//	{
+	//	window_set_fullscreen(false);
+	//	}
+	//else
+	//	{
+	//	window_set_fullscreen(true);	
+	//	}
 	}
 
-if (fullscreen==true)
+if (window_get_fullscreen())
 	{
-	display_set_gui_size(display_get_width()/3,display_get_height()/3);
-	surface_resize(application_surface,display_get_width(),display_get_height());
+	//prev_scale=window_scale;
+	//window_scale=window_max_scale;
+	//display_set_gui_size(1280,896);
+//	display_set_gui_size(display_get_width()/3,display_get_height()/3);
+//	surface_resize(application_surface,display_get_width(),display_get_height());
 	}
 else
 	{
-	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
-	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
+	//window_scale=
+	//display_set_gui_size(320,224);
+//	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
+//	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
 	}
 #endregion
 
@@ -188,27 +202,47 @@ if (keyboard_check_pressed(vk_end))
 	}
 #endregion
 
+#region SAVE LEVEL
+	// Check if Ctrl is held AND S is pressed
+	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+    && keyboard_check_pressed(ord("S"))) 
+		{
+	    // Do whatever you want when Ctrl+S is pressed
+	    save_level();
+		}
+#endregion
+
+#region LOAD LEVEL
+	// Check if Ctrl is held AND S is pressed
+	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+    && keyboard_check_pressed(ord("L"))) 
+		{
+	    // Do whatever you want when Ctrl+S is pressed
+	    load_level("bagel_brothers.bin");
+		}
+#endregion
+
 #region SAVE TILEMAP
-if keyboard_check_pressed(vk_insert)
-	{
-	for (var j=0; j<room_height/16; j++)
-	    {
-	    for (var i=0; i<room_width/16; i++)
-	        {
-			tile=tilemap_get_at_pixel(collision_tiles,i*TILE_SIZE,j*TILE_SIZE)
-	        if tile!=-1
-	            {
-	            //var t_left=layer_tilemap_get_id(collision_tiles);
-	            ds_grid_set(room_grid,i,j,tile);
-	            show_debug_message("TILE ID: "+ string(tile) + "   CELL VALUE: " + string(ds_grid_get(room_grid,i,j)));
-	            }
-	        else
-	            {
-	            //show_debug_message("TILE X: 0" + "   TILE Y: 0" + "   CELL VALUE: 00");
-	            }
-	        }
-	    }	
-	}
+//if keyboard_check_pressed(vk_insert)
+//	{
+//	for (var j=0; j<room_height/16; j++)
+//	    {
+//	    for (var i=0; i<room_width/16; i++)
+//	        {
+//			tile=tilemap_get_at_pixel(collision_tiles,i*TILE_SIZE,j*TILE_SIZE)
+//	        if tile!=-1
+//	            {
+//	            //var t_left=layer_tilemap_get_id(collision_tiles);
+//	            ds_grid_set(room_grid,i,j,tile);
+//	            show_debug_message("TILE ID: "+ string(tile) + "   CELL VALUE: " + string(ds_grid_get(room_grid,i,j)));
+//	            }
+//	        else
+//	            {
+//	            //show_debug_message("TILE X: 0" + "   TILE Y: 0" + "   CELL VALUE: 00");
+//	            }
+//	        }
+//	    }	
+//	}
 #endregion
 
 #region TOGGLE CURRENT TILE LAYER
@@ -388,6 +422,17 @@ else
 		{
 		entity_window_x=(entity_window_x-1);
 		}
+	}
+#endregion
+
+#region
+if entity_selected==7 || entity_selected==8 || entity_selected==16 || entity_selected==17
+	{
+	layer_set_visible(collision_layer,true);
+	}
+	else
+	{
+	layer_set_visible(collision_layer,false);	
 	}
 #endregion
 

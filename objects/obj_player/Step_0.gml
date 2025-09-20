@@ -1,5 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
+
+obj_system.start_x=x;
+obj_system.start_y=y;
+
+
+#region PLATFORMING CODE
 if ((keyboard_check(vk_right) - keyboard_check(vk_left)) != 0 )
 dir=keyboard_check(vk_right) - keyboard_check(vk_left);
 
@@ -17,6 +23,8 @@ if grav > 10
 grav=10;
 
 //y=y+grav;
+#endregion
+
 
 p_pal=clamp(p_pal,0,1);
 

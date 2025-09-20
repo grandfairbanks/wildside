@@ -1,12 +1,23 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-#region CREATE BACKGROUND COLOR OBJECT
-instance_create_depth(0,0,4,obj_bkg_col);
+#region EDITOR PROPERTIES
+mode=0;
+
+if !directory_exists("Settings")
+directory_create("Settings");
+
+if !directory_exists("Levels")
+directory_create("Levels");
+
 #endregion
 
 #region DEBUG
 debug=false;
+#endregion
+
+#region CREATE BACKGROUND COLOR OBJECT
+instance_create_depth(0,0,4,obj_bkg_col);
 #endregion
 
 #region LEVEL PROPERTIES
@@ -37,21 +48,202 @@ enum ATTRIBUTE
 	FINAL
 	}
 
-level_num=-1;
-level_name="LEVEL NAME";
+level_num=0;
+level_name="TEST LEVEL";
 level_x=room_width/SCREEN_WIDTH;
 level_y=room_height/SCREEN_HEIGHT;
 level_theme=THEME.SKY;
 level_attr=ATTRIBUTE.NORMAL;
-start_x=-1;
-start_y=-1;
-end_x=-1;
-end_y=-1;
-flag_exists=false;
+start_x=0;
+start_y=0;
+end_x=0;
+end_y=0;
 level_par=0;
 path_bonus=0;
+
+
 total_screens=(level_x*level_y);
 grid_size=(level_x*TILE_SIZE)+(level_y*TILE_SIZE);
+flag_exists=false;
+speed_bonus=10000;
+min_bonus=1000;
+sec_bonus=10;
+no_prize=5000;
+#endregion
+
+#region SAVE LEVEL
+function save_level()
+	{
+	// Enforce max combined screens
+    if (level_x + level_y > 30) 
+		{
+        show_error("Level exceeds maximum allowed screens (30 total)!", true);
+        return;
+		}
+		
+	var _level_num=42;
+	var _level_name="BAGEL BROTHERS";
+	var _level_x=room_width/SCREEN_WIDTH;
+	var _level_y=room_height/SCREEN_HEIGHT;
+	var _level_theme=THEME.CITY;
+	var _level_attr=ATTRIBUTE.BOSS;
+	var _level_par=220;
+	var _path_bonus=0;
+		
+	//CREATE LEVEL BUFFER
+	var _buf = buffer_create(256, buffer_grow, 1);
+
+    /// START LEVEL HEADER ///
+	
+	//WRITE THE LEVEL NUMBER TO THE BUFFER
+    buffer_write(_buf, buffer_u32, _level_num);
+	
+	// Fixed 30-character name
+    var _name_fixed = string_copy(_level_name, 1, 30);
+    var _name_len = string_length(_name_fixed);
+    for (var i = 1; i <= 30; i++) 
+		{
+        if (i <= _name_len) 
+			{
+            buffer_write(_buf, buffer_u8, ord(string_char_at(_name_fixed, i)));
+			} 
+		else 
+			{
+            buffer_write(_buf, buffer_u8, 0); // pad with nulls
+			}
+		}
+		
+	// Remaining header fields
+    buffer_write(_buf, buffer_u16, _level_x);
+    buffer_write(_buf, buffer_u16, _level_y);
+    buffer_write(_buf, buffer_u8, _level_theme); // THEME enum
+    buffer_write(_buf, buffer_u8, _level_attr);  // ATTRIBUTE enum
+    buffer_write(_buf, buffer_u16, _level_par);
+    buffer_write(_buf, buffer_u16, _path_bonus);
+	
+	/// END LEVEL HEADER ///
+	
+	/// WRITE BACKGROUND, FOREGROUND, AND COLLISION TILEMAPS ///
+	var tiles_x = room_width div 16;
+	var tiles_y = room_height div 16;
+
+	for (var _y = 0; _y < tiles_y - 1; _y++) 
+		{
+	    for (var _x = 0; _x < tiles_x - 1; _x++) 
+			{
+	        // Collision
+	        buffer_write(_buf, buffer_u8, tilemap_get(collision_tiles, _x, _y));
+        
+	        // Background
+	        buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_b, _x, _y));
+        
+	        // Foreground
+	        buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_f, _x, _y));
+			/*
+			// Entities (Blocks/Enemies/Player)
+			var _ent=ds_grid_get(entity_grid,_x,_y)
+			if _ent!=-4
+				{
+				buffer_write(_buf, buffer_u8, _ent._type);
+				buffer_write(_buf, buffer_u8, _ent.sprite);
+				buffer_write(_buf, buffer_u8, _ent.var1);
+				buffer_write(_buf, buffer_u8, _ent.var2);
+				buffer_write(_buf, buffer_u8, _ent.var3);
+				buffer_write(_buf, buffer_u8, _ent.var4);
+				buffer_write(_buf, buffer_u8, _ent.var5);
+				}
+			else
+				{
+				buffer_write(_buf, buffer_u8, -4);
+				}
+			*/
+			}
+		}
+	
+	// Save buffer to file (filename based on level_num)
+	var _safe_name = string_replace_all(_level_name, " ", "_"); // optional
+	var _filename = "levels/" + _safe_name + ".bin";
+	buffer_save(_buf, _filename);
+	}
+#endregion
+
+#region LOAD LEVEL
+function load_level(_filename) 
+	{
+    if (!file_exists("levels/"+string(_filename))) 
+		{
+        show_error("Level file not found: " + _filename, true);
+        return;
+		}
+	else
+		{
+		show_debug_message("LEVEL FILE FOUND");	
+		}
+
+	tilemap_clear(collision_layer,0);
+	tilemap_clear(terrain_tiles_b,0);
+	tilemap_clear(terrain_tiles_f,0);
+	ds_grid_clear(entity_grid,-4)
+	
+    var _buf = buffer_load("levels/"+string(_filename));
+
+    // --- Read Header ---
+    level_num = buffer_read(_buf, buffer_u32);
+
+    // Read fixed 30-character name
+    var _name_chars = "";
+    for (var _i = 1; _i <= 30; _i++) 
+		{
+        var _c = buffer_read(_buf, buffer_u8);
+        if (_c != 0) _name_chars += chr(_c);
+		}
+		
+    level_name = _name_chars;
+
+    // Remaining header fields
+    level_x = buffer_read(_buf, buffer_u16);
+    level_y = buffer_read(_buf, buffer_u16);
+    level_theme = buffer_read(_buf, buffer_u8);
+    level_attr = buffer_read(_buf, buffer_u8);
+	scr_update_theme();
+    level_par = buffer_read(_buf, buffer_u16);
+    path_bonus = buffer_read(_buf, buffer_u16);
+	
+    // --- Read Tilemaps ---
+    var _tiles_x = room_width div 16;
+    var _tiles_y = room_height div 16;
+
+    for (var _y = 0; _y < _tiles_y - 1; _y++) 
+		{
+        for (var _x = 0; _x < _tiles_x - 1; _x++) 
+			{
+            var _coll = buffer_read(_buf, buffer_u8);
+            var _bg   = buffer_read(_buf, buffer_u8);
+            var _fg   = buffer_read(_buf, buffer_u8);
+			//var _type  = buffer_read(_buf, buffer_u8);
+
+            tilemap_set(collision_tiles, _x, _y, _coll);
+            tilemap_set(terrain_tiles_b, _x, _y, _bg);
+            tilemap_set(terrain_tiles_f, _x, _y, _fg);
+			/*
+			if _type!=-4
+				{
+				ds_grid_set(entity_grid,_x,_y,new entity() );
+				var _ent = ds_grid_get(entity_grid,_x,_y);
+				_ent._type = _type;
+				_ent.sprite = buffer_read(_buf, buffer_u8);
+				_ent.var1 = buffer_read(_buf, buffer_u8);
+				_ent.var2 = buffer_read(_buf, buffer_u8);
+				_ent.var3 = buffer_read(_buf, buffer_u8);
+				_ent.var4 = buffer_read(_buf, buffer_u8);
+				_ent.var5 = buffer_read(_buf, buffer_u8);
+				}
+			*/
+			}
+		}
+	
+    buffer_delete(_buf);
+	}
 #endregion
 
 #region ENTITY/OBJECT STRUCT
@@ -261,8 +453,8 @@ function entity() constructor
 #endregion
 
 #region CREATE ENTITY GRID
-entity_grid=ds_grid_create(room_width/16,room_height/16);
-ds_grid_set_region(entity_grid,0,0,room_width/16,room_height/16,-4);
+entity_grid=ds_grid_create(room_width div 16,room_height div 16);
+ds_grid_set_region(entity_grid,0,0,room_width div 16,room_height div 16,-4);
 current_ent=undefined;
 #endregion
 
@@ -279,22 +471,15 @@ collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/T
 terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
 terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
 
+tilemap_clear(collision_layer,0);
+tilemap_clear(terrain_tiles_b,0);
+tilemap_clear(terrain_tiles_f,0);
+
 room_grid=ds_grid_create(room_width/TILE_SIZE,room_height/TILE_SIZE);
 #endregion
 
-#region EDITOR PROPERTIES
-mode=0;
-
-if !directory_exists("Settings")
-directory_create("Settings");
-
-if !directory_exists("Levels")
-directory_create("Levels");
-
-#endregion
-
 #region VIEW SET UP
-alarm[0]=1; //center the window
+
 fullscreen=window_get_fullscreen();
 //ideal width
 view_width=320;
@@ -305,7 +490,7 @@ view_height=224;
 //window scale
 window_scale=2;
 prev_scale=window_scale;
-
+window_max_scale=5;
 //view zoom
 view_zoom=1;
 view_max_zoom=10;
@@ -347,12 +532,16 @@ map_window_w=304;
 map_window_h=208;
 map_window=scr_create_window(map_window_w,map_window_h,false);
 within_map_window=false;
-map_window_visible=true;
-ds_list_add(game_map,"Blue Lake Woods I");
-ds_list_add(game_map,"Blue Lake Woods II");
-ds_list_add(game_map,"Highwater Pass I");
-ds_list_add(game_map,"Highwater Pass II");
-
+map_window_visible=false;
+scr_create_orig_map();
+level_windows = ds_list_create();
+for (var _i=0; _i<ds_list_size(game_map); _i++) 
+	{
+    var _str = ds_list_find_value(game_map, _i);
+    var _strw = string_width(_str);
+    var _level_window = scr_create_window((_strw-1)+12, 16, true);
+    ds_list_add(level_windows, _level_window);
+	}
 #endregion
 
 #region INTRO DEMO SET UP (CURRENTLY DISABLED)

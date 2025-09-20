@@ -114,6 +114,8 @@ if (canPlace==true)
 	draw_set_alpha(0.5);
 	draw_rectangle_color(xx,yy,xx+15,yy+15,c_white,c_white,c_white,c_white,false);
 	draw_set_alpha(1);
+	draw_text(xx,yy,"X: " + string(xx));
+	draw_text(xx,yy+8,"Y: " + string(yy));
 	}
 	else
 	{	

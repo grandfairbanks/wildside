@@ -49,6 +49,7 @@
 			 case 9: theme_out="Woods"; break;
 			case 10: theme_out="City"; break;
 			}
+			
 		var txt_x=9, txt_x2=112;
 		//DRAW WINDOW TITLE
 		draw_text(room_info_window_x+48,room_info_window_y+9,"LEVEL INFORMATION");
@@ -258,18 +259,20 @@ if (debug)
 	var _scale, _pscale, _itxt, _etxt, _gtxt, _cpltxt;
 	switch(window_scale)
 		{
+		default: _scale=string(window_scale)+"X SCALE"; break
 		case 1: _scale="1X SCALE"; break;
 		case 2: _scale="2X SCALE"; break;
 		case 3: _scale="3X SCALE"; break;
-		case 4: _scale="FULLSCREEN"; break;
+		case 4: _scale="4X SCALE"; break;
 		}
 	
 	switch(prev_scale)
 		{
+		default: _pscale=string(window_scale)+"X SCALE"; break
 		case 1: _pscale="1X SCALE"; break;
 		case 2: _pscale="2X SCALE"; break;
 		case 3: _pscale="3X SCALE"; break;
-		case 4: _pscale="FULLSCREEN"; break;
+		case 4: _pscale="4X SCALE"; break;
 		}
 		
 	switch(inIntro)

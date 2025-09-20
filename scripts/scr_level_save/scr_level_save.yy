@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_init_scrollbars",
+  "%Name":"scr_level_save",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_init_scrollbars",
+  "name":"scr_level_save",
   "parent":{
-    "name":"Inits",
-    "path":"folders/Scripts/Inits.yy",
+    "name":"Editor",
+    "path":"folders/Scripts/Editor.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

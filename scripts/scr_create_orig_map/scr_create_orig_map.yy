@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_init_scrollbars",
+  "%Name":"scr_create_orig_map",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_init_scrollbars",
+  "name":"scr_create_orig_map",
   "parent":{
-    "name":"Inits",
-    "path":"folders/Scripts/Inits.yy",
+    "name":"Scripts",
+    "path":"folders/Scripts.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
