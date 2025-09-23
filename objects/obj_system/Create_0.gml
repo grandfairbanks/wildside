@@ -1,6 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+
 #region EDITOR PROPERTIES
 mode=0;
 
@@ -132,17 +133,23 @@ function save_level()
 	    for (var _x = 0; _x < tiles_x - 1; _x++) 
 			{
 	        // Collision
-	        buffer_write(_buf, buffer_u8, tilemap_get(collision_tiles, _x, _y));
+			//show_debug_message("COLLISION TILE: " + string(tilemap_get(collision_tiles, _x, _y)));
+	        //buffer_write(_buf, buffer_u8, tilemap_get(collision_tiles, _x, _y));
         
 	        // Background
-	        buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_b, _x, _y));
+	        //buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_b, _x, _y));
         
 	        // Foreground
-	        buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_f, _x, _y));
-			/*
+	        //buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_f, _x, _y));
+			
 			// Entities (Blocks/Enemies/Player)
-			var _ent=ds_grid_get(entity_grid,_x,_y)
-			if _ent!=-4
+			var _ent=ds_grid_get(entity_grid,_x,_y);
+			if _ent==255
+				{
+				buffer_write(_buf, buffer_u8, 255);
+				show_debug_message("NO ENTITY (255) DETECTED AT " + string(_x) + "/" + string(_y) + " .");
+				}
+			else
 				{
 				buffer_write(_buf, buffer_u8, _ent._type);
 				buffer_write(_buf, buffer_u8, _ent.sprite);
@@ -151,12 +158,9 @@ function save_level()
 				buffer_write(_buf, buffer_u8, _ent.var3);
 				buffer_write(_buf, buffer_u8, _ent.var4);
 				buffer_write(_buf, buffer_u8, _ent.var5);
+				show_debug_message("ENTITY " + string(_ent._type) + " (" + string(_ent.name) + ")" + " SAVED AT " + string(_x) + "/" + string(_y) + " .");
 				}
-			else
-				{
-				buffer_write(_buf, buffer_u8, -4);
-				}
-			*/
+			
 			}
 		}
 	
@@ -183,7 +187,7 @@ function load_level(_filename)
 	tilemap_clear(collision_layer,0);
 	tilemap_clear(terrain_tiles_b,0);
 	tilemap_clear(terrain_tiles_f,0);
-	ds_grid_clear(entity_grid,-4)
+	ds_grid_clear(entity_grid,255)
 	
     var _buf = buffer_load("levels/"+string(_filename));
 
@@ -217,28 +221,35 @@ function load_level(_filename)
 		{
         for (var _x = 0; _x < _tiles_x - 1; _x++) 
 			{
-            var _coll = buffer_read(_buf, buffer_u8);
-            var _bg   = buffer_read(_buf, buffer_u8);
-            var _fg   = buffer_read(_buf, buffer_u8);
-			//var _type  = buffer_read(_buf, buffer_u8);
-
-            tilemap_set(collision_tiles, _x, _y, _coll);
-            tilemap_set(terrain_tiles_b, _x, _y, _bg);
-            tilemap_set(terrain_tiles_f, _x, _y, _fg);
-			/*
-			if _type!=-4
+           // var _coll = buffer_read(_buf, buffer_u8);
+          //  var _bg   = buffer_read(_buf, buffer_u8);
+          //  var _fg   = buffer_read(_buf, buffer_u8);
+			  var _type  = buffer_read(_buf, buffer_u8);
+			//show_debug_message("LOAD COLLISION TILE: " + string(_coll));
+            //tilemap_set(collision_tiles, _coll, _x, _y);
+         //   tilemap_set(terrain_tiles_b, _bg, _x, _y);
+          //  tilemap_set(terrain_tiles_f, _fg, _x, _y);
+			
+			if (_type == 255)
+				{
+				show_debug_message("NO ENTITY CREATED");
+				}
+			else
 				{
 				ds_grid_set(entity_grid,_x,_y,new entity() );
 				var _ent = ds_grid_get(entity_grid,_x,_y);
 				_ent._type = _type;
+				
 				_ent.sprite = buffer_read(_buf, buffer_u8);
 				_ent.var1 = buffer_read(_buf, buffer_u8);
 				_ent.var2 = buffer_read(_buf, buffer_u8);
 				_ent.var3 = buffer_read(_buf, buffer_u8);
 				_ent.var4 = buffer_read(_buf, buffer_u8);
 				_ent.var5 = buffer_read(_buf, buffer_u8);
+				show_debug_message("ENTITY " + string(_ent._type) + string(_ent.name) + " FOUND AT " + string(_x) + "/" + string(_y));
+				_ent.update_entity()
 				}
-			*/
+			
 			}
 		}
 	
@@ -454,7 +465,7 @@ function entity() constructor
 
 #region CREATE ENTITY GRID
 entity_grid=ds_grid_create(room_width div 16,room_height div 16);
-ds_grid_set_region(entity_grid,0,0,room_width div 16,room_height div 16,-4);
+ds_grid_set_region(entity_grid,0,0,room_width div 16,room_height div 16,255);
 current_ent=undefined;
 #endregion
 
@@ -462,7 +473,7 @@ current_ent=undefined;
 collision_layer=layer_create(-2);
 terrain_back_layer=layer_create(1);
 terrain_front_layer=layer_create(0);
-
++
 tile_theme_surface=-4
 ent_display_surface=-4
 scr_update_theme();
