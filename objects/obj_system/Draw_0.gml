@@ -14,7 +14,7 @@ for (var i=0; i<room_width/16; i++)
 		{
 		var _ent_struct=ds_grid_get(entity_grid,i,j)
 		
-		if _ent_struct!=-4
+		if _ent_struct!=255
 		_ent_struct.draw_entity();	
 		else
 		{}

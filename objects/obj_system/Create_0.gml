@@ -62,7 +62,6 @@ end_y=0;
 level_par=0;
 path_bonus=0;
 
-
 total_screens=(level_x*level_y);
 grid_size=(level_x*TILE_SIZE)+(level_y*TILE_SIZE);
 flag_exists=false;
@@ -74,187 +73,195 @@ no_prize=5000;
 
 #region SAVE LEVEL
 function save_level()
-	{
-	// Enforce max combined screens
-    if (level_x + level_y > 30) 
-		{
+{
+    // Enforce max combined screens
+    if (level_x + level_y > 30) {
         show_error("Level exceeds maximum allowed screens (30 total)!", true);
         return;
-		}
-		
-	var _level_num=42;
-	var _level_name="BAGEL BROTHERS";
-	var _level_x=room_width/SCREEN_WIDTH;
-	var _level_y=room_height/SCREEN_HEIGHT;
-	var _level_theme=THEME.CITY;
-	var _level_attr=ATTRIBUTE.BOSS;
-	var _level_par=220;
-	var _path_bonus=0;
-		
-	//CREATE LEVEL BUFFER
-	var _buf = buffer_create(256, buffer_grow, 1);
+    }
 
-    /// START LEVEL HEADER ///
-	
-	//WRITE THE LEVEL NUMBER TO THE BUFFER
+    var _level_num   = 42;
+    var _level_name  = "BAGEL BROTHERS";
+    var _level_x     = room_width / SCREEN_WIDTH;
+    var _level_y     = room_height / SCREEN_HEIGHT;
+    var _level_theme = THEME.CITY;
+    var _level_attr  = ATTRIBUTE.BOSS;
+    var _level_par   = 220;
+    var _path_bonus  = 0;
+
+    // Create buffer
+    var _buf = buffer_create(256, buffer_grow, 1);
+
+    /// --- LEVEL HEADER ---
     buffer_write(_buf, buffer_u32, _level_num);
-	
-	// Fixed 30-character name
+
+    // Fixed 30-character name
     var _name_fixed = string_copy(_level_name, 1, 30);
-    var _name_len = string_length(_name_fixed);
-    for (var i = 1; i <= 30; i++) 
-		{
-        if (i <= _name_len) 
-			{
+    var _name_len   = string_length(_name_fixed);
+    for (var i = 1; i <= 30; i++) {
+        if (i <= _name_len) {
             buffer_write(_buf, buffer_u8, ord(string_char_at(_name_fixed, i)));
-			} 
-		else 
-			{
-            buffer_write(_buf, buffer_u8, 0); // pad with nulls
-			}
-		}
-		
-	// Remaining header fields
+        } else {
+            buffer_write(_buf, buffer_u8, 0);
+        }
+    }
+
     buffer_write(_buf, buffer_u16, _level_x);
     buffer_write(_buf, buffer_u16, _level_y);
-    buffer_write(_buf, buffer_u8, _level_theme); // THEME enum
-    buffer_write(_buf, buffer_u8, _level_attr);  // ATTRIBUTE enum
+    buffer_write(_buf, buffer_u8,  _level_theme);
+    buffer_write(_buf, buffer_u8,  _level_attr);
     buffer_write(_buf, buffer_u16, _level_par);
     buffer_write(_buf, buffer_u16, _path_bonus);
-	
-	/// END LEVEL HEADER ///
-	
-	/// WRITE BACKGROUND, FOREGROUND, AND COLLISION TILEMAPS ///
-	var tiles_x = room_width div 16;
-	var tiles_y = room_height div 16;
 
-	for (var _y = 0; _y < tiles_y - 1; _y++) 
-		{
-	    for (var _x = 0; _x < tiles_x - 1; _x++) 
-			{
-	        // Collision
-			//show_debug_message("COLLISION TILE: " + string(tilemap_get(collision_tiles, _x, _y)));
-	        //buffer_write(_buf, buffer_u8, tilemap_get(collision_tiles, _x, _y));
-        
-	        // Background
-	        //buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_b, _x, _y));
-        
-	        // Foreground
-	        //buffer_write(_buf, buffer_u8, tilemap_get(terrain_tiles_f, _x, _y));
+    /// --- TILEMAP + ENTITY DATA ---
+    var tiles_x = room_width div 16;
+    var tiles_y = room_height div 16;
+
+    for (var _y = 0; _y < tiles_y - 1; _y++) {
+        for (var _x = 0; _x < tiles_x - 1; _x++) {
+
+			// Collision 
 			
-			// Entities (Blocks/Enemies/Player)
-			var _ent=ds_grid_get(entity_grid,_x,_y);
-			if _ent==255
-				{
-				buffer_write(_buf, buffer_u8, 255);
-				show_debug_message("NO ENTITY (255) DETECTED AT " + string(_x) + "/" + string(_y) + " .");
-				}
-			else
-				{
-				buffer_write(_buf, buffer_u8, _ent._type);
-				buffer_write(_buf, buffer_u8, _ent.sprite);
-				buffer_write(_buf, buffer_u8, _ent.var1);
-				buffer_write(_buf, buffer_u8, _ent.var2);
-				buffer_write(_buf, buffer_u8, _ent.var3);
-				buffer_write(_buf, buffer_u8, _ent.var4);
-				buffer_write(_buf, buffer_u8, _ent.var5);
-				show_debug_message("ENTITY " + string(_ent._type) + " (" + string(_ent.name) + ")" + " SAVED AT " + string(_x) + "/" + string(_y) + " .");
-				}
+			var colout, col, bg, fg;
+			col = tilemap_get(collision_tiles, _x, _y);
+			bg = tilemap_get(terrain_tiles_b, _x, _y);
+			fg = tilemap_get(terrain_tiles_f, _x, _y);
 			
-			}
-		}
-	
-	// Save buffer to file (filename based on level_num)
-	var _safe_name = string_replace_all(_level_name, " ", "_"); // optional
-	var _filename = "levels/" + _safe_name + ".bin";
-	buffer_save(_buf, _filename);
-	}
+			if col == 0
+			colout = "NO ";
+			if col == 1
+			colout = 
+			
+			show_debug_message(string(colout) + "COLLISION TILE: " + " FOUND AT " + string(_x) + "/"  + string(_y)); 
+			buffer_write(_buf, buffer_u8, col); 
+			// Background
+			show_debug_message("BACKGROUND TILE: " + string(bg) + " found at " + string(_x) + "/"  + string(_y));
+			buffer_write(_buf, buffer_u8, bg); 
+			// Foreground
+			show_debug_message("FOREGROUND TILE: " + string(fg) + " found at " + string(_x) + "/"  + string(_y));
+			buffer_write(_buf, buffer_u8, fg);
+
+            // Entities (Blocks/Enemies/Player)
+            var _ent = ds_grid_get(entity_grid, _x, _y);
+
+            if (_ent == 255) {
+                // Write "empty entity" placeholder (still 7 bytes!)
+                buffer_write(_buf, buffer_u8, 255); // type
+                buffer_write(_buf, buffer_u8, 0);   // sprite
+                buffer_write(_buf, buffer_u8, 0);   // var1
+                buffer_write(_buf, buffer_u8, 0);   // var2
+                buffer_write(_buf, buffer_u8, 0);   // var3
+                buffer_write(_buf, buffer_u8, 0);   // var4
+                buffer_write(_buf, buffer_u8, 0);   // var5
+				show_debug_message("NO ENTITY FOUND AT " + string(_x) + "/"  + string(_y));
+            } else {
+                // Write real entity
+                buffer_write(_buf, buffer_u8, _ent._type);
+                buffer_write(_buf, buffer_u8, _ent.sprite);
+                buffer_write(_buf, buffer_u8, _ent.var1);
+                buffer_write(_buf, buffer_u8, _ent.var2);
+                buffer_write(_buf, buffer_u8, _ent.var3);
+                buffer_write(_buf, buffer_u8, _ent.var4);
+                buffer_write(_buf, buffer_u8, _ent.var5);
+				show_debug_message(string(_ent.name) + "  FOUND AT " + string(_x) + "/"  + string(_y));
+            }
+        }
+    }
+
+    // Save buffer to file
+    var _safe_name = string_replace_all(_level_name, " ", "_");
+    var _filename  = "levels/" + _safe_name + ".bin";
+    buffer_save(_buf, _filename);
+    buffer_delete(_buf);
+	show_debug_message("LEVEL SAVED.");
+}
 #endregion
 
 #region LOAD LEVEL
-function load_level(_filename) 
-	{
-    if (!file_exists("levels/"+string(_filename))) 
-		{
+function load_level(_filename)
+{
+    if (!file_exists("levels/" + string(_filename))) {
         show_error("Level file not found: " + _filename, true);
         return;
-		}
-	else
-		{
-		show_debug_message("LEVEL FILE FOUND");	
-		}
+    } else {
+        show_debug_message("LEVEL FILE FOUND");
+    }
 
-	tilemap_clear(collision_layer,0);
-	tilemap_clear(terrain_tiles_b,0);
-	tilemap_clear(terrain_tiles_f,0);
-	ds_grid_clear(entity_grid,255)
-	
-    var _buf = buffer_load("levels/"+string(_filename));
+    // Clear old data
+    tilemap_clear(collision_layer, 0);
+    tilemap_clear(terrain_tiles_b, 0);
+    tilemap_clear(terrain_tiles_f, 0);
+    ds_grid_clear(entity_grid, 255);
 
-    // --- Read Header ---
+    var _buf = buffer_load("levels/" + string(_filename));
+
+    /// --- HEADER ---
     level_num = buffer_read(_buf, buffer_u32);
 
-    // Read fixed 30-character name
     var _name_chars = "";
-    for (var _i = 1; _i <= 30; _i++) 
-		{
+    for (var _i = 1; _i <= 30; _i++) {
         var _c = buffer_read(_buf, buffer_u8);
         if (_c != 0) _name_chars += chr(_c);
-		}
-		
-    level_name = _name_chars;
+    }
+    level_name  = _name_chars;
 
-    // Remaining header fields
-    level_x = buffer_read(_buf, buffer_u16);
-    level_y = buffer_read(_buf, buffer_u16);
+    level_x     = buffer_read(_buf, buffer_u16);
+    level_y     = buffer_read(_buf, buffer_u16);
     level_theme = buffer_read(_buf, buffer_u8);
-    level_attr = buffer_read(_buf, buffer_u8);
-	scr_update_theme();
-    level_par = buffer_read(_buf, buffer_u16);
-    path_bonus = buffer_read(_buf, buffer_u16);
-	
-    // --- Read Tilemaps ---
+    level_attr  = buffer_read(_buf, buffer_u8);
+    scr_update_theme();
+    level_par   = buffer_read(_buf, buffer_u16);
+    path_bonus  = buffer_read(_buf, buffer_u16);
+
+    /// --- TILEMAP + ENTITY DATA ---
     var _tiles_x = room_width div 16;
     var _tiles_y = room_height div 16;
 
-    for (var _y = 0; _y < _tiles_y - 1; _y++) 
-		{
-        for (var _x = 0; _x < _tiles_x - 1; _x++) 
-			{
-           // var _coll = buffer_read(_buf, buffer_u8);
-          //  var _bg   = buffer_read(_buf, buffer_u8);
-          //  var _fg   = buffer_read(_buf, buffer_u8);
-			  var _type  = buffer_read(_buf, buffer_u8);
-			//show_debug_message("LOAD COLLISION TILE: " + string(_coll));
-            //tilemap_set(collision_tiles, _coll, _x, _y);
-         //   tilemap_set(terrain_tiles_b, _bg, _x, _y);
-          //  tilemap_set(terrain_tiles_f, _fg, _x, _y);
+    for (var _y = 0; _y < _tiles_y - 1; _y++) {
+        for (var _x = 0; _x < _tiles_x - 1; _x++) {
+
+			var _coll = buffer_read(_buf, buffer_u8);
+			tilemap_set(collision_tiles, _coll, _x, _y);
 			
-			if (_type == 255)
-				{
-				show_debug_message("NO ENTITY CREATED");
-				}
-			else
-				{
-				ds_grid_set(entity_grid,_x,_y,new entity() );
-				var _ent = ds_grid_get(entity_grid,_x,_y);
-				_ent._type = _type;
-				
-				_ent.sprite = buffer_read(_buf, buffer_u8);
-				_ent.var1 = buffer_read(_buf, buffer_u8);
-				_ent.var2 = buffer_read(_buf, buffer_u8);
-				_ent.var3 = buffer_read(_buf, buffer_u8);
-				_ent.var4 = buffer_read(_buf, buffer_u8);
-				_ent.var5 = buffer_read(_buf, buffer_u8);
-				show_debug_message("ENTITY " + string(_ent._type) + string(_ent.name) + " FOUND AT " + string(_x) + "/" + string(_y));
-				_ent.update_entity()
-				}
+			var _bg = buffer_read(_buf, buffer_u8); 
+			tilemap_set(terrain_tiles_b, _bg, _x, _y);
 			
-			}
-		}
-	
+			var _fg = buffer_read(_buf, buffer_u8); 
+			tilemap_set(terrain_tiles_f, _fg, _x, _y);
+			
+			//var _type = buffer_read(_buf, buffer_u8); 
+			//show_debug_message("LOAD COLLISION TILE: " + string(_coll));  
+
+            var _type   = buffer_read(_buf, buffer_u8);
+            var _sprite = buffer_read(_buf, buffer_u8);
+            var _v1     = buffer_read(_buf, buffer_u8);
+            var _v2     = buffer_read(_buf, buffer_u8);
+            var _v3     = buffer_read(_buf, buffer_u8);
+            var _v4     = buffer_read(_buf, buffer_u8);
+            var _v5     = buffer_read(_buf, buffer_u8);
+
+            if (_type == 255) {
+                // Keep cell as empty
+                ds_grid_set(entity_grid, _x, _y, 255);
+            } else {
+                var _ent = new entity();
+				ds_grid_set(entity_grid, _x, _y, _ent);
+                _ent._type  = _type;
+                _ent.sprite = _sprite;
+                _ent.var1   = _v1;
+                _ent.var2   = _v2;
+                _ent.var3   = _v3;
+                _ent.var4   = _v4;
+                _ent.var5   = _v5;
+                _ent.update_entity();
+
+                
+            }
+        }
+    }
+
     buffer_delete(_buf);
-	}
+}
 #endregion
 
 #region ENTITY/OBJECT STRUCT
@@ -408,12 +415,158 @@ function entity() constructor
 			name="Flag";
 			opt1="Hidden: ";
 			break;
-			}
+			case 18: 
+			sprite=spr_dragon_walk;
+			name="Dragon";
+			opt1="Initial Direction: ";
+			opt2="Flying: ";
+			break;
+			case 19: 
+			sprite=spr_tank_head;
+			name="Tank";
+			opt1="Initial Direction: ";
+			opt2="Shooting: ";
+			break;
+			case 20: 
+			sprite=spr_driller_head;
+			name="Driller";
+			opt1="Initial Direction: ";
+			break;
+			case 21: 
+			sprite=spr_drip;
+			name="Drip";
+			opt1="Initial Direction: ";
+			break;
+			case 22: 
+			sprite=spr_diving_rock_appear;
+			name="Diving Rock";
+			opt1="Initial Direction: ";
+			break;
+			case 23: 
+			sprite=spr_mini_hopping_skull_hang;
+			name="Mini Hopping Skull";
+			opt1="Initial Direction: ";
+			break;
+			case 24: 
+			sprite=spr_cloud_float;
+			name="Cloud";
+			opt1="Initial Direction: ";
+			break;
+			case 25: 
+			sprite=spr_armadillo_walk;
+			name="Armadillo";
+			opt1="Initial Direction: ";
+			break;
+			case 26: 
+			sprite=spr_big_hopping_skull_hop;
+			name="Big Hopping Skull";
+			opt1="Initial Direction: ";
+			break;
+			case 27: 
+			sprite=spr_tar_form;
+			name="Tar Monster";
+			opt1="Initial Direction: ";
+			break;
+			case 28: 
+			sprite=spr_sphere;
+			name="Sphere";
+			opt1="Initial Direction: ";
+			break;
+			case 29: 
+			sprite=spr_twin_walk;
+			name="Spinning Twins";
+			opt1="Initial Direction: ";
+			break;
+			case 30: 
+			sprite=spr_scorpion_walk;
+			name="Scorpion";
+			opt1="Initial Direction: ";
+			break;
+			case 31: 
+			sprite=spr_fireball;
+			name="Fireball";
+			opt1="Initial Direction: ";
+			break;
+			case 32: 
+			sprite=spr_fire_demon;
+			name="Fire Walker";
+			opt1="Initial Direction: ";
+			break;
+			case 33: 
+			sprite=spr_crab_walk;
+			name="Crab";
+			opt1="Initial Direction: ";
+			break;
+			case 34: 
+			sprite=spr_archer_shoot_forward;
+			name="Archer Statue";
+			opt1="Initial Direction: ";
+			break;
+			case 35: 
+			sprite=spr_lion_shoot;
+			name="Lion";
+			opt1="Initial Direction: ";
+			break;
+			case 36: 
+			sprite=spr_tornado;
+			name="Tornado";
+			opt1="Initial Direction: ";
+			break;
+			case 37: 
+			sprite=spr_crystal;
+			name="Crystal";
+			opt1="Initial Direction: ";
+			break;
+			case 38: 
+			sprite=spr_hand_crawl;
+			name="Creeping Hand";
+			opt1="Initial Direction: ";
+			break;
+			case 39: 
+			sprite=spr_ninja_block_up;
+			name="Ninja";
+			opt1="Initial Direction: ";
+			break;
+			case 40: 
+			sprite=spr_ram_walk;
+			name="Ram";
+			opt1="Initial Direction: ";
+			break;
+			case 41: 
+			sprite=spr_orca_walk;
+			name="Orca";
+			opt1="Initial Direction: ";
+			break;
+			case 42: 
+			sprite=spr_robot;
+			name="Rpbot";
+			opt1="Initial Direction: ";
+			break;
+			case 43: 
+			sprite=spr_ufo;
+			name="UFO";
+			opt1="Initial Direction: ";
+			break;
+			case 44: 
+			sprite=spr_alien_walk;
+			name="Alien";
+			opt1="Initial Direction: ";
+			break;
+			case 45: 
+			sprite=spr_boss;
+			name="Boss";
+			opt1="Initial Direction: ";
+			break;
+			case 46: 
+			sprite=spr_headdy_metal;
+			name="Final Boss";
+			opt1="Initial Direction: ";
+			break;
+			}//end switch
 		}
 		
 	#region DRAW EVENT
 	function draw_entity() {
-	//var _i;
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
 	pal_swap_set(spr_theme_pal,obj_system.level_theme-1,false);
 	
@@ -422,7 +575,6 @@ function entity() constructor
 	if _type==11
 		{
 		var _i;
-		draw_sprite(sprite,0,x,y);
 		if var2>0
 			{
 			for(_i=0; _i<var2; _i++)
@@ -430,13 +582,12 @@ function entity() constructor
 				draw_sprite(sprite,1,x+16+(16*_i),y);
 				}
 			}
-		draw_sprite_ext(sprite,2,x+16+(16*_i),y,1,1,0,c_white,1)
+		draw_sprite_ext(sprite,2,x+16+(16*var2),y,1,1,0,c_white,1)
 		}
 	
 	if _type==12
 		{
 		var _i;
-		draw_sprite(sprite,0,x,y);
 		if var2>0
 			{
 			for(_i=0; _i<var2; _i++)
@@ -444,13 +595,28 @@ function entity() constructor
 				draw_sprite(sprite,1,x,y+16+(16*_i));
 				}
 			}
-		draw_sprite_ext(sprite,2,x,y+16+(16*_i),1,1,0,c_white,1)
+		draw_sprite_ext(sprite,2,x,y+16+(16*var2),1,1,0,c_white,1)
 		}
 		
 	if _type==14
 		{
-		draw_sprite(sprite,0,x,y);
 		draw_sprite_ext(sprite,0,x+32,y,-1,1,0,c_white,1)
+		}
+		
+	if _type==19
+		{
+		draw_sprite(spr_tank_tread,0,x,y+8)
+		}
+		
+	if _type==20
+		{
+		draw_sprite_ext(spr_driller_drill,0,x+16,y,-1,1,0,c_white,1);
+		draw_sprite_ext(spr_driller_drill,0,x-16,y,1,1,0,c_white,1);
+		}
+		
+	if _type==27
+		{
+		draw_sprite(sprite,6,x,y);	
 		}
 	
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
@@ -458,7 +624,6 @@ function entity() constructor
 	
 	}
 	#endregion
-
 
 	}
 #endregion
@@ -473,7 +638,7 @@ current_ent=undefined;
 collision_layer=layer_create(-2);
 terrain_back_layer=layer_create(1);
 terrain_front_layer=layer_create(0);
-+
+
 tile_theme_surface=-4
 ent_display_surface=-4
 scr_update_theme();
@@ -526,8 +691,9 @@ drag_x=0;
 
 //view drag y
 drag_y=0;
+#endregion
 
-//teleport and demo fade colors
+#region teleport and demo fade colors
 c_tele=make_color_rgb(224,224,0);
 c_demo=make_color_rgb(160,32,128);
 fade_active=false;

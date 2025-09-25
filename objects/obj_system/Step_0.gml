@@ -400,7 +400,8 @@ if (within_entity_window)
 				if _y>=4
 					{
 					if obj_system.level_attr<6
-					_sel=_y-2;
+					{_sel=_y-2;
+					entity_selected=_x+9*_sel;}
 					else
 					if obj_system.level_attr==6
 					entity_selected=45
@@ -411,7 +412,7 @@ if (within_entity_window)
 				else
 				_sel=_y;
 				
-				entity_selected=_x+9*_sel;
+				
 				mode=1;
 				}
 			}
@@ -462,7 +463,7 @@ if (inEditor)
 				}
 			else if mode==1
 				{
-				if ds_grid_get(entity_grid,xx,yy)==-4 && tilemap_get(collision_layer,xx,yy)==0
+				if ds_grid_get(entity_grid,xx,yy)==255 && tilemap_get(collision_layer,xx,yy)==0
 					{
 					if (entity_selected != 7 && entity_selected != 8 && entity_selected != 16 && entity_selected != 17)
 						{
