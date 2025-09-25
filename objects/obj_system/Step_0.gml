@@ -1,5 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
+
 #region Zoom
 
 #endregion
@@ -222,29 +223,6 @@ if (keyboard_check_pressed(vk_end))
 		}
 #endregion
 
-#region SAVE TILEMAP
-//if keyboard_check_pressed(vk_insert)
-//	{
-//	for (var j=0; j<room_height/16; j++)
-//	    {
-//	    for (var i=0; i<room_width/16; i++)
-//	        {
-//			tile=tilemap_get_at_pixel(collision_tiles,i*TILE_SIZE,j*TILE_SIZE)
-//	        if tile!=-1
-//	            {
-//	            //var t_left=layer_tilemap_get_id(collision_tiles);
-//	            ds_grid_set(room_grid,i,j,tile);
-//	            show_debug_message("TILE ID: "+ string(tile) + "   CELL VALUE: " + string(ds_grid_get(room_grid,i,j)));
-//	            }
-//	        else
-//	            {
-//	            //show_debug_message("TILE X: 0" + "   TILE Y: 0" + "   CELL VALUE: 00");
-//	            }
-//	        }
-//	    }	
-//	}
-#endregion
-
 #region TOGGLE CURRENT TILE LAYER
 if (keyboard_check_pressed(vk_f5))
 	{
@@ -307,6 +285,7 @@ else
 	
 if (within_tile_window)
 	{
+	layer_set_visible(collision_layer,false);
 	canPlace=false;
 	var _x, _y;
 	_x=floor((device_mouse_x_to_gui(0)-tile_window_x+(sprite_get_width(spr_window))-16)/8);
@@ -387,35 +366,42 @@ if (within_entity_window)
 		}
 		
 	if mouse_check_button_pressed(mb_left)
-			{	
-			while (entity_window_x<(display_get_gui_width()-display_get_gui_width()))
-				{
-				entity_window_x=(entity_window_x+1);
-				}
-				
-			if (canPick)
-				{
-				var _sel;
-			
-				if _y>=4
-					{
-					if obj_system.level_attr<6
-					{_sel=_y-2;
-					entity_selected=_x+9*_sel;}
-					else
-					if obj_system.level_attr==6
-					entity_selected=45
-					else
-					if obj_system.level_attr==7
-					entity_selected=46
-					}
-				else
-				_sel=_y;
-				
-				
-				mode=1;
-				}
+		{	
+		while (entity_window_x<(display_get_gui_width()-display_get_gui_width()))
+			{
+			entity_window_x=(entity_window_x+1);
 			}
+				
+		if (canPick)
+			{
+			var _sel;
+
+		    // Normal block/collision selection (0–15)
+		    if (_y < 4) 
+				{
+		        _sel = _y;
+		        entity_selected = _x + 9 * _sel;
+				}
+		    else 
+				{
+		        // For other selections
+		        if (obj_system.level_attr < 6)
+					{
+		            _sel = _y - 2;
+		            entity_selected = _x + 9 * _sel;
+					}
+		        else if (obj_system.level_attr == 6)
+					{
+		            entity_selected = 45;
+					}
+		        else if (obj_system.level_attr == 7)
+					{
+		            entity_selected = 46;
+					}
+				}
+				mode = 1;
+			}
+		}
 	}
 else
 	{
@@ -426,14 +412,17 @@ else
 	}
 #endregion
 
-#region
-if entity_selected==7 || entity_selected==8 || entity_selected==16 || entity_selected==17
+#region TURN ON COLLISION LAYER IF COLLISION TILES SELECTED
+if (within_entity_window)
 	{
-	layer_set_visible(collision_layer,true);
-	}
+	if entity_selected==7 || entity_selected==8 || entity_selected==16 || entity_selected==17
+		{
+		layer_set_visible(collision_layer,true);
+		}
 	else
-	{
-	layer_set_visible(collision_layer,false);	
+		{
+		layer_set_visible(collision_layer,false);	
+		}
 	}
 #endregion
 
@@ -463,7 +452,7 @@ if (inEditor)
 				}
 			else if mode==1
 				{
-				if ds_grid_get(entity_grid,xx,yy)==255 && tilemap_get(collision_layer,xx,yy)==0
+				if ds_grid_get(entity_grid,xx,yy)==255// && tilemap_get(collision_layer,xx,yy)==0
 					{
 					if (entity_selected != 7 && entity_selected != 8 && entity_selected != 16 && entity_selected != 17)
 						{
@@ -479,24 +468,35 @@ if (inEditor)
 					else
 						{
 						if entity_selected == 7
-						tilemap_set(collision_tiles,5,xx,yy);
+							{
+							tilemap_set(collision_tiles,5,xx,yy);
+							}
 						
 						if entity_selected == 8
-						tilemap_set(collision_tiles,1,xx,yy);
+							{
+							tilemap_set(collision_tiles,1,xx,yy);
+							}
 						
 						if entity_selected == 16
-						tilemap_set(collision_tiles,3,xx,yy);
+							{
+							tilemap_set(collision_tiles,3,xx,yy);
+							}
 						
 						if entity_selected ==17
-						tilemap_set(collision_tiles,4,xx,yy);
+							{
+							tilemap_set(collision_tiles,4,xx,yy);
+							}
 						}
 					}
 				else
 					{
 					current_ent=ds_grid_get(entity_grid,xx,yy);
-					entity_info_window_visible=true;
-					entity_info_window_x= current_ent.x+ 16;
-					entity_info_window_y= current_ent.y;
+					if current_ent!=255
+						{
+						entity_info_window_visible=true;
+						entity_info_window_x= current_ent.x+ 16;
+						entity_info_window_y= current_ent.y;
+						}	
 					}
 				}
 			}

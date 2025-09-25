@@ -562,8 +562,12 @@ function entity() constructor
 			name="Final Boss";
 			opt1="Initial Direction: ";
 			break;
+
 			}//end switch
 		}
+		
+	// Calculate the angle from the eye to the mouse
+
 		
 	#region DRAW EVENT
 	function draw_entity() {
@@ -572,7 +576,7 @@ function entity() constructor
 	
 	draw_sprite(sprite,0,x,y);
 	
-	if _type==11
+	if _type==11 //horizontal platform
 		{
 		var _i;
 		if var2>0
@@ -585,7 +589,7 @@ function entity() constructor
 		draw_sprite_ext(sprite,2,x+16+(16*var2),y,1,1,0,c_white,1)
 		}
 	
-	if _type==12
+	if _type==12 //vertical platform
 		{
 		var _i;
 		if var2>0
@@ -598,28 +602,73 @@ function entity() constructor
 		draw_sprite_ext(sprite,2,x,y+16+(16*var2),1,1,0,c_white,1)
 		}
 		
-	if _type==14
+	if _type==14 //teleporter
 		{
 		draw_sprite_ext(sprite,0,x+32,y,-1,1,0,c_white,1)
 		}
 		
-	if _type==19
+	if _type==19 //tank
 		{
 		draw_sprite(spr_tank_tread,0,x,y+8)
 		}
 		
-	if _type==20
+	if _type==20 //driller
 		{
 		draw_sprite_ext(spr_driller_drill,0,x+16,y,-1,1,0,c_white,1);
 		draw_sprite_ext(spr_driller_drill,0,x-16,y,1,1,0,c_white,1);
 		}
 		
-	if _type==27
+	if _type==27 //tar monster
 		{
 		draw_sprite(sprite,6,x,y);	
 		}
+		
+	if _type==45 //boss
+		{
+		// Offsets relative to boss origin
+		var left_eye_x  = x - 12;
+		var left_eye_y  = y - 37;
+		var right_eye_x = x + 12;
+		var right_eye_y = y - 37;
+
+		// Determine if boss is dead/dilated
+		var dilated = false; // Replace with your condition
+
+		// Initialize blink timer if it doesn't exist
+		blink_timer = 0;
+
+		// Randomly trigger blink when not already blinking
+		if (blink_timer <= 0 && irandom(100) < 2) 
+			{
+		    blink_timer = 900; // duration of blink in steps
+			}
+
+		// Helper function to get eye frame from angle
+		function get_eye_frame(_ex, _ey, _dilated)
+			{
+		    if (_dilated) return 1; // Dilated pupil
+
+		    if (blink_timer > 0) return 0; // blink frame
+
+		    var dx = mouse_x - _ex;
+		    var dy = _ey - mouse_y; // invert y if needed
+		    var angle = point_direction(0, 0, dx, dy);
+		    var frame = 2 + floor((angle / 360) * 15); // Map 0–360° to frames 2–16
+		    return clamp(frame, 2, 16);
+			}
+
+		// Draw eyes at their offsets
+		draw_sprite(spr_boss_eye, get_eye_frame(left_eye_x, left_eye_y, dilated), left_eye_x, left_eye_y);
+		draw_sprite(spr_boss_eye, get_eye_frame(right_eye_x, right_eye_y, dilated), right_eye_x, right_eye_y);
+
+		// Decrease blink timer
+		if (blink_timer > 0) blink_timer -= 1;
+
+		// Draw boss sprite
+		draw_sprite(sprite, 0, x, y);
+		}
 	
-	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
+	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15 //collision tiles
 	pal_swap_reset();
 	
 	}
