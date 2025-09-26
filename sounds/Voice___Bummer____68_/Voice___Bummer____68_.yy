@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Voice___Bummer____68_",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.32993197,
+  "exportDir":"",
+  "name":"Voice___Bummer____68_",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Voice___Bummer____68_.wav",
+  "volume":1.0,
+}

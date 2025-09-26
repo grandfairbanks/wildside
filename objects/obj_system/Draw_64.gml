@@ -2,7 +2,8 @@
 // You can write your code in this editor
 
 #region EDITOR STUFF
-
+if (inEditor)
+	{
 	#region DRAW CURRENT TILE LAYER
 	var tile_layer_txt;
 	switch(tile_current_layer)
@@ -13,8 +14,9 @@
 	draw_text_transformed(0,0,"Current Tile Layer: " + string(tile_layer_txt),1,1,0);
 	#endregion
 
-
 	#region DRAW LEVEL INFO WINDOW
+	
+	
 	draw_set_alpha(info_window_alpha);
 	draw_sprite_ext(room_info_window,0,room_info_window_x,room_info_window_y,1,1,0,c_white,1);
 	
@@ -223,15 +225,16 @@
 	draw_text(entity_info_window_x+4,entity_info_window_y+64,current_ent.opt5 + "" + string(current_ent.var5));
 	}
 	#endregion
-
+	}
 #endregion
 
 #region GAME STUFF
-
+if (inGame)
+	{
 	#region DRAW HUD
 	
 	#endregion
-
+	}
 	#region SCREEN FADE
 	if (fade_active)
 		{

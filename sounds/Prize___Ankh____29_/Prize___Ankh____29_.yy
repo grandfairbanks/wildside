@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Prize___Ankh____29_",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.9738322,
+  "exportDir":"",
+  "name":"Prize___Ankh____29_",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Prize___Ankh____29_.wav",
+  "volume":1.0,
+}

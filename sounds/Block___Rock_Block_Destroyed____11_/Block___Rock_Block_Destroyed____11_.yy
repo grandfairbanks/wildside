@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Block___Rock_Block_Destroyed____11_",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":0.42809525,
+  "exportDir":"",
+  "name":"Block___Rock_Block_Destroyed____11_",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Block___Rock_Block_Destroyed____11_.wav",
+  "volume":1.0,
+}

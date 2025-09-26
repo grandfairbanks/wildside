@@ -7,15 +7,6 @@ pal_swap_init_system(shd_pal_swapper);
 //initialize macros
 scr_inits();
 
-//various states
-inIntro=false;
-open_door=false;
-close_door=true;
-inEditor=true;
-inGame=false;
-canPlace=false;
-canPick=false;
-
 
 
 

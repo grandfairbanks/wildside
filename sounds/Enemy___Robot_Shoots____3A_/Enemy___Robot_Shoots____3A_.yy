@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Enemy___Robot_Shoots____3A_",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.8162585,
+  "exportDir":"",
+  "name":"Enemy___Robot_Shoots____3A_",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Enemy___Robot_Shoots____3A_.wav",
+  "volume":1.0,
+}

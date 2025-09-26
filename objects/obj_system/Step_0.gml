@@ -146,28 +146,30 @@ if (inEditor)
 
 if (keyboard_check(vk_left))
 	{
-	/*
-	if left_door_x>90
-	left_door_x-=1;
-	layer_sprite_x(left_door_sprite,left_door_x);
+	if (inIntro)
+		{
+		if left_door_x>90
+		left_door_x-=1;
+		layer_sprite_x(left_door_sprite,left_door_x);
 	
-	if right_door_x<190
-	right_door_x+=1;
-	layer_sprite_x(right_door_sprite,right_door_x);
-	*/
+		if right_door_x<190
+		right_door_x+=1;
+		layer_sprite_x(right_door_sprite,right_door_x);
+		}
 	}
 	
 if (keyboard_check(vk_right))
 	{
-	/*
-	if left_door_x<124
-	left_door_x+=1;
-	layer_sprite_x(left_door_sprite,left_door_x);
+	if (inIntro)
+		{
+		if left_door_x<124
+		left_door_x+=1;
+		layer_sprite_x(left_door_sprite,left_door_x);
 	
-	if right_door_x>156
-	right_door_x-=1;
-	layer_sprite_x(right_door_sprite,right_door_x);
-	*/
+		if right_door_x>156
+		right_door_x-=1;
+		layer_sprite_x(right_door_sprite,right_door_x);
+		}
 	}
 #endregion
 
@@ -190,16 +192,18 @@ if (fade_active)
 #endregion
 
 #region DESTROY INTRO SUFF AND CHANGE PROGRAM STATE
-
 if (keyboard_check_pressed(vk_end))
 	{
-	//inIntro=false;
-	//layer_tilemap_destroy(ws_tileset)
-	//layer_destroy(ws_layer);
-	//layer_destroy(ws_bkg_layer);
-	//layer_destroy(inside_layer);
-	//layer_destroy(door_layer);
-	//inEditor=true;
+	if (inIntro==true)
+		{
+		inIntro=false;
+		layer_tilemap_destroy(ws_tileset)
+		layer_destroy(ws_layer);
+		layer_destroy(ws_bkg_layer);
+		layer_destroy(inside_layer);
+		layer_destroy(door_layer);
+		inEditor=true;
+		}
 	}
 #endregion
 

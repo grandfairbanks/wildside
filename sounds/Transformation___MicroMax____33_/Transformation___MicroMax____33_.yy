@@ -1,0 +1,26 @@
+{
+  "$GMSound":"v2",
+  "%Name":"Transformation___MicroMax____33_",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "channelFormat":0,
+  "compression":0,
+  "compressionQuality":4,
+  "conversionMode":0,
+  "duration":1.9239682,
+  "exportDir":"",
+  "name":"Transformation___MicroMax____33_",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"Transformation___MicroMax____33_.wav",
+  "volume":1.0,
+}
