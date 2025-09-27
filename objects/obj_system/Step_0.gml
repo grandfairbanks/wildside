@@ -207,7 +207,7 @@ if (keyboard_check_pressed(vk_end))
 	}
 #endregion
 
-#region SAVE LEVEL
+	#region SAVE LEVEL
 	// Check if Ctrl is held AND S is pressed
 	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
     && keyboard_check_pressed(ord("S"))) 

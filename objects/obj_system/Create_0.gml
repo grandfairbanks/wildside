@@ -81,12 +81,13 @@ no_prize=5000;
 
 #region SAVE LEVEL
 function save_level()
-{
+	{
     // Enforce max combined screens
-    if (level_x + level_y > 30) {
+    if (level_x + level_y > 30) 
+		{
         show_error("Level exceeds maximum allowed screens (30 total)!", true);
         return;
-    }
+		}
 
     var _level_num   = 42;
     var _level_name  = "BAGEL BROTHERS";
@@ -138,7 +139,7 @@ function save_level()
 			if col == 0
 			colout = "NO ";
 			if col == 1
-			colout = 
+			colout = "";
 			
 			show_debug_message(string(colout) + "COLLISION TILE: " + " FOUND AT " + string(_x) + "/"  + string(_y)); 
 			buffer_write(_buf, buffer_u8, col); 
@@ -182,7 +183,7 @@ function save_level()
     buffer_save(_buf, _filename);
     buffer_delete(_buf);
 	show_debug_message("LEVEL SAVED.");
-}
+	}
 #endregion
 
 #region LOAD LEVEL

@@ -3,17 +3,49 @@
 
 #region EDITOR STUFF
 if (inEditor)
-	{
-	#region DRAW CURRENT TILE LAYER
-	var tile_layer_txt;
-	switch(tile_current_layer)
+	{	
+	#region DRAW CURRENT TILE LAYER / PLACEMENT MODE
+	if mode==0
 		{
-		case 0: tile_layer_txt="Foreground"; break;
-		case 1: tile_layer_txt="Background"; break;
+		var tile_layer_txt, str, strw;
+		switch(tile_current_layer)
+			{
+			case 0: tile_layer_txt="Foreground"; break;
+			case 1: tile_layer_txt="Background"; break;
+			}
+		str="Current Tile Layer: " + string(tile_layer_txt);
+		strw=string_width(str);
+		draw_text_transformed((view_width/2)-(strw/2),0,str,1,1,0);
 		}
-	draw_text_transformed(0,0,"Current Tile Layer: " + string(tile_layer_txt),1,1,0);
+	else
+ 
+	if mode==1
+		{
+		var str, strw;
+		//tile_layer_txt="Foreground"; break;
+		if !layer_get_visible(collision_layer)
+			{
+			str="Current Entity Selected: " + string(scr_entity_name(entity_selected));
+			}
+		else
+			{
+			var col_txt;
+			switch(entity_selected)
+			{
+			case 7: col_txt="Solid"; break;
+			case 8: col_txt="Hazard"; break;			
+			case 16: col_txt="Ramp Down"; break;
+			case 17: col_txt="Ramp Up"; break;
+			
+			}
+			str="Current Collision Tile Selected: " + (string(col_txt));
+			}
+		}
+		strw=string_width(str);
+		draw_text_transformed((view_width/2)-(strw/2),0,str,1,1,0);
+		
 	#endregion
-
+		
 	#region DRAW LEVEL INFO WINDOW
 	
 	
@@ -235,15 +267,16 @@ if (inGame)
 	
 	#endregion
 	}
-	#region SCREEN FADE
-	if (fade_active)
-		{
-		draw_set_alpha(fade_alpha);
-		draw_rectangle_color(0,0,display_get_width(),display_get_height(),fade_color,fade_color,fade_color,fade_color,false);
-		draw_set_alpha(1);
-		}
-	#endregion
 	
+#endregion
+
+#region SCREEN FADE
+if (fade_active)
+	{
+	draw_set_alpha(fade_alpha);
+	draw_rectangle_color(0,0,display_get_width(),display_get_height(),fade_color,fade_color,fade_color,fade_color,false);
+	draw_set_alpha(1);
+	}
 #endregion
 
 #region DRAW MAP

@@ -116,6 +116,7 @@
     {"id":{"name":"scr_create_window","path":"scripts/scr_create_window/scr_create_window.yy",},},
     {"id":{"name":"scr_draw_map","path":"scripts/scr_draw_map/scr_draw_map.yy",},},
     {"id":{"name":"scr_entity_display","path":"scripts/scr_entity_display/scr_entity_display.yy",},},
+    {"id":{"name":"scr_entity_name","path":"scripts/scr_entity_name/scr_entity_name.yy",},},
     {"id":{"name":"scr_init_fonts","path":"scripts/scr_init_fonts/scr_init_fonts.yy",},},
     {"id":{"name":"scr_init_scrollbars","path":"scripts/scr_init_scrollbars/scr_init_scrollbars.yy",},},
     {"id":{"name":"scr_inits","path":"scripts/scr_inits/scr_inits.yy",},},
