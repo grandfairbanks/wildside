@@ -229,6 +229,7 @@
     {"name":"spr_headdy_metal","order":1,"path":"sprites/spr_headdy_metal/spr_headdy_metal.yy",},
     {"name":"spr_hills","order":2,"path":"sprites/spr_hills/spr_hills.yy",},
     {"name":"spr_hitpoint","order":1,"path":"sprites/spr_hitpoint/spr_hitpoint.yy",},
+    {"name":"spr_holo_back","order":6,"path":"sprites/spr_holo_back/spr_holo_back.yy",},
     {"name":"spr_holo_insert","order":2,"path":"sprites/spr_holo_insert/spr_holo_insert.yy",},
     {"name":"spr_holo_tiles","order":10,"path":"sprites/spr_holo_tiles/spr_holo_tiles.yy",},
     {"name":"spr_ice_rock_die","order":1,"path":"sprites/spr_ice_rock_die/spr_ice_rock_die.yy",},

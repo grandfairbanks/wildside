@@ -207,7 +207,7 @@ if (keyboard_check_pressed(vk_end))
 	}
 #endregion
 
-	#region SAVE LEVEL
+#region SAVE LEVEL
 	// Check if Ctrl is held AND S is pressed
 	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
     && keyboard_check_pressed(ord("S"))) 
@@ -218,13 +218,22 @@ if (keyboard_check_pressed(vk_end))
 #endregion
 
 #region LOAD LEVEL
-	// Check if Ctrl is held AND S is pressed
-	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
-    && keyboard_check_pressed(ord("L"))) 
-		{
-	    // Do whatever you want when Ctrl+S is pressed
-	    load_level("bagel_brothers.bin");
-		}
+// Check if Ctrl is held AND S is pressed
+if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+&& keyboard_check_pressed(ord("L"))) 
+	{
+	// Do whatever you want when Ctrl+S is pressed
+	load_level("bagel_brothers.bin");
+	}
+#endregion
+
+#region END LEVEL
+if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+&& keyboard_check_pressed(ord("E"))) 
+	{
+	// Do whatever you want when Ctrl+S is pressed
+	endlvl_active=true;
+	}
 #endregion
 
 #region TOGGLE CURRENT TILE LAYER
@@ -240,6 +249,19 @@ if (keyboard_check_pressed(vk_f5))
 
 canPlace=true;
 canPick=false;
+
+#region END LEVEL FUNCTIONS
+if (inGame)
+	{
+	
+	}
+	
+if (endlvl_active) 
+	{
+	//layer_set_visible(collision_layer,true);
+	end_level();
+	}
+#endregion
 
 #region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
 
@@ -422,10 +444,12 @@ if (within_entity_window)
 	if entity_selected==7 || entity_selected==8 || entity_selected==16 || entity_selected==17
 		{
 		layer_set_visible(collision_layer,true);
+		layer_depth(collision_layer,-2)
 		}
 	else
 		{
-		layer_set_visible(collision_layer,false);	
+		layer_set_visible(collision_layer,false);
+		layer_depth(collision_layer,2)
 		}
 	}
 #endregion
@@ -467,6 +491,8 @@ if (inEditor)
 						_ent.y=yy*TILE_SIZE;
 						_ent._type=entity_selected;
 						_ent.update_entity();
+						
+						if _ent._type!=15
 						tilemap_set(collision_tiles,2,xx,yy);
 						}
 					else

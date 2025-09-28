@@ -89,23 +89,14 @@ function save_level()
         return;
 		}
 
-    var _level_num   = 42;
-    var _level_name  = "BAGEL BROTHERS";
-    var _level_x     = room_width / SCREEN_WIDTH;
-    var _level_y     = room_height / SCREEN_HEIGHT;
-    var _level_theme = THEME.CITY;
-    var _level_attr  = ATTRIBUTE.BOSS;
-    var _level_par   = 220;
-    var _path_bonus  = 0;
-
     // Create buffer
     var _buf = buffer_create(256, buffer_grow, 1);
 
     /// --- LEVEL HEADER ---
-    buffer_write(_buf, buffer_u32, _level_num);
+    buffer_write(_buf, buffer_u32, level_num);
 
     // Fixed 30-character name
-    var _name_fixed = string_copy(_level_name, 1, 30);
+    var _name_fixed = string_copy(level_name, 1, 30);
     var _name_len   = string_length(_name_fixed);
     for (var i = 1; i <= 30; i++) {
         if (i <= _name_len) {
@@ -115,19 +106,19 @@ function save_level()
         }
     }
 
-    buffer_write(_buf, buffer_u16, _level_x);
-    buffer_write(_buf, buffer_u16, _level_y);
-    buffer_write(_buf, buffer_u8,  _level_theme);
-    buffer_write(_buf, buffer_u8,  _level_attr);
-    buffer_write(_buf, buffer_u16, _level_par);
-    buffer_write(_buf, buffer_u16, _path_bonus);
+    buffer_write(_buf, buffer_u16, level_x);
+    buffer_write(_buf, buffer_u16, level_y);
+    buffer_write(_buf, buffer_u8,  level_theme);
+    buffer_write(_buf, buffer_u8,  level_attr);
+    buffer_write(_buf, buffer_u16, level_par);
+    buffer_write(_buf, buffer_u16, path_bonus);
 
     /// --- TILEMAP + ENTITY DATA ---
     var tiles_x = room_width div 16;
     var tiles_y = room_height div 16;
 
-    for (var _y = 0; _y < tiles_y - 1; _y++) {
-        for (var _x = 0; _x < tiles_x - 1; _x++) {
+    for (var _y = 0; _y < tiles_y; _y++) {
+        for (var _x = 0; _x < tiles_x; _x++) {
 
 			// Collision 
 			
@@ -178,7 +169,7 @@ function save_level()
     }
 
     // Save buffer to file
-    var _safe_name = string_replace_all(_level_name, " ", "_");
+    var _safe_name = string_replace_all(level_name, " ", "_");
     var _filename  = "levels/" + _safe_name + ".bin";
     buffer_save(_buf, _filename);
     buffer_delete(_buf);
@@ -226,8 +217,8 @@ function load_level(_filename)
     var _tiles_x = room_width div 16;
     var _tiles_y = room_height div 16;
 
-    for (var _y = 0; _y < _tiles_y - 1; _y++) {
-        for (var _x = 0; _x < _tiles_x - 1; _x++) {
+    for (var _y = 0; _y < _tiles_y; _y++) {
+        for (var _x = 0; _x < _tiles_x; _x++) {
 
 			var _coll = buffer_read(_buf, buffer_u8);
 			tilemap_set(collision_tiles, _coll, _x, _y);
@@ -276,7 +267,7 @@ function flag_exists() {
         for (var xx = 0; xx < ds_grid_width(entity_grid)-1; xx++) {
             var _ent = entity_grid[# xx, yy];
             if (is_undefined(_ent)) continue;
-            if (_ent._type == FLAG_TYPE) return true;
+            if (_ent._type == 15) return true;
         }
     }
     return false;
@@ -353,7 +344,7 @@ function entity() constructor
 		
 	if _type==15 //flag
 		{
-		
+		//draw_sprite(sprite,0,x,y+16)
 		}
 		
 	if _type==19 //tank
@@ -433,7 +424,7 @@ current_ent=undefined;
 #endregion
 
 #region CREATE COLLISION AND TERRAIN TILEMAPS
-collision_layer=layer_create(-2);
+collision_layer=layer_create(2);
 terrain_back_layer=layer_create(1);
 terrain_front_layer=layer_create(0);
 
@@ -643,4 +634,57 @@ spd_plus=0.25;
 line=false;// Collision Line display
 visual=1;
 line_origin=obj_player;
+#endregion
+
+#region END LEVEL STUFF
+current_index = 0;
+// Control speed (frames between deletions)
+erase_speed = 0.5;
+timer = 0;
+endlvl_active = false; // don’t start until flag touched
+endfade_active = false;
+end_alpha = 1;
+start_end_fade=false;
+function end_level()
+	{
+	// Initialize starting tile based on current view
+	var view_x = camera_get_view_x(view_camera[0]);
+	var view_y = camera_get_view_y(view_camera[0]);
+	var tiles_w = (level_x*TILE_SIZE);
+	var tiles_h = (level_y*TILE_SIZE);
+	start_tile_x = view_x div 16;
+	start_tile_y = view_y div 16;
+	view_w_tiles = ceil(camera_get_view_width(view) div TILE_SIZE) + 1;
+	view_h_tiles = ceil(camera_get_view_height(view) div TILE_SIZE) + 1;
+	
+	if (endlvl_active) 
+		{
+	    timer++;
+	    if (timer >= erase_speed) 
+			{
+	        timer = 0;
+
+	        // Tile coordinates in view
+	        var tx = start_tile_x + (current_index mod view_w_tiles);
+	        var ty = start_tile_y + (current_index div view_w_tiles);
+
+	        // Safety check: don’t go out of room bounds
+	        if (tx < tiles_w && ty < tiles_h) 
+				{
+	            tilemap_set(terrain_tiles_b, 0, tx, ty); // erase tile
+				tilemap_set(terrain_tiles_f, 0, tx, ty); // erase tile
+				ds_grid_set(entity_grid,tx,ty,255);
+				}
+
+				current_index++;
+
+	        // Stop when all tiles in view are erased
+	        if (current_index >= view_w_tiles * view_h_tiles) 
+				{
+	            endlvl_active=false;
+				}
+			}
+		}
+		
+	}//end function
 #endregion

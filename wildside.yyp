@@ -327,6 +327,7 @@
     {"id":{"name":"spr_headdy_metal","path":"sprites/spr_headdy_metal/spr_headdy_metal.yy",},},
     {"id":{"name":"spr_hills","path":"sprites/spr_hills/spr_hills.yy",},},
     {"id":{"name":"spr_hitpoint","path":"sprites/spr_hitpoint/spr_hitpoint.yy",},},
+    {"id":{"name":"spr_holo_back","path":"sprites/spr_holo_back/spr_holo_back.yy",},},
     {"id":{"name":"spr_holo_insert","path":"sprites/spr_holo_insert/spr_holo_insert.yy",},},
     {"id":{"name":"spr_holo_tiles","path":"sprites/spr_holo_tiles/spr_holo_tiles.yy",},},
     {"id":{"name":"spr_ice_rock_die","path":"sprites/spr_ice_rock_die/spr_ice_rock_die.yy",},},
