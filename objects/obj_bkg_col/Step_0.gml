@@ -16,7 +16,7 @@ if (obj_system.endlvl_active)
 if (obj_system.endfade_active)
 	{
 	if obj_system.end_alpha>0
-	obj_system.end_alpha-=0.1;
+	obj_system.end_alpha-=0.5;
 	}
 	
 #endregion

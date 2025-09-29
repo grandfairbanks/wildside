@@ -58,7 +58,7 @@ enum ATTRIBUTE
 	}
 
 level_num=0;
-level_name="TEST LEVEL";
+level_name="TEST LEVELTEST LEVELTEST LEVEL";
 level_x=room_width/SCREEN_WIDTH;
 level_y=room_height/SCREEN_HEIGHT;
 level_theme=THEME.SKY;
@@ -71,7 +71,7 @@ level_par=0;
 path_bonus=0;
 
 total_screens=(level_x*level_y);
-grid_size=(level_x*TILE_SIZE)+(level_y*TILE_SIZE);
+grid_size=(room_width/TILE_SIZE)+(room_height/TILE_SIZE);
 flag_exists=false;
 speed_bonus=10000;
 min_bonus=1000;
@@ -599,8 +599,8 @@ theme_palette_window=scr_create_window(theme_palette_window_w,theme_palette_wind
 
 #region ROOM INFO WINDOW STUFF
 room_info_window_y=display_get_gui_height()-4;
-room_info_window_w=200;
-room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2);
+room_info_window_w=256;
+room_info_window_x=display_get_gui_width()/2-(room_info_window_w/2)-6;
 room_info_window_h=108;
 within_rinfo_window=false;
 info_window_alpha=0.5;
@@ -647,11 +647,12 @@ end_alpha = 1;
 start_end_fade=false;
 function end_level()
 	{
+	layer_set_visible(collision_layer,true)
 	// Initialize starting tile based on current view
-	var view_x = camera_get_view_x(view_camera[0]);
-	var view_y = camera_get_view_y(view_camera[0]);
-	var tiles_w = (level_x*TILE_SIZE);
-	var tiles_h = (level_y*TILE_SIZE);
+	var view_x = camera_get_view_x(view);
+	var view_y = camera_get_view_y(view);
+	var tiles_w = (room_width/TILE_SIZE);
+	var tiles_h = (room_height/TILE_SIZE);
 	start_tile_x = view_x div 16;
 	start_tile_y = view_y div 16;
 	view_w_tiles = ceil(camera_get_view_width(view) div TILE_SIZE) + 1;
@@ -682,6 +683,7 @@ function end_level()
 	        if (current_index >= view_w_tiles * view_h_tiles) 
 				{
 	            endlvl_active=false;
+				timer=0;
 				}
 			}
 		}

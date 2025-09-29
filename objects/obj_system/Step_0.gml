@@ -231,7 +231,6 @@ if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check
 if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
 && keyboard_check_pressed(ord("E"))) 
 	{
-	// Do whatever you want when Ctrl+S is pressed
 	endlvl_active=true;
 	}
 #endregion
@@ -284,6 +283,9 @@ if (within_rinfo_window)
 			{
 			room_info_window_y=(room_info_window_y-1);
 			}
+			
+		//various interactions with options here
+		
 		}
 	info_window_alpha=1;
 	}
