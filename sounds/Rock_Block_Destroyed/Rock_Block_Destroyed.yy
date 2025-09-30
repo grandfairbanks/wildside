@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"Prize___Coin____2C_",
+  "%Name":"Rock_Block_Destroyed",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.6123583,
+  "duration":0.42809525,
   "exportDir":"",
-  "name":"Prize___Coin____2C_",
+  "name":"Rock_Block_Destroyed",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"Prize___Coin____2C_.wav",
+  "soundFile":"Rock_Block_Destroyed.wav",
   "volume":1.0,
 }

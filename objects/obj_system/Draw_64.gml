@@ -21,7 +21,7 @@ if (inEditor)
  
 	if mode==1
 		{
-		var str, strw;
+		var str, strw, col_text;
 		//tile_layer_txt="Foreground"; break;
 		if !layer_get_visible(collision_layer)
 			{
@@ -29,14 +29,13 @@ if (inEditor)
 			}
 		else
 			{
-			var col_txt;
 			switch(entity_selected)
 			{
+			default: col_text=""; break;
 			case 7: col_txt="Solid"; break;
 			case 8: col_txt="Hazard"; break;			
 			case 16: col_txt="Ramp Down"; break;
 			case 17: col_txt="Ramp Up"; break;
-			
 			}
 			str="Current Collision Tile Selected: " + (string(col_txt));
 			}
@@ -84,51 +83,82 @@ if (inEditor)
 			case 10: theme_out="City"; break;
 			}
 			
-		var txt_x=16, txt_x2=152;
+		var str, strw, txt_x=16, txt_x2=144;
 		//DRAW WINDOW TITLE
-		var strw=string_width("LEVEL INFORMATION")
-		draw_text(room_info_window_x+room_info_window_w/2-(strw/2),room_info_window_y+9,"LEVEL INFORMATION");
+		var str="LEVEL INFORMATION";
+		
+		
+		var strw=string_width(str);
+		draw_text(room_info_window_x+room_info_window_w/2-(strw/2),room_info_window_y+9,string(str));
 		//DRAW NAME OF LEVEL
 		strw=string_width("NAME: ");
-		draw_text_transformed(room_info_window_x+9,room_info_window_y+24,"NAME: ",1,1,0);
-		scr_text_button(room_info_window_x+9+strw ,room_info_window_y+24,string(level_name),1,1,0);
+
+		var caret = (name_edit_active && current_time div 400 mod 2 == 0) ? "|" : ""; // blinking cursor
+		draw_text(room_info_window_x+9,room_info_window_y+24,"NAME: ");
+		
+		var butn = scr_text_button(room_info_window_x+9+strw ,room_info_window_y+24,string(level_name)+ caret);
+		if butn.clicked
+			{
+			name_edit_active=true;
+			}
+			
 		//DRAW WIDTH OF LEVEL (IN SCREENS)
 		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+40,"X SCREENS: " + string(level_x),1,1,0);
 		//DRAW HEIGHT OF LEVEL (IN SCREENS) 
 		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+40,"THEME: " + string(theme_out),1,1,0);
 		//DRAW THEME OF LEVEL
-		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+52,"Y SCREENS: " + string(level_y),1,1,0);
+		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+50,"Y SCREENS: " + string(level_y),1,1,0);
 		//DRAW LEVEL ATTRIBUTE
-		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+52," TYPE: " + string(attr_out),1,1,0);
+		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+50," TYPE: " + string(attr_out),1,1,0);
 		
 		if (instance_exists(obj_player))
 			{
-			pal_swap_set(pal_font,3,false);
 			//DRAW STARTING X POSITION
-			scr_text_button(room_info_window_x+txt_x,room_info_window_y+72,"  START X: " + string(start_x));
+			draw_text(room_info_window_x+txt_x,room_info_window_y+68,"  START X: " + string(start_x));
 			//DRAW STARTING Y POSITION
-			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+84,"  START Y: " + string(start_y),1,1,0);
-			pal_swap_reset();
+			draw_text(room_info_window_x+txt_x,room_info_window_y+78,"  START Y: " + string(start_y));
 			}
 		else
 			{
 			var _notset="";
 			pal_swap_set(pal_font,4,false)
 			//DRAW STARTING X POSITION
-			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+72,"START X: " + string(_notset),1,1,0);
+			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+68,"START X: " + string(_notset),1,1,0);
 			//DRAW STARTING Y POSITION
-			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+84,"START Y: " + string(_notset),1,1,0);
+			draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+78,"START Y: " + string(_notset),1,1,0);
 			pal_swap_reset();
 			}
-				
-		//DRAW FLAG X POSITION
-		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+72,"END X: " + string(end_x),1,1,0);
-		//DRAW FLAG Y POSITION
-		draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+84,"END Y: " + string(end_y),1,1,0);
+		
+		if (flag_exist)
+			{
+			//DRAW FLAG X POSITION
+			draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+68,"END X: " + string(end_x),1,1,0);
+			//DRAW FLAG Y POSITION
+			draw_text_transformed(room_info_window_x+txt_x2,room_info_window_y+78,"END Y: " + string(end_y),1,1,0);
+			}
+		else
+			{
+			var _notset="";
+			pal_swap_set(pal_font,4,false);
+			//DRAW FLAG X POSITION
+			draw_text(room_info_window_x+txt_x2,room_info_window_y+68,"END X: " + string(_notset));
+			//DRAW FLAG Y POSITION
+			draw_text(room_info_window_x+txt_x2,room_info_window_y+78,"END Y: " + string(_notset));
+			pal_swap_reset();
+			}
 		//DRAW LEVEL PAR
-		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+96,"LEVEL PAR: " + string(level_par),1,1,0);
+		str="LEVEL PAR: ";
+		strw=string_width(str);
+		draw_text(room_info_window_x+txt_x,room_info_window_y+96,"LEVEL PAR: ");
+		var par_butn=scr_text_button(room_info_window_x+txt_x+strw,room_info_window_y+96,string(par_text));
+		if par_butn.clicked
+			{
+			par_edit_active=true;
+			par_text+=string(level_par)
+			}
+		
 		//DRAW PATH BONUS
-		draw_text_transformed(room_info_window_x+txt_x,room_info_window_y+108,"PATH BONUS: " + string(path_bonus),1,1,0);
+		draw_text(room_info_window_x+txt_x2,room_info_window_y+96,"PATH BONUS: " + string(path_bonus));
 	#endregion
 		
 	draw_set_alpha(1);
@@ -149,20 +179,21 @@ if (inEditor)
 		//draw_surface_stretched(tile_theme_surface,tile_window_x+sprite_get_width(spr_window),tile_window_y+sprite_get_width(spr_window)*2+1,128,128);
 		}
 		
-	#region DRAW TILE CURSOR
-	if (canPick==true) && (within_tile_window==true)
-		{
-		var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
-		var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
-		draw_set_alpha(0.5);
-		draw_rectangle_color(xx+1,yy,xx+8,yy+7,c_white,c_white,c_white,c_white,false);
-		draw_text(xx+1,yy+1,current_tile);
-		draw_set_alpha(1);
-		}
+		#region DRAW TILE CURSOR
+		if (canPick==true) && (within_tile_window==true)
+			{
+			var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
+			var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
+			draw_set_alpha(0.5);
+			draw_rectangle_color(xx+1,yy,xx+8,yy+7,c_white,c_white,c_white,c_white,false);
+			draw_text(xx+1,yy+1,current_tile);
+			draw_set_alpha(1);
+			}
 		else
-		{	
-		}
-	#endregion
+			{	
+			}
+		#endregion
+		
 	#endregion
 	
 	#region THEME PALETTE WINDOW
@@ -227,17 +258,17 @@ if (inEditor)
 	if (entity_info_window_visible==true)
 	{
 	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
-	draw_text(entity_info_window_x+4,entity_info_window_y+4,string(current_ent.name));
+	draw_text(entity_info_window_x+8,entity_info_window_y+4,string(current_ent.name));
 	if current_ent.opt1!=""
-	draw_text(entity_info_window_x+4,entity_info_window_y+16,current_ent.opt1 + "" + string(current_ent.var1));
+	draw_text(entity_info_window_x+8,entity_info_window_y+16,current_ent.opt1 + "" + string(current_ent.var1));
 	if current_ent.opt2!=""
-	draw_text(entity_info_window_x+4,entity_info_window_y+28,current_ent.opt2 + "" + string(current_ent.var2));
+	draw_text(entity_info_window_x+8,entity_info_window_y+28,current_ent.opt2 + "" + string(current_ent.var2));
 	if current_ent.opt3!=""
-	draw_text(entity_info_window_x+4,entity_info_window_y+40,current_ent.opt3 + "" + string(current_ent.var3));
+	draw_text(entity_info_window_x+8,entity_info_window_y+40,current_ent.opt3 + "" + string(current_ent.var3));
 	if current_ent.opt4!=""
-	draw_text(entity_info_window_x+4,entity_info_window_y+52,current_ent.opt4 + "" + string(current_ent.var4));
+	draw_text(entity_info_window_x+8,entity_info_window_y+52,current_ent.opt4 + "" + string(current_ent.var4));
 	if current_ent.opt5!=""
-	draw_text(entity_info_window_x+4,entity_info_window_y+64,current_ent.opt5 + "" + string(current_ent.var5));
+	draw_text(entity_info_window_x+8,entity_info_window_y+64,current_ent.opt5 + "" + string(current_ent.var5));
 	}
 	#endregion
 	}

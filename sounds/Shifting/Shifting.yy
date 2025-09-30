@@ -1,6 +1,6 @@
 {
   "$GMSound":"v2",
-  "%Name":"Block___Rock_Block_Destroyed____11_",
+  "%Name":"Shifting",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -10,9 +10,9 @@
   "compression":0,
   "compressionQuality":4,
   "conversionMode":0,
-  "duration":0.42809525,
+  "duration":0.6818367,
   "exportDir":"",
-  "name":"Block___Rock_Block_Destroyed____11_",
+  "name":"Shifting",
   "parent":{
     "name":"Sounds",
     "path":"folders/Sounds.yy",
@@ -21,6 +21,6 @@
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"Block___Rock_Block_Destroyed____11_.wav",
+  "soundFile":"Shifting.wav",
   "volume":1.0,
 }

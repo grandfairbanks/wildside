@@ -4,7 +4,7 @@
 
 #region EDITOR PROPERTIES
 mode=0;
-
+load=0;
 if !directory_exists("Settings")
 directory_create("Settings");
 
@@ -19,6 +19,8 @@ inEditor=true;
 inGame=false;
 canPlace=false;
 canPick=false;
+bufpos=0;
+filename="";
 #endregion
 
 #region DEBUG
@@ -72,7 +74,7 @@ path_bonus=0;
 
 total_screens=(level_x*level_y);
 grid_size=(room_width/TILE_SIZE)+(room_height/TILE_SIZE);
-flag_exists=false;
+flag_exist=false;
 speed_bonus=10000;
 min_bonus=1000;
 sec_bonus=10;
@@ -178,100 +180,138 @@ function save_level()
 #endregion
 
 #region LOAD LEVEL
-function load_level(_filename)
-{
-    if (!file_exists("levels/" + string(_filename))) {
-        show_error("Level file not found: " + _filename, true);
-        return;
-    } else {
-        show_debug_message("LEVEL FILE FOUND");
-    }
+function load_level(_filename)	
+	{
+	if load==0
+		{
+	    if (!file_exists("levels/" + string(_filename))) 
+			{
+	        show_error("Level file not found: " + _filename, true);
+	        return;
+			} 
+		else 
+			{
+	        show_debug_message("LEVEL FILE FOUND");
+			}
 
-    // Clear old data
-    tilemap_clear(collision_layer, 0);
-    tilemap_clear(terrain_tiles_b, 0);
-    tilemap_clear(terrain_tiles_f, 0);
-    ds_grid_clear(entity_grid, 255);
+	    // Clear old data
+	    tilemap_clear(collision_layer, 0);
+	    tilemap_clear(terrain_tiles_b, 0);
+	    tilemap_clear(terrain_tiles_f, 0);
+	    ds_grid_clear(entity_grid, 255);
 
-    var _buf = buffer_load("levels/" + string(_filename));
+	    var _buf = buffer_load("levels/" + string(_filename));
 
-    /// --- HEADER ---
-    level_num = buffer_read(_buf, buffer_u32);
+	    /// --- HEADER ---
+	    level_num = buffer_read(_buf, buffer_u32);
 
-    var _name_chars = "";
-    for (var _i = 1; _i <= 30; _i++) {
-        var _c = buffer_read(_buf, buffer_u8);
-        if (_c != 0) _name_chars += chr(_c);
-    }
-    level_name  = _name_chars;
-
-    level_x     = buffer_read(_buf, buffer_u16);
-    level_y     = buffer_read(_buf, buffer_u16);
-    level_theme = buffer_read(_buf, buffer_u8);
-    level_attr  = buffer_read(_buf, buffer_u8);
-    scr_update_theme();
-    level_par   = buffer_read(_buf, buffer_u16);
-    path_bonus  = buffer_read(_buf, buffer_u16);
-
-    /// --- TILEMAP + ENTITY DATA ---
-    var _tiles_x = room_width div 16;
-    var _tiles_y = room_height div 16;
-
-    for (var _y = 0; _y < _tiles_y; _y++) {
-        for (var _x = 0; _x < _tiles_x; _x++) {
-
-			var _coll = buffer_read(_buf, buffer_u8);
-			tilemap_set(collision_tiles, _coll, _x, _y);
+	    var _name_chars = "";
+	    for (var _i = 1; _i <= 30; _i++) 
+			{
+	        var _c = buffer_read(_buf, buffer_u8);
+	        if (_c != 0) _name_chars += chr(_c);
+			}
 			
-			var _bg = buffer_read(_buf, buffer_u8); 
-			tilemap_set(terrain_tiles_b, _bg, _x, _y);
-			
-			var _fg = buffer_read(_buf, buffer_u8); 
-			tilemap_set(terrain_tiles_f, _fg, _x, _y);
-			
-            var _type   = buffer_read(_buf, buffer_u8);
-            var _sprite = buffer_read(_buf, buffer_u8);
-            var _v1     = buffer_read(_buf, buffer_u8);
-            var _v2     = buffer_read(_buf, buffer_u8);
-            var _v3     = buffer_read(_buf, buffer_u8);
-            var _v4     = buffer_read(_buf, buffer_u8);
-            var _v5     = buffer_read(_buf, buffer_u8);
+	    level_name  = _name_chars;
 
-            if (_type == 255) {
-                // Keep cell as empty
-                ds_grid_set(entity_grid, _x, _y, 255);
-            } else {
-                var _ent = new entity();
-				ds_grid_set(entity_grid, _x, _y, _ent);
-				_ent.x=_x*TILE_SIZE;
-				_ent.y=_y*TILE_SIZE;
-                _ent._type  = _type;
-                _ent.sprite = _sprite;
-                _ent.var1   = _v1;
-                _ent.var2   = _v2;
-                _ent.var3   = _v3;
-                _ent.var4   = _v4;
-                _ent.var5   = _v5;
-                _ent.update_entity();
-            }
-        }
-    }
+	    level_x     = buffer_read(_buf, buffer_u16);
+	    level_y     = buffer_read(_buf, buffer_u16);
+	    level_theme = buffer_read(_buf, buffer_u8);
+	    level_attr  = buffer_read(_buf, buffer_u8);
+	    scr_update_theme();
+	    level_par   = buffer_read(_buf, buffer_u16);
+	    path_bonus  = buffer_read(_buf, buffer_u16);
+	
+		bufpos = buffer_tell(_buf)
+		load=1;
+		filename=_filename;
+		room_set_width(room,level_x*SCREEN_WIDTH);
+		room_set_height(room,level_y*SCREEN_HEIGHT);
+		room_restart();
+		}
+	else if load==1
+		{
+		var _buf = buffer_load("levels/" + string(filename));
+		buffer_seek(_buf,buffer_seek_start,bufpos);
+	    /// --- TILEMAP + ENTITY DATA ---
+	    var _tiles_x = room_width div 16;
+	    var _tiles_y = room_height div 16;
 
-    buffer_delete(_buf);
+		collision_layer=layer_create(2);
+		terrain_back_layer=layer_create(1);
+		terrain_front_layer=layer_create(0);
+		
+		collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
+		terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+		terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+
+		tilemap_clear(collision_layer,0);
+		tilemap_clear(terrain_tiles_b,0);
+		tilemap_clear(terrain_tiles_f,0);
+
+	    for (var _y = 0; _y < _tiles_y; _y++) 
+			{
+	        for (var _x = 0; _x < _tiles_x; _x++) 
+				{
+				var _coll = buffer_read(_buf, buffer_u8);
+				tilemap_set(collision_tiles, _coll, _x, _y);
+			
+				var _bg = buffer_read(_buf, buffer_u8); 
+				tilemap_set(terrain_tiles_b, _bg, _x, _y);
+			
+				var _fg = buffer_read(_buf, buffer_u8); 
+				tilemap_set(terrain_tiles_f, _fg, _x, _y);
+			
+	            var _type   = buffer_read(_buf, buffer_u8);
+	            var _sprite = buffer_read(_buf, buffer_u8);
+	            var _v1     = buffer_read(_buf, buffer_u8);
+	            var _v2     = buffer_read(_buf, buffer_u8);
+	            var _v3     = buffer_read(_buf, buffer_u8);
+	            var _v4     = buffer_read(_buf, buffer_u8);
+	            var _v5     = buffer_read(_buf, buffer_u8);
+
+	            if (_type == 255) 
+					{
+	                // Keep cell as empty
+	                ds_grid_set(entity_grid, _x, _y, 255);
+					} 
+				else 
+					{
+	                var _ent = new entity();
+					ds_grid_set(entity_grid, _x, _y, _ent);
+					_ent.x=_x*TILE_SIZE;
+					_ent.y=_y*TILE_SIZE;
+	                _ent._type  = _type;
+	                _ent.sprite = _sprite;
+	                _ent.var1   = _v1;
+	                _ent.var2   = _v2;
+	                _ent.var3   = _v3;
+	                _ent.var4   = _v4;
+	                _ent.var5   = _v5;
+	                _ent.update_entity();	
+					}
+				}
+			}
+
+	    buffer_delete(_buf);
+		}
 }
 #endregion
 
 #region CHECK IF FLAG EXISTS IN LEVEL
-function flag_exists() {
-    for (var yy = 0; yy < ds_grid_height(entity_grid)-1; yy++) {
-        for (var xx = 0; xx < ds_grid_width(entity_grid)-1; xx++) {
+function flag_exists() 
+	{
+    for (var yy = 0; yy < ds_grid_height(entity_grid)-1; yy++) 
+		{
+        for (var xx = 0; xx < ds_grid_width(entity_grid)-1; xx++) 
+			{
             var _ent = entity_grid[# xx, yy];
             if (is_undefined(_ent)) continue;
-            if (_ent._type == 15) return true;
-        }
-    }
-    return false;
-}
+            if (_ent._type == 15) flag_exist=true;
+			}
+		}
+    flag_exist=false;
+	}
 #endregion
 
 #region ENTITY/OBJECT STRUCT
@@ -303,7 +343,7 @@ function entity() constructor
 		scr_update_entity();
 		}
 	#endregion
-		
+	
 	#region DRAW EVENT
 	function draw_entity() {
 	if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
@@ -424,6 +464,7 @@ current_ent=undefined;
 #endregion
 
 #region CREATE COLLISION AND TERRAIN TILEMAPS
+
 collision_layer=layer_create(2);
 terrain_back_layer=layer_create(1);
 terrain_front_layer=layer_create(0);
@@ -605,6 +646,9 @@ room_info_window_h=108;
 within_rinfo_window=false;
 info_window_alpha=0.5;
 room_info_window=scr_create_window(room_info_window_w,room_info_window_h,false)
+name_edit_active=false;
+par_edit_active=false;
+par_text=string(level_par);
 #endregion
 
 #region ENTITY WINDOW STUFF
@@ -620,9 +664,9 @@ entity_selected=0;
 #region ENTITY INFO WINDOW
 entity_info_window_w=72;
 entity_info_window_h=64;
-entity_info_window_y=0;
-entity_info_window_x=0;
-spr_entity_info_window=scr_create_window(entity_window_w,entity_window_h,false);
+entity_info_window_y=88;
+entity_info_window_x=(display_get_gui_width()-display_get_gui_width())-entity_info_window_w-sprite_get_width(spr_window);
+spr_entity_info_window=scr_create_window(entity_info_window_w,entity_info_window_h,false);
 within_entity_info_window=false;
 entity_info_window_visible=false;
 #endregion

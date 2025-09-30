@@ -62,7 +62,7 @@ function scr_entity_name(opt){
 		name="Drip";
 		break;
 		case 22: 
-		name="Diving Rock";;
+		name="Diving Rock";
 		break;
 		case 23: 
 		name="Mini Hopping Skull";

@@ -131,7 +131,6 @@ function scr_update_entity(){
 		case 15: 
 		sprite=spr_flag;
 		name="Flag";
-		opt1="Hidden: ";
 		break;
 		case 18: 
 		sprite=spr_dragon_walk;

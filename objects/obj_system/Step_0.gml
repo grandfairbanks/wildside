@@ -174,17 +174,19 @@ if (keyboard_check(vk_right))
 #endregion
 
 #region FADE TEST
-if keyboard_check_pressed(ord("F"))
+if (keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) && keyboard_check_pressed(ord("F"))
 	{
 	if !(fade_active)
 		{
 		fade_active=true;
-		alarm[1]=30;
+		audio_play_sound(Teleport,1,false)
+		alarm[1]=180;
 		}
 	else
 		{	
 		}
 	}
+	
 if (fade_active)
 	{
 	fade_alpha+=0.1;
@@ -283,10 +285,68 @@ if (within_rinfo_window)
 			{
 			room_info_window_y=(room_info_window_y-1);
 			}
-			
-		//various interactions with options here
-		
 		}
+		
+	#region EDIT LEVEL NAME
+	if (name_edit_active) 
+		{
+		var ch = keyboard_lastchar;
+		if (ch != "") 
+			{
+		    if (ord(ch) == vk_backspace) 
+				{
+		        if (string_length(level_name) > 0)
+		        level_name = string_delete(level_name, string_length(level_name), 1);
+				keyboard_lastchar="";
+		        }
+		    else if (ord(ch) >= 32 && ord(ch) <= 126) // printable chars
+				{ 
+		        if (string_length(level_name) < 30) 
+					{
+		            level_name += ch;
+					keyboard_lastchar="";
+		            }
+		        }
+		    }
+			
+			if keyboard_check(vk_enter)
+				{
+				level_name = level_name;
+				name_edit_active=false;
+				}
+		}
+	#endregion
+	
+	#region EDIT LEVEL PAR
+	if (par_edit_active) 
+		{
+		var ch = keyboard_lastchar;
+		if (ch != "") 
+			{
+		    if (ord(ch) == vk_backspace) 
+				{
+		        if (string_length(par_text) > 0)
+		        par_text = string_delete(par_text, string_length(par_text), 1);
+				keyboard_lastchar="";
+		        }
+		    else if  (ord(ch) >= ord("0") && ord(ch) <= ord("9")) // printable chars
+				{ 
+		        if (string_length(par_text) < 5) 
+					{
+		            par_text += ch;
+					keyboard_lastchar="";
+		            }
+		        }
+		    }
+			
+			if keyboard_check(vk_enter)
+				{
+				level_par = real(par_text)
+				par_edit_active=false;
+				}
+		}
+	#endregion
+	
 	info_window_alpha=1;
 	}
 else
@@ -313,7 +373,6 @@ else
 	
 if (within_tile_window)
 	{
-	layer_set_visible(collision_layer,false);
 	canPlace=false;
 	var _x, _y;
 	_x=floor((device_mouse_x_to_gui(0)-tile_window_x+(sprite_get_width(spr_window))-16)/8);
@@ -329,14 +388,17 @@ if (within_tile_window)
 	
 	if mouse_check_button_pressed(mb_left)
 		{	
+			
+		//open the window by moving it right from offscreen
 		while (tile_window_x>display_get_gui_width()-(tile_window_w+15))
 			{
 			tile_window_x=(tile_window_x-1);
 			}
-			
+		
 		if (canPick)
 			{
 			current_tile=_x+16*_y;
+			layer_set_visible(collision_layer,false);
 			mode=0;
 			}
 		}
@@ -494,8 +556,26 @@ if (inEditor)
 						_ent._type=entity_selected;
 						_ent.update_entity();
 						
-						if _ent._type!=15
-						tilemap_set(collision_tiles,2,xx,yy);
+						if (_ent._type>=0 && _ent._type<=6) || (_ent._type>=9 && _ent._type<=14)
+							{
+							tilemap_set(collision_tiles,2,xx,yy);
+							
+							if _ent._type==11//horizontal platform
+								{
+								var _i;
+								if _ent.var2>0
+									{
+									for(_i=0; _i<_ent.var2; _i++)
+										{
+										tilemap_set(collision_tiles,2,xx+_i,yy);
+										}
+									}
+								tilemap_set(collision_tiles,2,xx+_ent.var2,yy);
+								}
+							
+							if _ent._type==14
+							tilemap_set(collision_tiles,2,xx+1,yy);
+							}
 						}
 					else
 						{
@@ -526,8 +606,8 @@ if (inEditor)
 					if current_ent!=255
 						{
 						entity_info_window_visible=true;
-						entity_info_window_x= current_ent.x+ 16;
-						entity_info_window_y= current_ent.y;
+						entity_info_window_x=0;
+						//entity_info_window_y= current_ent.y;
 						}	
 					}
 				}
@@ -537,7 +617,7 @@ if (inEditor)
 #endregion
 	
 #region GAME RESTART
-if (keyboard_check_pressed(ord("R")))
+if (keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) && keyboard_check_pressed(ord("R"))
 	{
 	room_restart();
 	}
