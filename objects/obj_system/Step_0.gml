@@ -80,36 +80,6 @@ else
 	}
 #endregion
 
-#region THEME TOGGLE
-if keyboard_check_pressed(vk_pageup)
-	{
-	if level_theme<10
-	level_theme++;
-	scr_update_theme();
-	}
-if keyboard_check_pressed(vk_pagedown)
-	{
-	if level_theme>1
-	level_theme--;
-	scr_update_theme();
-	}
-#endregion
-
-#region ATTRIBUTE TOGGLE
-if keyboard_check_pressed(vk_end)
-	{
-	if level_attr<7
-	level_attr++;
-	scr_entity_display();
-	}
-if keyboard_check_pressed(vk_home)
-	{
-	if level_attr>0
-	level_attr--;
-	scr_entity_display();
-	}
-#endregion
-
 #region END GAME KEY
 //if escape key is pressed
 if (keyboard_check_pressed(vk_escape))
@@ -214,7 +184,6 @@ if (keyboard_check_pressed(vk_end))
 	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
     && keyboard_check_pressed(ord("S"))) 
 		{
-	    // Do whatever you want when Ctrl+S is pressed
 	    save_level();
 		}
 #endregion
@@ -224,7 +193,6 @@ if (keyboard_check_pressed(vk_end))
 if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
 && keyboard_check_pressed(ord("L"))) 
 	{
-	// Do whatever you want when Ctrl+S is pressed
 	load_level("bagel_brothers.bin");
 	}
 #endregion
@@ -265,7 +233,6 @@ if (endlvl_active)
 #endregion
 
 #region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
-
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_info_window_x,room_info_window_y,room_info_window_x+(room_info_window_w+15),room_info_window_y+(room_info_window_h+15))
 	{
 	within_rinfo_window=true;	
@@ -274,11 +241,14 @@ else
 	{
 	within_rinfo_window=false;
 	}
-	
+#endregion
+
+#region OPEN/CLOSE LEVEL INFO WINDOW
 if (within_rinfo_window)
 	{
 	canPlace=false;
-	//show_debug_message("HOVERING OVER INFO WINDOW");
+	
+	#region OPEN THE WINDOW
 	if mouse_check_button_pressed(mb_left)
 		{	
 		while (room_info_window_y>display_get_gui_height()-(room_info_window_h+15))
@@ -286,7 +256,8 @@ if (within_rinfo_window)
 			room_info_window_y=(room_info_window_y-1);
 			}
 		}
-		
+	#endregion	
+	
 	#region EDIT LEVEL NAME
 	if (name_edit_active) 
 		{
@@ -329,7 +300,7 @@ if (within_rinfo_window)
 		        par_text = string_delete(par_text, string_length(par_text), 1);
 				keyboard_lastchar="";
 		        }
-		    else if  (ord(ch) >= ord("0") && ord(ch) <= ord("9")) // printable chars
+		    else if (ord(ch) >= ord("0") && ord(ch) <= ord("9")) // printable chars
 				{ 
 		        if (string_length(par_text) < 5) 
 					{
@@ -351,13 +322,14 @@ if (within_rinfo_window)
 	}
 else
 	{
-	
+	#region CLOSE WINDOW IF MOUSE LEAVES
 	while (room_info_window_y<display_get_gui_height()-4)
 		{
 		room_info_window_y=(room_info_window_y+1);
 		}
 	
 	info_window_alpha=0.5;
+	#endregion
 	}
 #endregion
 
@@ -457,11 +429,13 @@ if (within_entity_window)
 		
 	if mouse_check_button_pressed(mb_left)
 		{	
+		#region OPEN ENTITY WINDOW
 		while (entity_window_x<(display_get_gui_width()-display_get_gui_width()))
 			{
 			entity_window_x=(entity_window_x+1);
 			}
-				
+		#endregion
+		
 		if (canPick)
 			{
 			var _sel;

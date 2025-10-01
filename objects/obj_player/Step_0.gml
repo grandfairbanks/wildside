@@ -16,7 +16,7 @@ var vx=horizontal*mspd;
 var vy=vertical*mspd;
 
 // Move with Collision checks
-gridcol_move_speeds(vx,vy);
+//gridcol_move_speeds(vx,vy);
 
 grav=grav+0.1
 if grav > 10

@@ -419,6 +419,7 @@
     {"id":{"name":"spr_scorpion_hurt","path":"sprites/spr_scorpion_hurt/spr_scorpion_hurt.yy",},},
     {"id":{"name":"spr_scorpion_pal","path":"sprites/spr_scorpion_pal/spr_scorpion_pal.yy",},},
     {"id":{"name":"spr_scorpion_walk","path":"sprites/spr_scorpion_walk/spr_scorpion_walk.yy",},},
+    {"id":{"name":"spr_scrollbar","path":"sprites/spr_scrollbar/spr_scrollbar.yy",},},
     {"id":{"name":"spr_shift","path":"sprites/spr_shift/spr_shift.yy",},},
     {"id":{"name":"spr_shooter","path":"sprites/spr_shooter/spr_shooter.yy",},},
     {"id":{"name":"spr_sky","path":"sprites/spr_sky/spr_sky.yy",},},

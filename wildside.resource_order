@@ -307,6 +307,7 @@
     {"name":"spr_scorpion_die","order":3,"path":"sprites/spr_scorpion_die/spr_scorpion_die.yy",},
     {"name":"spr_scorpion_hurt","order":2,"path":"sprites/spr_scorpion_hurt/spr_scorpion_hurt.yy",},
     {"name":"spr_scorpion_pal","order":4,"path":"sprites/spr_scorpion_pal/spr_scorpion_pal.yy",},
+    {"name":"spr_scrollbar","order":3,"path":"sprites/spr_scrollbar/spr_scrollbar.yy",},
     {"name":"spr_shift","order":2,"path":"sprites/spr_shift/spr_shift.yy",},
     {"name":"spr_shooter","order":20,"path":"sprites/spr_shooter/spr_shooter.yy",},
     {"name":"spr_sphere_die","order":1,"path":"sprites/spr_sphere_die/spr_sphere_die.yy",},

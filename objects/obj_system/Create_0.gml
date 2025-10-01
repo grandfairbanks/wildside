@@ -1,10 +1,9 @@
 /// @description Insert description here
-// You can write your code in this editor
-
-
 #region EDITOR PROPERTIES
 mode=0;
 load=0;
+reSize=false;
+
 if !directory_exists("Settings")
 directory_create("Settings");
 
@@ -19,8 +18,24 @@ inEditor=true;
 inGame=false;
 canPlace=false;
 canPick=false;
-bufpos=0;
-filename="";
+level_list=ds_list_create();
+map_list=ds_list_create();
+map_list_x=10;
+map_list_y=10;
+repeat (255)
+	{
+	ds_list_add(map_list,"UNUSED");
+	}
+map_list_scroller=scrollbar_create(1,spr_scrollbar,true)
+
+bufpos=0;//this is to record the room file buffer for loading a room. used to save buffer position after room_restart
+		 //to continue to read collision/terrain/entity information after the header is rea
+filename="";//used to save filename after room restart to read back into the file to continue loading room info
+
+tempCT=ds_grid_create(1,1);
+tempBT=ds_grid_create(1,1);
+tempFT=ds_grid_create(1,1);
+tempENT=ds_grid_create(1,1);
 #endregion
 
 #region DEBUG
@@ -81,14 +96,14 @@ sec_bonus=10;
 no_prize=5000;
 #endregion
 
-#region SAVE LEVEL
+ #region SAVE LEVEL
 function save_level()
 	{
     // Enforce max combined screens
-    if (level_x + level_y > 30) 
+    if (level_x * level_y > 30) 
 		{
         show_error("Level exceeds maximum allowed screens (30 total)!", true);
-        return;
+        exit;
 		}
 
     // Create buffer
@@ -121,18 +136,11 @@ function save_level()
 
     for (var _y = 0; _y < tiles_y; _y++) {
         for (var _x = 0; _x < tiles_x; _x++) {
-
-			// Collision 
 			
 			var colout, col, bg, fg;
 			col = tilemap_get(collision_tiles, _x, _y);
 			bg = tilemap_get(terrain_tiles_b, _x, _y);
 			fg = tilemap_get(terrain_tiles_f, _x, _y);
-			
-			if col == 0
-			colout = "NO ";
-			if col == 1
-			colout = "";
 			
 			show_debug_message(string(colout) + "COLLISION TILE: " + " FOUND AT " + string(_x) + "/"  + string(_y)); 
 			buffer_write(_buf, buffer_u8, col); 
@@ -194,12 +202,6 @@ function load_level(_filename)
 	        show_debug_message("LEVEL FILE FOUND");
 			}
 
-	    // Clear old data
-	    tilemap_clear(collision_layer, 0);
-	    tilemap_clear(terrain_tiles_b, 0);
-	    tilemap_clear(terrain_tiles_f, 0);
-	    ds_grid_clear(entity_grid, 255);
-
 	    var _buf = buffer_load("levels/" + string(_filename));
 
 	    /// --- HEADER ---
@@ -213,12 +215,10 @@ function load_level(_filename)
 			}
 			
 	    level_name  = _name_chars;
-
 	    level_x     = buffer_read(_buf, buffer_u16);
 	    level_y     = buffer_read(_buf, buffer_u16);
 	    level_theme = buffer_read(_buf, buffer_u8);
 	    level_attr  = buffer_read(_buf, buffer_u8);
-	    scr_update_theme();
 	    level_par   = buffer_read(_buf, buffer_u16);
 	    path_bonus  = buffer_read(_buf, buffer_u16);
 	
@@ -236,18 +236,8 @@ function load_level(_filename)
 	    /// --- TILEMAP + ENTITY DATA ---
 	    var _tiles_x = room_width div 16;
 	    var _tiles_y = room_height div 16;
-
-		collision_layer=layer_create(2);
-		terrain_back_layer=layer_create(1);
-		terrain_front_layer=layer_create(0);
 		
-		collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
-		terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-		terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-
-		tilemap_clear(collision_layer,0);
-		tilemap_clear(terrain_tiles_b,0);
-		tilemap_clear(terrain_tiles_f,0);
+		create_tilemaps();
 
 	    for (var _y = 0; _y < _tiles_y; _y++) 
 			{
@@ -296,6 +286,63 @@ function load_level(_filename)
 	    buffer_delete(_buf);
 		}
 }
+#endregion
+
+#region RESIZE LEVEL
+function resize_room()
+	{
+	if reSize==false
+		{
+		show_debug_message("seting new room size");
+		room_set_width(room,level_x*SCREEN_WIDTH);
+		room_set_height(room,level_y*SCREEN_HEIGHT);
+		show_debug_message("seting reSize to true");		
+		reSize=true;
+		
+		var _tiles_x = room_width div 16;
+	    var _tiles_y = room_height div 16;
+		
+		ds_grid_resize(tempCT,_tiles_x,_tiles_y);
+		ds_grid_resize(tempBT,_tiles_x,_tiles_y);
+		ds_grid_resize(tempFT,_tiles_x,_tiles_y);
+		ds_grid_resize(tempENT,_tiles_x,_tiles_y);
+		
+		show_debug_message("saving room contents");	
+	    for (var _y = 0; _y < _tiles_y; _y++) 
+			{
+	        for (var _x = 0; _x < _tiles_x; _x++) 
+				{
+				tempCT[# _x, _y] = tilemap_get(collision_tiles, _x, _y);
+				tempBT[# _x, _y] = tilemap_get(terrain_back_layer, _x, _y);
+				tempFT[# _x, _y] = tilemap_get(terrain_front_layer, _x, _y);
+				tempENT[# _x, _y] = ds_grid_get(entity_grid, _x, _y);
+				}
+			}
+			
+		show_debug_message("restarting...");
+		room_restart();
+		}
+	else
+		{
+		show_debug_message("restoring room contents");
+		create_tilemaps();
+		
+		var _tiles_x = ds_grid_width(tempENT) div 16;
+	    var _tiles_y = ds_grid_height(tempENT) div 16;
+		
+	    for (var _y = 0; _y < _tiles_y; _y++) 
+			{
+	        for (var _x = 0; _x < _tiles_x; _x++) 
+				{
+				tilemap_set(collision_tiles,tempCT[# _x, _y], _x, _y);
+				tilemap_set(terrain_back_layer,tempBT[# _x, _y], _x, _y);
+				tilemap_set(terrain_front_layer,tempFT[# _x, _y], _x, _y);
+				ds_grid_set(entity_grid, _x, _y,tempENT[# _x, _y]);
+				}
+			}
+		reSize=false;
+		}
+	}
 #endregion
 
 #region CHECK IF FLAG EXISTS IN LEVEL
@@ -457,32 +504,29 @@ function entity() constructor
 	}
 #endregion
 
-#region CREATE ENTITY GRID
-entity_grid=ds_grid_create(room_width div 16,room_height div 16);
-ds_grid_set_region(entity_grid,0,0,room_width div 16,room_height div 16,255);
-current_ent=undefined;
+#region CREATE COLLISION AND TERRAIN TILEMAPS AND ENTITY GRID
+function create_tilemaps()
+	{
+	tile_theme_surface=surface_create(256,256);
+	ent_display_surface=surface_create(256,256);
+		
+	collision_layer=layer_create(2);
+	terrain_back_layer=layer_create(1);
+	terrain_front_layer=layer_create(0);
+	scr_update_theme();
+	collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
+	terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+	terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
+		
+	#region CREATE ENTITY GRID
+	entity_grid=ds_grid_create(room_width div 16,room_height div 16);
+	ds_grid_set_region(entity_grid,0,0,room_width div 16,room_height div 16,255);
+	current_ent=undefined;
+	#endregion
+	}
 #endregion
 
-#region CREATE COLLISION AND TERRAIN TILEMAPS
-
-collision_layer=layer_create(2);
-terrain_back_layer=layer_create(1);
-terrain_front_layer=layer_create(0);
-
-tile_theme_surface=-4
-ent_display_surface=-4
-scr_update_theme();
-
-collision_tiles=layer_tilemap_create(collision_layer,0,0,holo_tiles,room_width/TILE_SIZE,room_height/TILE_SIZE);
-terrain_tiles_b=layer_tilemap_create(terrain_back_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-terrain_tiles_f=layer_tilemap_create(terrain_front_layer,0,0,tileset,room_width/TILE_SIZE,room_height/TILE_SIZE);
-
-tilemap_clear(collision_layer,0);
-tilemap_clear(terrain_tiles_b,0);
-tilemap_clear(terrain_tiles_f,0);
-
-room_grid=ds_grid_create(room_width/TILE_SIZE,room_height/TILE_SIZE);
-#endregion
+create_tilemaps();
 
 #region VIEW SET UP
 

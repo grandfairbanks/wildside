@@ -10,7 +10,6 @@ function gridcol_quadrant_rectangle(argument0, argument1, argument2, argument3) 
 	var tx = xx mod TILE_SIZE;
 	var ty = yy mod TILE_SIZE;
 	var col=false;
-
 	switch (obj_system.room_grid[# xx div TILE_SIZE, yy div TILE_SIZE])
 	    {
 	    //45 degree slope 
@@ -24,7 +23,6 @@ function gridcol_quadrant_rectangle(argument0, argument1, argument2, argument3) 
 	    // solid tile
 	    case 5: col = true;                                              break;  // and one square wall - easy peasy
 	    }
+		
 	return col;
-
-
 }

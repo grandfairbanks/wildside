@@ -1,10 +1,13 @@
 
 function scr_update_theme() {
 	
-	if surface_exists(ent_display_surface)
-	surface_free(ent_display_surface);
-	if surface_exists(tile_theme_surface)
-	surface_free(tile_theme_surface);
+	var eds=obj_system.ent_display_surface
+	var tds=obj_system.tile_theme_surface
+	
+	if surface_exists(eds)
+	surface_free(eds);
+	if surface_exists(tds)
+	surface_free(tds);
 	
 	switch(level_theme)
 		{
