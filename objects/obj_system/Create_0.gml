@@ -19,14 +19,35 @@ inGame=false;
 canPlace=false;
 canPick=false;
 level_list=ds_list_create();
+
+#region MAP LIST STUFF
 map_list=ds_list_create();
 map_list_x=10;
 map_list_y=10;
+
 repeat (255)
 	{
 	ds_list_add(map_list,"UNUSED");
 	}
-map_list_scroller=scrollbar_create(1,spr_scrollbar,true)
+map_list_scroller=scrollbar_create(1,spr_scrollbar,true);
+map_list_window_w=300;
+map_list_window_h=200;
+map_list_window_x=100;
+map_list_window_y=100;
+
+function map_list_display()
+	{
+	////////hovering within list box
+	//if window_mouse_get_x()>xx+width || window_mouse_get_y()>yy+height*size-1 || window_mouse_get_x()<xx || window_mouse_get_y()<yy
+	if !point_in_rectangle(window_mouse_get_x(),window_mouse_get_y(),xx,yy,xx+width,yy+height*size-1)
+	//if mouse is outside name text box hotspot
+	{row_hl=0;}
+	else	
+	{}
+	
+spr_map_list_window=scr_create_window(map_list_window_w,map_list_window_h,false);
+	}
+#endregion
 
 bufpos=0;//this is to record the room file buffer for loading a room. used to save buffer position after room_restart
 		 //to continue to read collision/terrain/entity information after the header is rea
@@ -37,6 +58,29 @@ tempBT=ds_grid_create(1,1);
 tempFT=ds_grid_create(1,1);
 tempENT=ds_grid_create(1,1);
 #endregion
+
+#region LOAD LEVEL FILES TO LIST
+function scr_load_files(_folder, _ext) {
+    var _list = ds_list_create();
+    var _pattern = working_directory + "/" + _folder + "/*" + _ext;
+
+    var _file = file_find_first(_pattern, fa_readonly);
+    while (_file != "") {
+        ds_list_add(_list, _file);
+        _file = file_find_next();
+    }
+    file_find_close();
+    return _list;
+}
+#endregion
+
+level_list=scr_load_files("levels",".bin");
+level_list_window_x=10;
+level_list_window_y=10;
+level_list_window_w=40;
+level_list_window_h=256;
+scr_create_window(level_list_window_w,level_list_window_h,false);
+level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
 
 #region DEBUG
 debug=false;
@@ -290,59 +334,61 @@ function load_level(_filename)
 
 #region RESIZE LEVEL
 function resize_room()
-	{
-	if reSize==false
-		{
-		show_debug_message("seting new room size");
-		room_set_width(room,level_x*SCREEN_WIDTH);
-		room_set_height(room,level_y*SCREEN_HEIGHT);
-		show_debug_message("seting reSize to true");		
-		reSize=true;
-		
-		var _tiles_x = room_width div 16;
-	    var _tiles_y = room_height div 16;
-		
-		ds_grid_resize(tempCT,_tiles_x,_tiles_y);
-		ds_grid_resize(tempBT,_tiles_x,_tiles_y);
-		ds_grid_resize(tempFT,_tiles_x,_tiles_y);
-		ds_grid_resize(tempENT,_tiles_x,_tiles_y);
-		
-		show_debug_message("saving room contents");	
-	    for (var _y = 0; _y < _tiles_y; _y++) 
-			{
-	        for (var _x = 0; _x < _tiles_x; _x++) 
-				{
-				tempCT[# _x, _y] = tilemap_get(collision_tiles, _x, _y);
-				tempBT[# _x, _y] = tilemap_get(terrain_back_layer, _x, _y);
-				tempFT[# _x, _y] = tilemap_get(terrain_front_layer, _x, _y);
-				tempENT[# _x, _y] = ds_grid_get(entity_grid, _x, _y);
-				}
-			}
-			
-		show_debug_message("restarting...");
-		room_restart();
-		}
-	else
-		{
-		show_debug_message("restoring room contents");
-		create_tilemaps();
-		
-		var _tiles_x = ds_grid_width(tempENT) div 16;
-	    var _tiles_y = ds_grid_height(tempENT) div 16;
-		
-	    for (var _y = 0; _y < _tiles_y; _y++) 
-			{
-	        for (var _x = 0; _x < _tiles_x; _x++) 
-				{
-				tilemap_set(collision_tiles,tempCT[# _x, _y], _x, _y);
-				tilemap_set(terrain_back_layer,tempBT[# _x, _y], _x, _y);
-				tilemap_set(terrain_front_layer,tempFT[# _x, _y], _x, _y);
-				ds_grid_set(entity_grid, _x, _y,tempENT[# _x, _y]);
-				}
-			}
-		reSize=false;
-		}
-	}
+{
+    if !reSize
+    {
+        show_debug_message("saving current room contents");
+
+        // old grid size BEFORE resizing
+        var old_tiles_x = room_width div 16;
+        var old_tiles_y = room_height div 16;
+
+        ds_grid_resize(tempCT, old_tiles_x, old_tiles_y);
+        ds_grid_resize(tempBT, old_tiles_x, old_tiles_y);
+        ds_grid_resize(tempFT, old_tiles_x, old_tiles_y);
+        ds_grid_resize(tempENT, old_tiles_x, old_tiles_y);
+
+        for (var _y = 0; _y < old_tiles_y; _y++) {
+            for (var _x = 0; _x < old_tiles_x; _x++) {
+                tempCT[# _x, _y]  = tilemap_get(collision_tiles, _x, _y);
+                tempBT[# _x, _y]  = tilemap_get(terrain_back_layer, _x, _y);
+                tempFT[# _x, _y]  = tilemap_get(terrain_front_layer, _x, _y);
+                tempENT[# _x, _y] = ds_grid_get(entity_grid, _x, _y);
+            }
+        }
+
+        // now resize the room
+        show_debug_message("resizing room...");
+        room_set_width(room, level_x * SCREEN_WIDTH);
+        room_set_height(room, level_y * SCREEN_HEIGHT);
+
+        reSize = true;
+        room_restart();
+    }
+    else
+    {
+        show_debug_message("restoring room contents");
+        create_tilemaps();
+
+        var new_tiles_x = room_width div 16;
+        var new_tiles_y = room_height div 16;
+
+        // loop only up to whichever is smaller (saved or new)
+        var max_x = min(ds_grid_width(tempCT), new_tiles_x);
+        var max_y = min(ds_grid_height(tempCT), new_tiles_y);
+
+        for (var _y = 0; _y < max_y; _y++) {
+            for (var _x = 0; _x < max_x; _x++) {
+                tilemap_set(collision_tiles,     tempCT[# _x, _y], _x, _y);
+                tilemap_set(terrain_back_layer,  tempBT[# _x, _y], _x, _y);
+                tilemap_set(terrain_front_layer, tempFT[# _x, _y], _x, _y);
+                ds_grid_set(entity_grid, _x, _y, tempENT[# _x, _y]);
+            }
+        }
+
+        reSize = false;
+    }
+}
 #endregion
 
 #region CHECK IF FLAG EXISTS IN LEVEL
@@ -733,48 +779,52 @@ endlvl_active = false; // don’t start until flag touched
 endfade_active = false;
 end_alpha = 1;
 start_end_fade=false;
-function end_level()
-	{
-	layer_set_visible(collision_layer,true)
-	// Initialize starting tile based on current view
-	var view_x = camera_get_view_x(view);
-	var view_y = camera_get_view_y(view);
-	var tiles_w = (room_width/TILE_SIZE);
-	var tiles_h = (room_height/TILE_SIZE);
-	start_tile_x = view_x div 16;
-	start_tile_y = view_y div 16;
-	view_w_tiles = ceil(camera_get_view_width(view) div TILE_SIZE) + 1;
-	view_h_tiles = ceil(camera_get_view_height(view) div TILE_SIZE) + 1;
-	
-	if (endlvl_active) 
+
+	#region REMOVE TILES AND ENTITES IN VIEW
+	function end_level()
 		{
-	    timer++;
-	    if (timer >= erase_speed) 
+		layer_set_visible(collision_layer,true)
+		// Initialize starting tile based on current view
+		var view_x = camera_get_view_x(view);
+		var view_y = camera_get_view_y(view);
+		var tiles_w = (room_width/TILE_SIZE);
+		var tiles_h = (room_height/TILE_SIZE);
+		start_tile_x = view_x div 16;
+		start_tile_y = view_y div 16;
+		view_w_tiles = ceil(camera_get_view_width(view) div TILE_SIZE) + 1;
+		view_h_tiles = ceil(camera_get_view_height(view) div TILE_SIZE) + 1;
+	
+		if (endlvl_active) 
 			{
-	        timer = 0;
-
-	        // Tile coordinates in view
-	        var tx = start_tile_x + (current_index mod view_w_tiles);
-	        var ty = start_tile_y + (current_index div view_w_tiles);
-
-	        // Safety check: don’t go out of room bounds
-	        if (tx < tiles_w && ty < tiles_h) 
+		    timer++;
+		    if (timer >= erase_speed) 
 				{
-	            tilemap_set(terrain_tiles_b, 0, tx, ty); // erase tile
-				tilemap_set(terrain_tiles_f, 0, tx, ty); // erase tile
-				ds_grid_set(entity_grid,tx,ty,255);
-				}
+		        timer = 0;
 
-				current_index++;
+		        // Tile coordinates in view
+		        var tx = start_tile_x + (current_index mod view_w_tiles);
+		        var ty = start_tile_y + (current_index div view_w_tiles);
 
-	        // Stop when all tiles in view are erased
-	        if (current_index >= view_w_tiles * view_h_tiles) 
-				{
-	            endlvl_active=false;
-				timer=0;
+		        // Safety check: don’t go out of room bounds
+		        if (tx < tiles_w && ty < tiles_h) 
+					{
+		            tilemap_set(terrain_tiles_b, 0, tx, ty); // erase tile
+					tilemap_set(terrain_tiles_f, 0, tx, ty); // erase tile
+					ds_grid_set(entity_grid,tx,ty,255);
+					}
+
+					current_index++;
+
+		        // Stop when all tiles in view are erased
+		        if (current_index >= view_w_tiles * view_h_tiles) 
+					{
+		            endlvl_active=false;
+					timer=0;
+					}
 				}
 			}
-		}
 		
-	}//end function
+		}//end function
+	#endregion
+
 #endregion

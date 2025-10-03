@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrollbar_create",
+  "%Name":"get_scrollbarvalue",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrollbar_create",
+  "name":"get_scrollbarvalue",
   "parent":{
     "name":"Scollbar",
     "path":"folders/Scripts/GUI/Scollbar.yy",

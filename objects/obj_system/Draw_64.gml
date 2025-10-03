@@ -32,12 +32,12 @@ if (inEditor)
 			switch(entity_selected)
 			{
 			default: col_text=""; break;
-			case 7: col_txt="Solid"; break;
-			case 8: col_txt="Hazard"; break;			
-			case 16: col_txt="Ramp Down"; break;
-			case 17: col_txt="Ramp Up"; break;
+			case 7: col_text="Solid"; break;
+			case 8: col_text="Hazard"; break;			
+			case 16: col_text="Ramp Down"; break;
+			case 17: col_text="Ramp Up"; break;
 			}
-			str="Current Collision Tile Selected: " + (string(col_txt));
+			str="Current Collision Tile Selected: " + (string(col_text));
 			}
 		}
 		strw=string_width(str);
@@ -270,9 +270,10 @@ if (inEditor)
 	draw_set_alpha(1);
 	#endregion
 	
-	#region DRAW MAP LIST
-	scrollbar_draw_ext(map_list_scroller,10,10,10,10,ds_list_size(map_list)-1);
+	#region DRAW LEVEL LIST
+	scrollbar_draw_ext(level_list_scroller,10,10,10,10,ds_list_size(map_list)-1);
 	
+	//scr_file_listbox(level_list_window_x,level_list_window_y,level_list,10,40,10,);
 	#endregion
 
 	#region DRAW TILE WINDOW
@@ -308,7 +309,7 @@ if (inEditor)
 	#endregion
 	
 	#region THEME PALETTE WINDOW
-	theme_palette_window_x=tile_window_x
+	theme_palette_window_x=tile_window_x;
 	draw_sprite(theme_palette_window,0,theme_palette_window_x,theme_palette_window_y);
 	draw_text(theme_palette_window_x+sprite_get_width(spr_window)+16,theme_palette_window_y+9,"THEME PALETTES");
 	draw_text(theme_palette_window_x+sprite_get_width(spr_window),theme_palette_window_y+20,"FOREGROUND PALETTE");
@@ -369,17 +370,22 @@ if (inEditor)
 	if (entity_info_window_visible==true)
 	{
 	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
-	draw_text(entity_info_window_x+8,entity_info_window_y+4,string(current_ent.name));
+	draw_text(entity_info_window_x+8,entity_info_window_y+8,string(current_ent.name));
 	if current_ent.opt1!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+16,current_ent.opt1 + "" + string(current_ent.var1));
+		{
+		
+		draw_text(entity_info_window_x+8,entity_info_window_y+24,current_ent.opt1 + "" + string(current_ent.var1));
+		
+		}
+		
 	if current_ent.opt2!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+28,current_ent.opt2 + "" + string(current_ent.var2));
+	draw_text(entity_info_window_x+8,entity_info_window_y+40,current_ent.opt2 + "" + string(current_ent.var2));
 	if current_ent.opt3!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+40,current_ent.opt3 + "" + string(current_ent.var3));
+	draw_text(entity_info_window_x+8,entity_info_window_y+56,current_ent.opt3 + "" + string(current_ent.var3));
 	if current_ent.opt4!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+52,current_ent.opt4 + "" + string(current_ent.var4));
+	draw_text(entity_info_window_x+8,entity_info_window_y+72,current_ent.opt4 + "" + string(current_ent.var4));
 	if current_ent.opt5!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+64,current_ent.opt5 + "" + string(current_ent.var5));
+	draw_text(entity_info_window_x+8,entity_info_window_y+88,current_ent.opt5 + "" + string(current_ent.var5));
 	}
 	#endregion
 	}

@@ -1,12 +1,12 @@
 {
   "$GMScript":"v1",
-  "%Name":"scrollbar_create",
+  "%Name":"scr_file_listbox",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scrollbar_create",
+  "name":"scr_file_listbox",
   "parent":{
-    "name":"Scollbar",
-    "path":"folders/Scripts/GUI/Scollbar.yy",
+    "name":"Editor",
+    "path":"folders/Scripts/Editor.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

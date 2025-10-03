@@ -586,6 +586,19 @@ if (inEditor)
 					}
 				}
 			}
+		if mouse_check_button_pressed(mb_right)
+			{
+			if mode==1
+				{
+				if ds_grid_get(entity_grid,xx,yy)==255// && tilemap_get(collision_layer,xx,yy)==0
+					{
+					}
+				else
+					{
+					ds_grid_set(entity_grid,xx,yy,255);	
+					}
+				}
+			}
 		}
 	}// if inEditor 
 #endregion
@@ -593,6 +606,6 @@ if (inEditor)
 #region GAME RESTART
 if (keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) && keyboard_check_pressed(ord("R"))
 	{
-	room_restart();
+	//room_restart();
 	}
 #endregion

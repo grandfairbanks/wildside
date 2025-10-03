@@ -63,7 +63,7 @@ function scr_update_entity(){
 		opt1="Hidden: ";
 		break;
 		case 9: 
-		sprite=spr_lift;
+		sprite=spr_elevator;
 		name="Lift Block";
 		opt1="Hidden: ";
 		break;

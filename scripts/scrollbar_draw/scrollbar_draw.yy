@@ -6,7 +6,7 @@
   "name":"scrollbar_draw",
   "parent":{
     "name":"Scollbar",
-    "path":"folders/Scripts/Scollbar.yy",
+    "path":"folders/Scripts/GUI/Scollbar.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",
