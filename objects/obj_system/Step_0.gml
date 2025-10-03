@@ -592,10 +592,12 @@ if (inEditor)
 				{
 				if ds_grid_get(entity_grid,xx,yy)==255// && tilemap_get(collision_layer,xx,yy)==0
 					{
+					tilemap_set(collision_tiles,0,xx,yy)
 					}
 				else
 					{
 					ds_grid_set(entity_grid,xx,yy,255);	
+					tilemap_set(collision_tiles,0,xx,yy)
 					}
 				}
 			}

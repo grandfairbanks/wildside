@@ -18,6 +18,8 @@ inEditor=true;
 inGame=false;
 canPlace=false;
 canPick=false;
+
+
 level_list=ds_list_create();
 
 #region MAP LIST STUFF
@@ -77,9 +79,9 @@ function scr_load_files(_folder, _ext) {
 level_list=scr_load_files("levels",".bin");
 level_list_window_x=10;
 level_list_window_y=10;
-level_list_window_w=40;
-level_list_window_h=256;
-scr_create_window(level_list_window_w,level_list_window_h,false);
+level_list_window_w=144;
+level_list_window_h=112;
+spr_level_list_window=scr_create_window(level_list_window_w,level_list_window_h,false);
 level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
 
 #region DEBUG
@@ -181,18 +183,18 @@ function save_level()
     for (var _y = 0; _y < tiles_y; _y++) {
         for (var _x = 0; _x < tiles_x; _x++) {
 			
-			var colout, col, bg, fg;
+			var col, bg, fg;
 			col = tilemap_get(collision_tiles, _x, _y);
 			bg = tilemap_get(terrain_tiles_b, _x, _y);
 			fg = tilemap_get(terrain_tiles_f, _x, _y);
 			
-			show_debug_message(string(colout) + "COLLISION TILE: " + " FOUND AT " + string(_x) + "/"  + string(_y)); 
+			//show_debug_message(string(colout) + "COLLISION TILE: " + " FOUND AT " + string(_x) + "/"  + string(_y)); 
 			buffer_write(_buf, buffer_u8, col); 
 			// Background
-			show_debug_message("BACKGROUND TILE: " + string(bg) + " found at " + string(_x) + "/"  + string(_y));
+			//show_debug_message("BACKGROUND TILE: " + string(bg) + " found at " + string(_x) + "/"  + string(_y));
 			buffer_write(_buf, buffer_u8, bg); 
 			// Foreground
-			show_debug_message("FOREGROUND TILE: " + string(fg) + " found at " + string(_x) + "/"  + string(_y));
+			//show_debug_message("FOREGROUND TILE: " + string(fg) + " found at " + string(_x) + "/"  + string(_y));
 			buffer_write(_buf, buffer_u8, fg);
 
             // Entities (Blocks/Enemies/Player)
@@ -207,7 +209,7 @@ function save_level()
                 buffer_write(_buf, buffer_u8, 0);   // var3
                 buffer_write(_buf, buffer_u8, 0);   // var4
                 buffer_write(_buf, buffer_u8, 0);   // var5
-				show_debug_message("NO ENTITY FOUND AT " + string(_x) + "/"  + string(_y));
+				//show_debug_message("NO ENTITY FOUND AT " + string(_x) + "/"  + string(_y));
             } else {
                 // Write real entity
                 buffer_write(_buf, buffer_u8, _ent._type);
@@ -217,7 +219,7 @@ function save_level()
                 buffer_write(_buf, buffer_u8, _ent.var3);
                 buffer_write(_buf, buffer_u8, _ent.var4);
                 buffer_write(_buf, buffer_u8, _ent.var5);
-				show_debug_message(string(_ent.name) + "  FOUND AT " + string(_x) + "/"  + string(_y));
+				//show_debug_message(string(_ent.name) + "  FOUND AT " + string(_x) + "/"  + string(_y));
             }
         }
     }
@@ -227,7 +229,7 @@ function save_level()
     var _filename  = "levels/" + _safe_name + ".bin";
     buffer_save(_buf, _filename);
     buffer_delete(_buf);
-	show_debug_message("LEVEL SAVED.");
+	//show_debug_message("LEVEL SAVED.");
 	}
 #endregion
 
@@ -818,6 +820,7 @@ start_end_fade=false;
 		        // Stop when all tiles in view are erased
 		        if (current_index >= view_w_tiles * view_h_tiles) 
 					{
+					
 		            endlvl_active=false;
 					timer=0;
 					}

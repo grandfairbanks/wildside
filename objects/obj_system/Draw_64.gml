@@ -271,9 +271,10 @@ if (inEditor)
 	#endregion
 	
 	#region DRAW LEVEL LIST
-	scrollbar_draw_ext(level_list_scroller,10,10,10,10,ds_list_size(map_list)-1);
 	
-	//scr_file_listbox(level_list_window_x,level_list_window_y,level_list,10,40,10,);
+	draw_sprite(spr_level_list_window,0,level_list_window_x,level_list_window_y);
+	//scrollbar_draw_ext(level_list_scroller,level_list_window_x+level_list_window_w+1,level_list_window_y+7,9.5,10,ds_list_size(map_list)-1);
+	scr_file_listbox(level_list_window_x+8,level_list_window_y+9,level_list,10,level_list_window_w,10,level_list_scroller,"LEVEL LIST");
 	#endregion
 
 	#region DRAW TILE WINDOW
@@ -329,9 +330,9 @@ if (inEditor)
 		if surface_exists(ent_display_surface) 
 		{
 		//draw block menu text
-		draw_text(entity_window_x+sprite_get_width(spr_window)+16,entity_window_y+sprite_get_height(spr_window)+1,"BLOCKS");
+		draw_text(entity_window_x+sprite_get_width(spr_window)+16,entity_window_y+sprite_get_height(spr_window),"BLOCKS");
 		//draw entity display
-		draw_surface_ext(ent_display_surface,entity_window_x+sprite_get_width(spr_window),entity_window_y+sprite_get_width(spr_window)*2+1,0.5,0.5,0,c_white,1);
+		draw_surface_ext(ent_display_surface,entity_window_x+sprite_get_width(spr_window),entity_window_y+sprite_get_width(spr_window)*2,0.5,0.5,0,c_white,1);
 		//draw enemy menu text
 		var _en_txt;
 		if level_attr <6
@@ -343,7 +344,7 @@ if (inEditor)
 		if level_attr ==7
 		_en_txt="FINAL BOSS";
 		
-		draw_text((entity_window_x+8)+(entity_window_w/2)-(string_width(_en_txt)/2),entity_window_y+sprite_get_height(spr_window)+33,string(_en_txt));
+		draw_text((entity_window_x+8)+(entity_window_w/2)-(string_width(_en_txt)/2),entity_window_y+sprite_get_height(spr_window)+32,string(_en_txt));
 		
 		#region DRAW ENTITY CURSOR
 		if (canPick==true) && (within_entity_window==true)
@@ -351,7 +352,7 @@ if (inEditor)
 			var xx=floor(device_mouse_x_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 			var yy=floor(device_mouse_y_to_gui(0)/(TILE_SIZE/2))*TILE_SIZE/2;
 			draw_set_alpha(0.5);
-			draw_rectangle_color(xx,yy+1,xx+7,yy+8,c_white,c_white,c_white,c_white,false);
+			draw_rectangle_color(xx,yy,xx+7,yy+7,c_white,c_white,c_white,c_white,false);
 			draw_text(xx+1,yy+1,entity_selected);
 			draw_set_alpha(1);
 			}
