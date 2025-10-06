@@ -4,19 +4,20 @@ function scr_draw_map()
 	for (var i=0; i<ds_list_size(level_windows); i++) 
 		{
 	    var _level_window = ds_list_find_value(level_windows, i);
-	    var _level_window_x = map_window_x + 100;
+	    var _level_window_x = map_window_x + map_window_w/2 - (sprite_get_width(_level_window)/2);
 	    var _level_window_y = map_window_y + 40 + (40*i);
-		
+		var flag_detected = false;
 		var _buf = undefined;
+		var tele_detected = false;
 		var _filename = ds_list_find_value(map_list, i)
 		var _filepath = "levels/" + string(_filename);
 		show_debug_message("_FILEPATH: " + string(_filepath));
 		show_debug_message("_FILENAME: " + string(_filename));
 		
-		if (!file_exists(_filepath)) || _filename=="UNUSED"
+		if (!file_exists(_filepath) || _filename == "UNUSED")
 			{
 			show_debug_message("FILE NOT FOUND FOR LEVEL MAP");
-			exit;
+			return;
 			}
 		else
 			{
@@ -45,7 +46,7 @@ function scr_draw_map()
 			show_debug_message("LEVEL THEME " + string(_theme));
 			
 			var _tiles_x = _level_x*SCREEN_WIDTH div 16;
-			var _tiles_y = _level_x*SCREEN_HEIGHT div 16;
+			var _tiles_y = _level_y*SCREEN_HEIGHT div 16;
 			
 			for (var _y = 0; _y < _tiles_y; _y++) 
 			{
@@ -68,17 +69,18 @@ function scr_draw_map()
 
 	            if (_type == 255) 
 					{
-	                // Keep cell as empty
-	                //ds_grid_set(entity_grid, _x, _y, 255);
+					//
 					} 
 					
 				else if _type==14 //teleporter detected
 					{
+					tele_detected=true;
 					show_debug_message("TELEPORTER DETECTED IN LEVEL");
 					}
 				
 				else if _type==15
 					{
+					flag_detected=true;
 					show_debug_message("FLAG DETECTED IN LEVEL");
 					}
 			}
@@ -92,6 +94,12 @@ function scr_draw_map()
 			draw_sprite(_level_window, 0, _level_window_x, _level_window_y);
 			}
 		pal_swap_reset();
+		
+		if (flag_detected)
+		draw_sprite_part_ext(spr_window,0,0,4,3,3,_level_window_x+sprite_get_width(_level_window)/2,_level_window_y+sprite_get_height(_level_window),1,3,c_white,1);
+		
 		scr_text_button(_level_window_x+14, _level_window_y+12,_name);
+		
+		
 		}	
 	}}

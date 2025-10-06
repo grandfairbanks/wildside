@@ -394,9 +394,10 @@ if (inEditor)
 	#region DRAW MAP
 	if (map_window_visible)
 		{
-		
+		var str="GAME MAP";
+		var strw=string_width(str);
 		draw_sprite(map_window,0,map_window_x,map_window_y);
-		draw_text(map_window_x+map_window_w/2+(8),map_window_y+8,"GAME MAP");	
+		draw_text(map_window_x+map_window_w/2-(strw/2),map_window_y+8,str);	
 		scr_draw_map();
 		}
 	#endregion
