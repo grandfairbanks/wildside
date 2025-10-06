@@ -19,9 +19,6 @@ inGame=false;
 canPlace=false;
 canPick=false;
 
-
-level_list=ds_list_create();
-
 #region MAP LIST STUFF
 map_list=ds_list_create();
 map_list_x=10;
@@ -31,6 +28,7 @@ repeat (255)
 	{
 	ds_list_add(map_list,"UNUSED");
 	}
+
 map_list_scroller=scrollbar_create(1,spr_scrollbar,true);
 map_list_window_w=300;
 map_list_window_h=200;
@@ -76,13 +74,17 @@ function scr_load_files(_folder, _ext) {
 }
 #endregion
 
+#region LEVEL LIST WINDOW
 level_list=scr_load_files("levels",".bin");
 level_list_window_x=10;
 level_list_window_y=10;
-level_list_window_w=144;
-level_list_window_h=112;
+level_list_window_w=264;
+level_list_window_h=136;
 spr_level_list_window=scr_create_window(level_list_window_w,level_list_window_h,false);
 level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
+level_selected=undefined;
+load_window_opened=true;
+#endregion
 
 #region DEBUG
 debug=false;

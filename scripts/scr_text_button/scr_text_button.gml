@@ -1,11 +1,11 @@
 ///scr_text_button(x,y,text to display)
-function scr_text_button(argument0, argument1, argument2) 
+function scr_text_button(xpos, ypos, txt) 
 	{
 	var xx, yy, text, hover, txt_width, txt_height, clicked, right;
 
-	xx=argument0
-	yy=argument1
-	text=argument2
+	xx=xpos
+	yy=ypos
+	text=txt
 	txt_width=string_width(text)
 	txt_height=string_height(text)
 	hover=(device_mouse_x_to_gui(0) >= xx && device_mouse_x_to_gui(0) <= xx + txt_width && device_mouse_y_to_gui(0) >= yy && device_mouse_y_to_gui(0) <= yy + txt_height);

@@ -193,7 +193,7 @@ if (keyboard_check_pressed(vk_end))
 if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
 && keyboard_check_pressed(ord("L"))) 
 	{
-	load_level("bagel_brothers.bin");
+	load_window_opened=true;
 	}
 #endregion
 
