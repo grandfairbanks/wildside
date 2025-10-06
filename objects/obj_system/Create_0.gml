@@ -3,7 +3,8 @@
 mode=0;
 load=0;
 reSize=false;
-
+fromload=0;
+frommap=0;
 if !directory_exists("Settings")
 directory_create("Settings");
 
@@ -18,36 +19,6 @@ inEditor=true;
 inGame=false;
 canPlace=false;
 canPick=false;
-
-#region MAP LIST STUFF
-map_list=ds_list_create();
-map_list_x=10;
-map_list_y=10;
-
-repeat (255)
-	{
-	ds_list_add(map_list,"UNUSED");
-	}
-
-map_list_scroller=scrollbar_create(1,spr_scrollbar,true);
-map_list_window_w=300;
-map_list_window_h=200;
-map_list_window_x=100;
-map_list_window_y=100;
-
-function map_list_display()
-	{
-	////////hovering within list box
-	//if window_mouse_get_x()>xx+width || window_mouse_get_y()>yy+height*size-1 || window_mouse_get_x()<xx || window_mouse_get_y()<yy
-	if !point_in_rectangle(window_mouse_get_x(),window_mouse_get_y(),xx,yy,xx+width,yy+height*size-1)
-	//if mouse is outside name text box hotspot
-	{row_hl=0;}
-	else	
-	{}
-	
-spr_map_list_window=scr_create_window(map_list_window_w,map_list_window_h,false);
-	}
-#endregion
 
 bufpos=0;//this is to record the room file buffer for loading a room. used to save buffer position after room_restart
 		 //to continue to read collision/terrain/entity information after the header is rea
@@ -72,18 +43,6 @@ function scr_load_files(_folder, _ext) {
     file_find_close();
     return _list;
 }
-#endregion
-
-#region LEVEL LIST WINDOW
-level_list=scr_load_files("levels",".bin");
-level_list_window_x=10;
-level_list_window_y=10;
-level_list_window_w=264;
-level_list_window_h=136;
-spr_level_list_window=scr_create_window(level_list_window_w,level_list_window_h,false);
-level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
-level_selected=undefined;
-load_window_opened=true;
 #endregion
 
 #region DEBUG
@@ -576,6 +535,116 @@ function create_tilemaps()
 	}
 #endregion
 
+#region MAP LIST/SCREEN STUFF
+map_list=ds_list_create();
+map_list_x=10;
+map_list_y=10;
+map_index=undefined;
+repeat (255)
+	{
+	ds_list_add(map_list,"UNUSED");
+	}
+
+	map_list_scroller=scrollbar_create(1,spr_scrollbar,true);
+	map_list_window_w=128;
+	map_list_window_h=128;
+	map_list_window_x=50;
+	map_list_window_y=50;
+	spr_map_list_window=scr_create_window(map_list_window_w,map_list_window_h,false);
+	map_list_window_visible=true;
+	spr_map_list_window=scr_create_window(map_list_window_w,map_list_window_h,false);
+	
+function map_list_display()
+	{
+	////////hovering within list box
+	//if window_mouse_get_x()>xx+width || window_mouse_get_y()>yy+height*size-1 || window_mouse_get_x()<xx || window_mouse_get_y()<yy
+	draw_sprite(spr_map_list_window,0,map_list_window_x,map_list_window_y);
+	var mpin=scr_file_listbox(map_list_window_x+8,map_list_window_y+8,map_list,10,map_list_window_w,10,map_list_scroller,"MAP LIST");
+	
+	// Only update the selection if user actually clicked
+	if (mpin != undefined) 
+		{
+		frommap=1;
+		map_index = mpin.index;
+		load_window_opened=true;
+		}
+	}
+#endregion
+
+#region LEVEL LIST WINDOW
+	
+	#region LEVEL LIST WINDOW ATTRIBUTES
+	level_list=scr_load_files("levels",".bin");
+	level_list_window_x=10;
+	level_list_window_y=10;
+	level_list_window_w=264;
+	level_list_window_h=136;
+	spr_level_list_window=scr_create_window(level_list_window_w,level_list_window_h,false);
+	level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
+	level_selected=undefined;
+	load_window_opened=false;
+	#endregion
+
+	#region DRAW LEVEL LIST WINDOW AND CONTENTS
+	function draw_level_list() 
+		{
+		if (load_window_opened)
+			{
+			draw_sprite(spr_level_list_window, 0, level_list_window_x, level_list_window_y);
+
+			// Call the listbox
+			var result = scr_file_listbox(level_list_window_x + 8, level_list_window_y + 9,
+                                  level_list, 10, level_list_window_w, 10,
+                                  level_list_scroller, "LEVEL LIST");
+
+			// Only update the selection if user actually clicked
+			if (result != undefined) 
+				{
+		        level_selected = result;
+				}
+	
+		    // Draw "OPEN" button
+		    var open_butn = scr_text_button(level_list_window_x + 24, level_list_window_y + level_list_window_h - 5, "OPEN");
+		    if (open_butn.clicked) 
+				{
+				if fromload==1
+		        if (level_selected != undefined) 
+					{
+		            var selected_name = level_selected.text;
+		            load_level(selected_name);
+		            load_window_opened = false;
+					result=undefined;
+					fromload=0;
+					} 
+				else 
+					{
+					}
+					
+				if frommap=1
+				if (level_selected != undefined) 
+					{
+		            var selected_name = level_selected.text;
+					//var selected_index = level_selected.index
+		            ds_list_set(map_list,map_index,selected_name);
+		            load_window_opened = false;
+					frommap=0;
+					} 
+				else 
+					{
+					}
+				}
+		
+			var close_butn = scr_text_button(level_list_window_x + level_list_window_w - string_width("CANCEL")-6, level_list_window_y + level_list_window_h - 5, "CANCEL");
+			if (close_butn.clicked) 
+				{
+				load_window_opened = false;
+				}  
+			}
+		}
+	#endregion
+	
+#endregion
+
 create_tilemaps();
 
 #region VIEW SET UP
@@ -634,14 +703,18 @@ map_window_h=208;
 map_window=scr_create_window(map_window_w,map_window_h,false);
 within_map_window=false;
 map_window_visible=false;
-scr_create_orig_map();
+//scr_create_orig_map();
 level_windows = ds_list_create();
-for (var _i=0; _i<ds_list_size(game_map); _i++) 
+
+function get_map_list()
 	{
-    var _str = ds_list_find_value(game_map, _i);
-    var _strw = string_width(_str);
-    var _level_window = scr_create_window((_strw-1)+12, 16, true);
-    ds_list_add(level_windows, _level_window);
+	for (var _i=0; _i<ds_list_size(map_list); _i++) 
+		{
+	    var _str = ds_list_find_value(map_list, _i);
+	    var _strw = string_width(_str)-28;
+	    var _level_window = scr_create_window((_strw-1)+12, 16, true);
+	    ds_list_set(level_windows, _i, _level_window);
+		}
 	}
 #endregion
 

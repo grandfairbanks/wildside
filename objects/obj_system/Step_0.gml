@@ -11,7 +11,7 @@ if keyboard_check(vk_control) && keyboard_check_pressed(ord("D"))
 	debug = !debug;
 	}
 #endregion
-
+  
 #region WINDOW SIZE TOGGLE
 if keyboard_check_pressed(vk_f2)
 	{
@@ -193,6 +193,7 @@ if (keyboard_check_pressed(vk_end))
 if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
 && keyboard_check_pressed(ord("L"))) 
 	{
+	fromload=1;
 	load_window_opened=true;
 	}
 #endregion
@@ -203,6 +204,17 @@ if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check
 	{
 	endlvl_active=true;
 	}
+#endregion
+
+#region OPEN MAP SCREEN
+// Check if Ctrl is held AND S is pressed
+if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+&& keyboard_check_pressed(ord("M"))) 
+	{
+	get_map_list();
+	map_window_visible=!map_window_visible;
+	}
+
 #endregion
 
 #region TOGGLE CURRENT TILE LAYER

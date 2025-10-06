@@ -4,9 +4,6 @@
 function scr_file_listbox(xx, yy, list, visible_rows, row_width, row_height, scrollbar_id, title)
 {
 	
-	if argument0=="CLEAR"
-	selected_index
-	
     // --- Persistent selected indices per list ---
     static selected_map = undefined;
     if (is_undefined(selected_map)) selected_map = ds_map_create();
@@ -72,8 +69,8 @@ function scr_file_listbox(xx, yy, list, visible_rows, row_width, row_height, scr
             draw_set_color(c_white);  // normal
         }
 
-        draw_text(xx + 4, row_y + 2, item_text);
+        draw_text(xx, row_y + 2, item_text);
     }
-
+	draw_set_color(c_white);
     return result;
 }

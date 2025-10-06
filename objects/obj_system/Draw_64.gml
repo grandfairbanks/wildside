@@ -270,49 +270,13 @@ if (inEditor)
 	draw_set_alpha(1);
 	#endregion
 	
+	#region DRAW MAP LIST
+	map_list_display();
+	#endregion
+	
 	#region DRAW LEVEL LIST WINDOW AND CONTENTS
-if (load_window_opened)
-{
-    draw_sprite(spr_level_list_window, 0, level_list_window_x, level_list_window_y);
-
-    // Call the listbox
-    var result = scr_file_listbox(level_list_window_x + 8, level_list_window_y + 9,
-                                  level_list, 10, level_list_window_w, 10,
-                                  level_list_scroller, "LEVEL LIST");
-
-    // Only update the selection if user actually clicked
-    if (result != undefined) {
-        level_selected = result;
-    }
-	
-    // Draw "OPEN" button
-    var open_butn = scr_text_button(level_list_window_x + 24, level_list_window_y + level_list_window_h - 5, "OPEN");
-    if (open_butn.clicked) 
-		{
-        if (level_selected != undefined) 
-			{
-            var selected_name = level_selected.text;
-            show_debug_message(selected_name);
-            load_level(selected_name);
-            load_window_opened = false;
-			result=undefined;
-			//scr_file_listbox("CLEAR_SELECTION", level_list_scroller);
-
-			} 
-		else 
-			{
-
-			}
-		}
-		
-	var close_butn = scr_text_button(level_list_window_x + level_list_window_w - string_width("CANCEL")-6, level_list_window_y + level_list_window_h - 5, "CANCEL");
-	if (close_butn.clicked) 
-			{
-			load_window_opened = false;
-			}  
-	
-}
-#endregion
+	draw_level_list();
+	#endregion
 
 	#region DRAW TILE WINDOW
 	draw_sprite(tile_window,0,tile_window_x,tile_window_y);
@@ -430,6 +394,7 @@ if (load_window_opened)
 	#region DRAW MAP
 	if (map_window_visible)
 		{
+		
 		draw_sprite(map_window,0,map_window_x,map_window_y);
 		draw_text(map_window_x+map_window_w/2+(8),map_window_y+8,"GAME MAP");	
 		scr_draw_map();
