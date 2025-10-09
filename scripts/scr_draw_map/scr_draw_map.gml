@@ -17,12 +17,12 @@ function scr_draw_map()
 		if (!file_exists(_filepath) || _filename == "UNUSED")
 			{
 			show_debug_message("FILE NOT FOUND FOR LEVEL MAP");
-			return;
+			continue;
 			}
 		else
 			{
 			show_debug_message("FILE FOUND FOR LEVEL MAP");
-			var _buf = buffer_load(_filepath);
+			_buf = buffer_load(_filepath);
 			buffer_seek(_buf,buffer_seek_start,0);
 				
 			var _num = buffer_read(_buf,buffer_u32);
@@ -66,7 +66,7 @@ function scr_draw_map()
 	            var _v3     = buffer_read(_buf, buffer_u8);
 	            var _v4     = buffer_read(_buf, buffer_u8);
 	            var _v5     = buffer_read(_buf, buffer_u8);
-
+				
 	            if (_type == 255) 
 					{
 					//
@@ -83,9 +83,7 @@ function scr_draw_map()
 					flag_detected=true;
 					show_debug_message("FLAG DETECTED IN LEVEL");
 					}
-			}
-			
-
+				}
 			}
 		
 		pal_swap_set(spr_theme_win_pal,_theme,false);
@@ -96,10 +94,17 @@ function scr_draw_map()
 		pal_swap_reset();
 		
 		if (flag_detected)
-		draw_sprite_part_ext(spr_window,0,0,4,3,3,_level_window_x+sprite_get_width(_level_window)/2,_level_window_y+sprite_get_height(_level_window),1,3,c_white,1);
+			{
+			draw_sprite_part_ext(spr_window,12,0,0,8,2,_level_window_x+sprite_get_width(_level_window)/2,_level_window_y+sprite_get_height(_level_window)+6,1,3,c_white,1);
+			}
+		
+		if (tele_detected)
+			{
+			draw_sprite_part_ext(spr_window,12,0,0,7,3,_level_window_x+sprite_get_width(_level_window)+4,_level_window_y+sprite_get_height(_level_window)/2,3,1,c_white,1);
+			}
 		
 		scr_text_button(_level_window_x+14, _level_window_y+12,_name);
-		
-		
-		}	
-	}}
+		}	buffer_delete(_buf);
+	}
+	
+}

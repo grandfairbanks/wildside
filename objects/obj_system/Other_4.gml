@@ -5,7 +5,7 @@ if (reSize) {
 	show_debug_message("ROOM HEIGHT: " + string(level_y*SCREEN_HEIGHT))
 } else if (load == 1) {
     // normal fresh level load
-    load_level();
+    load_level(filename);
 }
 
 //turn on views

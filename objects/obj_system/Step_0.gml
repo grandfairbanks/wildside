@@ -1,118 +1,197 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+#region EDITOR
+
+	#region TOGGLE DEBUG
+	if keyboard_check(vk_control) && keyboard_check_pressed(ord("D"))
+		{
+		debug = !debug;
+		}
+	#endregion
+  
+	#region WINDOW SIZE TOGGLE
+	if keyboard_check_pressed(vk_f2)
+		{
+		if window_scale>1
+			{
+		
+			prev_scale=window_scale;
+		
+			if window_scale==window_max_scale
+			window_set_fullscreen(false);
+		
+			window_scale--;
+			//set window size
+			window_set_size(view_width*window_scale,view_height*window_scale);
+			alarm[0]=1;
+			}
+		}
+	
+	if keyboard_check_pressed(vk_f3)
+		{
+		if window_scale<=window_max_scale-1
+			{
+			prev_scale=window_scale;
+			window_scale++;
+			//set window size
+			window_set_size(view_width*window_scale,view_height*window_scale);
+			alarm[0]=1;
+			}
+		
+		if window_scale==window_max_scale
+			{
+			window_set_fullscreen(true);
+			//display_set_gui_size(1280,896);
+			}
+		}
+	#endregion
+
+	#region FULLSCREEN TOGGLE
+
+	if keyboard_check_pressed(vk_f11)
+		{
+		//if (window_get_fullscreen())
+		//	{
+		//	window_set_fullscreen(false);
+		//	}
+		//else
+		//	{
+		//	window_set_fullscreen(true);	
+		//	}
+		}
+
+	if (window_get_fullscreen())
+		{
+		//prev_scale=window_scale;
+		//window_scale=window_max_scale;
+		//display_set_gui_size(1280,896);
+	//	display_set_gui_size(display_get_width()/3,display_get_height()/3);
+	//	surface_resize(application_surface,display_get_width(),display_get_height());
+		}
+	else
+		{
+		//window_scale=
+		//display_set_gui_size(320,224);
+	//	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
+	//	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
+		}
+	#endregion
+
+	#region END GAME KEY
+	//if escape key is pressed
+	if (keyboard_check_pressed(vk_escape))
+		{
+		game_end();	
+		}
+	#endregion
+
+	#region MOUSE VIEW DRAG
+	// MOUSE VIEW DRAGGING (MIDDLE MOUSE BUTTON)
+	if (inEditor)
+		{
+	    if (mouse_check_button_pressed(mb_middle)) 
+	        {
+	        v_drag=true;
+	        drag_x = mouse_x;
+	        drag_y = mouse_y;
+	        }
+	    // update:
+	    if (mouse_check_button(mb_middle) && v_drag=true)
+	        {
+	        // actual dragging logic:
+			camera_set_view_pos(view, clamp(drag_x - (mouse_x - camera_get_view_x(view)),0,room_width-view_width/view_zoom),clamp(drag_y - (mouse_y - camera_get_view_y(view)),0,room_height-view_height/view_zoom));
+	        }
+            
+	    if mouse_check_button_released(mb_middle)
+	        {
+	        v_drag=false;
+	        }
+		}
+	#endregion
+
+	#region SAVE LEVEL
+		// Check if Ctrl is held AND S is pressed
+		if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+	    && keyboard_check_pressed(ord("S"))) 
+			{
+		    save_level();
+			}
+	#endregion
+
+	#region LOAD LEVEL
+	// Check if Ctrl is held AND S is pressed
+	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+	&& keyboard_check_pressed(ord("L"))) 
+		{
+		fromload=1;
+		load_window_opened=true;
+		}
+	#endregion
+
+	#region END LEVEL
+	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+	&& keyboard_check_pressed(ord("E"))) 
+		{
+		endlvl_active=true;
+		}
+	#endregion
+	
+	#region OPEN MAP LIST SCREEN
+	// Check if Ctrl is held AND S is pressed
+	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
+	&& keyboard_check_pressed(ord("M"))) 
+		{
+		map_list_window_visible=true;
+		}
+	#endregion
+	
+	#region MAP LIST SCREEN FUNCTIONS
+	if (within_map_list_window)
+		{
+		}
+	#endregion
+
+	#region TOGGLE CURRENT TILE LAYER
+	if (keyboard_check_pressed(vk_f5))
+		{
+		if tile_current_layer==0
+		tile_current_layer=1;
+		else
+		if tile_current_layer==1
+		tile_current_layer=0
+		}
+	#endregion
+	
+#endregion
+
+
+
+#region GAME
+
+	#region END LEVEL FUNCTIONS
+	if (inGame)
+		{
+	
+		}
+	
+	if (endlvl_active) 
+		{
+		//layer_set_visible(collision_layer,true);
+		end_level();
+		}
+	#endregion
+
+#endregion
+
+
 #region Zoom
 
 #endregion
 
-#region TOGGLE DEBUG
-if keyboard_check(vk_control) && keyboard_check_pressed(ord("D"))
-	{
-	debug = !debug;
-	}
-#endregion
-  
-#region WINDOW SIZE TOGGLE
-if keyboard_check_pressed(vk_f2)
-	{
-	if window_scale>1
-		{
-		
-		prev_scale=window_scale;
-		
-		if window_scale==window_max_scale
-		window_set_fullscreen(false);
-		
-		window_scale--;
-		//set window size
-		window_set_size(view_width*window_scale,view_height*window_scale);
-		alarm[0]=1;
-		}
-	}
-	
-if keyboard_check_pressed(vk_f3)
-	{
-	if window_scale<=window_max_scale-1
-		{
-		prev_scale=window_scale;
-		window_scale++;
-		//set window size
-		window_set_size(view_width*window_scale,view_height*window_scale);
-		alarm[0]=1;
-		}
-		
-	if window_scale==window_max_scale
-		{
-		window_set_fullscreen(true);
-		//display_set_gui_size(1280,896);
-		}
-	}
-#endregion
 
-#region FULLSCREEN TOGGLE
 
-if keyboard_check_pressed(vk_f11)
-	{
-	//if (window_get_fullscreen())
-	//	{
-	//	window_set_fullscreen(false);
-	//	}
-	//else
-	//	{
-	//	window_set_fullscreen(true);	
-	//	}
-	}
-
-if (window_get_fullscreen())
-	{
-	//prev_scale=window_scale;
-	//window_scale=window_max_scale;
-	//display_set_gui_size(1280,896);
-//	display_set_gui_size(display_get_width()/3,display_get_height()/3);
-//	surface_resize(application_surface,display_get_width(),display_get_height());
-	}
-else
-	{
-	//window_scale=
-	//display_set_gui_size(320,224);
-//	display_set_gui_size(view_width*gui_scale,view_height*gui_scale);	
-//	surface_resize(application_surface,view_width*window_scale,view_height*window_scale);
-	}
-#endregion
-
-#region END GAME KEY
-//if escape key is pressed
-if (keyboard_check_pressed(vk_escape))
-	{
-	game_end();	
-	}
-#endregion
-
-#region MOUSE VIEW DRAG
-// MOUSE VIEW DRAGGING (MIDDLE MOUSE BUTTON)
-if (inEditor)
-	{
-    if (mouse_check_button_pressed(mb_middle)) 
-        {
-        v_drag=true;
-        drag_x = mouse_x;
-        drag_y = mouse_y;
-        }
-    // update:
-    if (mouse_check_button(mb_middle) && v_drag=true)
-        {
-        // actual dragging logic:
-		camera_set_view_pos(view, clamp(drag_x - (mouse_x - camera_get_view_x(view)),0,room_width-view_width/view_zoom),clamp(drag_y - (mouse_y - camera_get_view_y(view)),0,room_height-view_height/view_zoom));
-        }
-            
-    if mouse_check_button_released(mb_middle)
-        {
-        v_drag=false;
-        }
-	}
-#endregion
-
-#region DOOR TEST
+#region WILDSIDE DOORS TEST (INTRO)
 
 if (keyboard_check(vk_left))
 	{
@@ -179,171 +258,124 @@ if (keyboard_check_pressed(vk_end))
 	}
 #endregion
 
-#region SAVE LEVEL
-	// Check if Ctrl is held AND S is pressed
-	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
-    && keyboard_check_pressed(ord("S"))) 
-		{
-	    save_level();
-		}
-#endregion
-
-#region LOAD LEVEL
-// Check if Ctrl is held AND S is pressed
-if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
-&& keyboard_check_pressed(ord("L"))) 
-	{
-	fromload=1;
-	load_window_opened=true;
-	}
-#endregion
-
-#region END LEVEL
-if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
-&& keyboard_check_pressed(ord("E"))) 
-	{
-	endlvl_active=true;
-	}
-#endregion
-
-#region OPEN MAP SCREEN
-// Check if Ctrl is held AND S is pressed
-if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
-&& keyboard_check_pressed(ord("M"))) 
-	{
-	get_map_list();
-	map_window_visible=!map_window_visible;
-	}
-
-#endregion
-
-#region TOGGLE CURRENT TILE LAYER
-if (keyboard_check_pressed(vk_f5))
-	{
-	if tile_current_layer==0
-	tile_current_layer=1;
-	else
-	if tile_current_layer==1
-	tile_current_layer=0
-	}
-#endregion
-
 canPlace=true;
 canPick=false;
 
-#region END LEVEL FUNCTIONS
-if (inGame)
-	{
-	
-	}
-	
-if (endlvl_active) 
-	{
-	//layer_set_visible(collision_layer,true);
-	end_level();
-	}
-#endregion
+	#region DETECT IF MOUSE IS AT MAP LIST WINDOW
+	if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),map_list_window_x,map_list_window_y,map_list_window_x+(map_list_window_w+15),map_list_window_y+(map_list_window_h+15))
+		{
+		within_map_list_window=true;	
+		}
+	else
+		{
+		within_map_list_window=false;
+		}
+	#endregion
 
-#region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
-if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_info_window_x,room_info_window_y,room_info_window_x+(room_info_window_w+15),room_info_window_y+(room_info_window_h+15))
-	{
-	within_rinfo_window=true;	
-	}
-else
-	{
-	within_rinfo_window=false;
-	}
-#endregion
+#region LEVEL INFO WINDOW
+	#region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
+	if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),room_info_window_x,room_info_window_y,room_info_window_x+(room_info_window_w+15),room_info_window_y+(room_info_window_h+15))
+		{
+		within_rinfo_window=true;	
+		}
+	else
+		{
+		within_rinfo_window=false;
+		}
+	#endregion
 
-#region OPEN/CLOSE LEVEL INFO WINDOW
-if (within_rinfo_window)
-	{
-	canPlace=false;
+	#region LEVEL INFO WINDOW FUNCTIONS
+	if (within_rinfo_window)
+		{
+		canPlace=false;
 	
-	#region OPEN THE WINDOW
-	if mouse_check_button_pressed(mb_left)
-		{	
-		while (room_info_window_y>display_get_gui_height()-(room_info_window_h+15))
-			{
-			room_info_window_y=(room_info_window_y-1);
+		#region EXPAND THE WINDOW WHEN CLICKED
+		if mouse_check_button_pressed(mb_left)
+			{	
+			while (room_info_window_y>display_get_gui_height()-(room_info_window_h+15))
+				{
+				room_info_window_y=(room_info_window_y-1);
+				}
 			}
-		}
-	#endregion	
+		#endregion	
 	
-	#region EDIT LEVEL NAME
-	if (name_edit_active) 
-		{
-		var ch = keyboard_lastchar;
-		if (ch != "") 
+		#region EDIT LEVEL NAME
+		if (name_edit_active) 
 			{
-		    if (ord(ch) == vk_backspace) 
+			var ch = keyboard_lastchar;
+			if (ch != "") 
 				{
-		        if (string_length(level_name) > 0)
-		        level_name = string_delete(level_name, string_length(level_name), 1);
-				keyboard_lastchar="";
-		        }
-		    else if (ord(ch) >= 32 && ord(ch) <= 126) // printable chars
-				{ 
-		        if (string_length(level_name) < 30) 
+			    if (ord(ch) == vk_backspace) 
 					{
-		            level_name += ch;
+			        if (string_length(level_name) > 0)
+			        level_name = string_delete(level_name, string_length(level_name), 1);
 					keyboard_lastchar="";
-		            }
-		        }
-		    }
+			        }
+			    else if (ord(ch) >= 32 && ord(ch) <= 126) // printable chars
+					{ 
+			        if (string_length(level_name) < 30) 
+						{
+			            level_name += ch;
+						keyboard_lastchar="";
+			            }
+			        }
+			    }
 			
-			if keyboard_check(vk_enter)
-				{
-				level_name = level_name;
-				name_edit_active=false;
-				}
-		}
-	#endregion
+				if keyboard_check(vk_enter)
+					{
+					level_name = level_name;
+					name_edit_active=false;
+					}
+			}
+		#endregion
 	
-	#region EDIT LEVEL PAR
-	if (par_edit_active) 
-		{
-		var ch = keyboard_lastchar;
-		if (ch != "") 
+		#region EDIT LEVEL PAR
+		if (par_edit_active) 
 			{
-		    if (ord(ch) == vk_backspace) 
+			var ch = keyboard_lastchar;
+			if (ch != "") 
 				{
-		        if (string_length(par_text) > 0)
-		        par_text = string_delete(par_text, string_length(par_text), 1);
-				keyboard_lastchar="";
-		        }
-		    else if (ord(ch) >= ord("0") && ord(ch) <= ord("9")) // printable chars
-				{ 
-		        if (string_length(par_text) < 5) 
+			    if (ord(ch) == vk_backspace) 
 					{
-		            par_text += ch;
+			        if (string_length(par_text) > 0)
+			        par_text = string_delete(par_text, string_length(par_text), 1);
 					keyboard_lastchar="";
-		            }
-		        }
-		    }
+			        }
+			    else if (ord(ch) >= ord("0") && ord(ch) <= ord("9")) // printable chars
+					{ 
+			        if (string_length(par_text) < 5) 
+						{
+			            par_text += ch;
+						keyboard_lastchar="";
+			            }
+			        }
+			    }
 			
-			if keyboard_check(vk_enter)
-				{
-				level_par = real(par_text)
-				par_edit_active=false;
-				}
-		}
-	#endregion
+				if keyboard_check(vk_enter)
+					{
+					level_par = real(par_text)
+					par_edit_active=false;
+					}
+			}
+		#endregion
 	
-	info_window_alpha=1;
-	}
-else
-	{
-	#region CLOSE WINDOW IF MOUSE LEAVES
-	while (room_info_window_y<display_get_gui_height()-4)
+		info_window_alpha=1;
+		}
+	else
 		{
-		room_info_window_y=(room_info_window_y+1);
-		}
+		#region RETRACT WINDOW IF MOUSE LEAVES WINDOW AREA
+		while (room_info_window_y<display_get_gui_height()-4)
+			{
+			room_info_window_y=(room_info_window_y+1);
+			}
 	
-	info_window_alpha=0.5;
+		info_window_alpha=0.5;
+		#endregion
+		}
 	#endregion
-	}
 #endregion
+
+#region TILE WINDOW
 
 #region DETECT IF MOUSE IS AT TILE WINDOW
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),tile_window_x,tile_window_y,tile_window_x+(tile_window_w+15),tile_window_y+(tile_window_h+15))
@@ -354,7 +386,8 @@ else
 	{
 	within_tile_window=false;
 	}
-	
+#endregion
+
 if (within_tile_window)
 	{
 	canPlace=false;
@@ -417,6 +450,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_pa
 
 #endregion
 
+#region OBJECT WINDOW
 #region DETECT IF MOUSE IS AT OBJECT WINDOW
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15),entity_window_y+(entity_window_h+15))
 	{
@@ -426,10 +460,13 @@ else
 	{
 	within_entity_window=false;	
 	}
-	
+#endregion	
+
 if (within_entity_window)
 	{
 	canPlace=false
+	
+	#region DETERMINE MOUSE X/Y POSITION WITHIN ENTITY GRIDS AND ALLOW ENTITY SELECTION
 	var _x, _y;
 	_x=floor((device_mouse_x_to_gui(0)-entity_window_x+sprite_get_width(spr_window)-16)/8);
 	_y=floor((device_mouse_y_to_gui(0)-entity_window_y+sprite_get_height(spr_window)-24)/8);
@@ -438,7 +475,8 @@ if (within_entity_window)
 		{
 		canPick=true;	
 		}
-		
+	#endregion
+	
 	if mouse_check_button_pressed(mb_left)
 		{	
 		#region OPEN ENTITY WINDOW
@@ -448,6 +486,7 @@ if (within_entity_window)
 			}
 		#endregion
 		
+		#region PICK ENTITIES WITH MOUSE
 		if (canPick)
 			{
 			var _sel;
@@ -477,15 +516,48 @@ if (within_entity_window)
 				}
 				mode = 1;
 			}
+			#endregion
 		}
 	}
 else
 	{
+	#region CLOSE WINDOW WHEN MOUSE IS OUTSIDE WINDOW
 	while (entity_window_x>(display_get_gui_width()-display_get_gui_width())-entity_window_w-sprite_get_width(spr_window))
 		{
 		entity_window_x=(entity_window_x-1);
 		}
+	#endregion
 	}
+#endregion	
+
+#region DETECT IF MOUSE IS AT OBJECT INFO WINDOW
+if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_info_window_x,entity_info_window_y,entity_info_window_x+(entity_info_window_w+15),entity_info_window_y+(entity_info_window_h+15))
+	{
+	within_entity_info_window=true;
+	}
+else
+	{
+	within_entity_info_window=false;	
+	}
+	
+if (within_entity_info_window)
+	{
+	canPlace=false
+	if mouse_check_button_pressed(mb_left)
+		{	
+		#region OPEN ENTITY INFO WINDOW
+		while (entity_info_window_x<(display_get_gui_width()-display_get_gui_width()))
+			{
+			entity_info_window_x=(entity_info_window_x+1);
+			}
+		#endregion
+		}
+	}
+else
+	{
+		
+	}
+
 #endregion
 
 #region TURN ON COLLISION LAYER IF COLLISION TILES SELECTED

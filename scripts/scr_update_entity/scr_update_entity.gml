@@ -16,9 +16,11 @@ function scr_update_entity(){
 		case 0: 
 		sprite=spr_prize;
 		name="Prize Block";
-		opt1="Hidden: ";
-		opt2="Disguised: ";
-		opt3="Prize: ";
+		fields = [
+        { label: "Hidden",      ref: "var1", type: "bool" },
+        { label: "Disguised",   ref: "var2", type: "bool" },
+        { label: "Prize Type",  ref: "var3", type: "enum", values: ["Diamond", "10,000 Points", "Skycutter", "Cyclone", "Red Stealth", "Eyeclops", "Juggernaut", "Iron Knight", "Berzerker", "Maniaxe", "Micromax", "1-UP", "Clock", "Continue", "10 Diamonds"] }
+		];
 		break;
 		case 1: 
 		sprite=spr_rock;

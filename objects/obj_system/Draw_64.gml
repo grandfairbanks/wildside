@@ -271,7 +271,10 @@ if (inEditor)
 	#endregion
 	
 	#region DRAW MAP LIST
-	map_list_display();
+	if (map_list_window_visible)
+		{
+		map_list_display();
+		}
 	#endregion
 	
 	#region DRAW LEVEL LIST WINDOW AND CONTENTS
@@ -373,6 +376,77 @@ if (inEditor)
 	{
 	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
 	draw_text(entity_info_window_x+8,entity_info_window_y+8,string(current_ent.name));
+	
+ if (is_array(current_ent.fields))
+    {
+        
+ var mx = device_mouse_x_to_gui(0);
+    var my = device_mouse_y_to_gui(0);
+
+    var strt_x = entity_info_window_x + 8;
+    var strt_y = entity_info_window_y + 8;
+	
+	var yy = strt_y + 16;
+	
+        for (var i = 0; i < array_length(current_ent.fields); i++)
+        {
+            var field = current_ent.fields[i];
+            var label = field.label;
+            var ref   = field.ref;
+            var type  = field.type;
+            var value = variable_instance_get(current_ent, ref);
+
+            // Highlight if hovered
+            var hovered = (mx > strt_x && mx < strt_x + 200 && my > yy && my < yy + 16);
+            if (hovered)
+                draw_set_color(c_yellow);
+            else
+                draw_set_color(c_white);
+
+            // Draw text
+            draw_text(strt_x, yy, label + ": " + string(value));
+            draw_set_color(c_white);
+
+            // Handle mouse click
+            if (hovered && mouse_check_button_pressed(mb_left))
+            {
+                switch (type)
+                {
+                    case "bool":
+                        variable_instance_set(current_ent, ref, !value);
+                        break;
+
+                    case "int":
+                        var new_val = get_integer_async("Enter new value for " + label, value);
+                        if (new_val != -1) variable_instance_set(current_ent, ref, new_val);
+                        break;
+
+                    case "enum":
+                        var vals = field.values;
+                        if (is_array(vals))
+                        {
+                            var next = (value + 1) mod array_length(vals);
+                            variable_instance_set(current_ent, ref, next);
+                        }
+                        break;
+
+                    case "string":
+                        var new_str = get_string_async("Enter new value for " + label, value);
+                        if (new_str != "") variable_instance_set(current_ent, ref, new_str);
+                        break;
+                }
+
+                // force entity refresh if needed
+                if (is_undefined(current_ent.update_entity) == false)
+                    current_ent.update_entity();
+            }
+
+            yy += 16;
+        }
+    }	
+	
+	
+	/*
 	if current_ent.opt1!=""
 		{
 		
@@ -388,6 +462,8 @@ if (inEditor)
 	draw_text(entity_info_window_x+8,entity_info_window_y+72,current_ent.opt4 + "" + string(current_ent.var4));
 	if current_ent.opt5!=""
 	draw_text(entity_info_window_x+8,entity_info_window_y+88,current_ent.opt5 + "" + string(current_ent.var5));
+	*/
+	
 	}
 	#endregion
 	
@@ -399,6 +475,11 @@ if (inEditor)
 		draw_sprite(map_window,0,map_window_x,map_window_y);
 		draw_text(map_window_x+map_window_w/2-(strw/2),map_window_y+8,str);	
 		scr_draw_map();
+		var close_butn = scr_text_button(map_window_x + map_window_w - string_width("CLOSE")-6, map_window_y + map_window_h - 5, "CLOSE");
+		if (close_butn.clicked) 
+			{
+			map_window_visible = false;
+			}  
 		}
 	#endregion
 	}
