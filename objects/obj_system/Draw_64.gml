@@ -3,7 +3,16 @@
 
 #region EDITOR STUFF
 if (inEditor)
-	{	
+	{
+	
+	#region NEW GUI SYSTEM TEST
+	
+		#region WINDOWS
+		scr_window_draw();
+		#endregion
+	
+	#endregion
+	
 	#region DRAW CURRENT TILE LAYER / PLACEMENT MODE
 	if mode==0
 		{
@@ -261,8 +270,7 @@ if (inEditor)
 	#endregion
 		
 	#region DRAW PATH BONUS
-	draw_text(room_info_window_x+txt_x2,room_info_window_y+96,"PATH BONUS: " + string(path_bonus));
-		
+	draw_text(room_info_window_x+txt_x2,room_info_window_y+96,"PATH BONUS: " + string(path_bonus));	
 	#endregion
 		
 	#endregion
@@ -373,98 +381,104 @@ if (inEditor)
 
 	#region ENTITY INFO WINDOW
 	if (entity_info_window_visible==true)
-	{
-	draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
-	draw_text(entity_info_window_x+8,entity_info_window_y+8,string(current_ent.name));
-	
- if (is_array(current_ent.fields))
-    {
-        
- var mx = device_mouse_x_to_gui(0);
-    var my = device_mouse_y_to_gui(0);
-
-    var strt_x = entity_info_window_x + 8;
-    var strt_y = entity_info_window_y + 8;
-	
-	var yy = strt_y + 16;
-	
-        for (var i = 0; i < array_length(current_ent.fields); i++)
-        {
-            var field = current_ent.fields[i];
-            var label = field.label;
-            var ref   = field.ref;
-            var type  = field.type;
-            var value = variable_instance_get(current_ent, ref);
-
-            // Highlight if hovered
-            var hovered = (mx > strt_x && mx < strt_x + 200 && my > yy && my < yy + 16);
-            if (hovered)
-                draw_set_color(c_yellow);
-            else
-                draw_set_color(c_white);
-
-            // Draw text
-            draw_text(strt_x, yy, label + ": " + string(value));
-            draw_set_color(c_white);
-
-            // Handle mouse click
-            if (hovered && mouse_check_button_pressed(mb_left))
-            {
-                switch (type)
-                {
-                    case "bool":
-                        variable_instance_set(current_ent, ref, !value);
-                        break;
-
-                    case "int":
-                        var new_val = get_integer_async("Enter new value for " + label, value);
-                        if (new_val != -1) variable_instance_set(current_ent, ref, new_val);
-                        break;
-
-                    case "enum":
-                        var vals = field.values;
-                        if (is_array(vals))
-                        {
-                            var next = (value + 1) mod array_length(vals);
-                            variable_instance_set(current_ent, ref, next);
-                        }
-                        break;
-
-                    case "string":
-                        var new_str = get_string_async("Enter new value for " + label, value);
-                        if (new_str != "") variable_instance_set(current_ent, ref, new_str);
-                        break;
-                }
-
-                // force entity refresh if needed
-                if (is_undefined(current_ent.update_entity) == false)
-                    current_ent.update_entity();
-            }
-
-            yy += 16;
-        }
-    }	
-	
-	
-	/*
-	if current_ent.opt1!=""
 		{
-		
-		draw_text(entity_info_window_x+8,entity_info_window_y+24,current_ent.opt1 + "" + string(current_ent.var1));
-		
-		}
-		
-	if current_ent.opt2!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+40,current_ent.opt2 + "" + string(current_ent.var2));
-	if current_ent.opt3!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+56,current_ent.opt3 + "" + string(current_ent.var3));
-	if current_ent.opt4!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+72,current_ent.opt4 + "" + string(current_ent.var4));
-	if current_ent.opt5!=""
-	draw_text(entity_info_window_x+8,entity_info_window_y+88,current_ent.opt5 + "" + string(current_ent.var5));
-	*/
+		draw_sprite(spr_entity_info_window,0,entity_info_window_x,entity_info_window_y);
+		draw_text(entity_info_window_x+8,entity_info_window_y+8,string(current_ent.name));
 	
-	}
+		if (is_array(current_ent.fields))
+		    {
+			var mx = device_mouse_x_to_gui(0);
+		    var my = device_mouse_y_to_gui(0);
+
+		    var strt_x = entity_info_window_x + 8;
+		    var strt_y = entity_info_window_y + 8;
+	
+			var yy = strt_y + 16;
+	
+		    for (var i = 0; i < array_length(current_ent.fields); i++)
+		        {
+		            var field = current_ent.fields[i];
+		            var label = field.label;
+		            var ref   = field.ref;
+		            var type  = field.type;
+		            var value = variable_instance_get(current_ent, ref);
+
+		            // Highlight if hovered
+		            var hovered = (mx > strt_x && mx < strt_x + string_width(field.label) && my > yy && my < yy + 16);
+		            if (hovered)
+		                draw_set_color(c_yellow);
+		            else
+		                draw_set_color(c_white);
+
+		            // Draw text
+		            draw_text(strt_x, yy, label + ": " + string(value));
+		            draw_set_color(c_white);
+
+		            // Handle mouse click
+		            if (hovered && mouse_check_button_pressed(mb_left))
+		            {
+		                switch (type)
+		                {
+		                    case "bool":
+		                        variable_instance_set(current_ent, ref, !value);
+		                        break;
+
+		                    case "int":
+		                        var new_val = get_integer_async("Enter new value for " + label, value);
+		                        if (new_val != -1) variable_instance_set(current_ent, ref, new_val);
+		                        break;
+
+		                    case "enum":
+		                        var vals = field.values;
+		                        if (is_array(vals))
+		                        {
+		                            var next = (value + 1) mod array_length(vals);
+		                            variable_instance_set(current_ent, ref, next);
+		                        }
+		                        break;
+
+		                    case "string":
+		                        var new_str = get_string_async("Enter new value for " + label, value);
+		                        if (new_str != "") variable_instance_set(current_ent, ref, new_str);
+		                        break;
+							case "button":
+					        var btn = scr_text_button(strt_x, yy, field.label);
+					        if (btn.clicked) 
+								{
+					            if (is_callable(field.action)) field.action();
+								}
+					        break;
+		                }
+
+		                // force entity refresh if needed
+		                if (is_undefined(current_ent.update_entity) == false)
+		                    current_ent.update_entity();
+		            }
+
+		            yy += 16;
+		        }
+		    }	
+	
+	
+		/*
+		if current_ent.opt1!=""
+			{
+		
+			draw_text(entity_info_window_x+8,entity_info_window_y+24,current_ent.opt1 + "" + string(current_ent.var1));
+		
+			}
+		
+		if current_ent.opt2!=""
+		draw_text(entity_info_window_x+8,entity_info_window_y+40,current_ent.opt2 + "" + string(current_ent.var2));
+		if current_ent.opt3!=""
+		draw_text(entity_info_window_x+8,entity_info_window_y+56,current_ent.opt3 + "" + string(current_ent.var3));
+		if current_ent.opt4!=""
+		draw_text(entity_info_window_x+8,entity_info_window_y+72,current_ent.opt4 + "" + string(current_ent.var4));
+		if current_ent.opt5!=""
+		draw_text(entity_info_window_x+8,entity_info_window_y+88,current_ent.opt5 + "" + string(current_ent.var5));
+		*/
+	
+		}
 	#endregion
 	
 	#region DRAW MAP

@@ -8,13 +8,190 @@
 	reSize=false;
 	fromload=0;
 	frommap=0;
-	
+	fromtele=0;
 	
 	if !directory_exists("Settings")
 	directory_create("Settings");
 
 	if !directory_exists("Levels")
 	directory_create("Levels");
+
+#region NEW GUI SYSTEM TEST
+
+#region WINDOWS
+global.windows = [];
+global.window_focus = -1;
+global.window_next_id = 0;
+
+#region CREATE WINDOW
+function scr_window_create(_name, _x, _y, _w, _h, _rounded)
+{
+    var _win = {
+        id: global.window_next_id++,
+        name: _name,
+        x: _x,
+        y: _y,
+        w: _w,
+        h: _h,
+        sprite: scr_create_window(_w, _h, _rounded),
+        visible: true,
+        z: array_length(global.windows), // draw order
+        focused: false,
+        draw_func: function(win) {},     // override this when creating
+        update_func: function(win) {},   // optional
+		dragging : false,
+		drag_offset_x : 0,
+		drag_offset_y : 0,
+    };
+
+    array_push(global.windows, _win);
+    global.window_focus = _win.id;
+    return _win;
+}
+#endregion
+
+#region UPDATE WINDOWS
+function scr_window_update()
+{
+var mx = device_mouse_x_to_gui(0);
+var my = device_mouse_y_to_gui(0);
+
+// Click to focus
+if (mouse_check_button_pressed(mb_left)) {
+    for (var i = array_length(global.windows) - 1; i >= 0; i--) {
+        var win = global.windows[i];
+        if (win.visible &&
+            mx > win.x && mx < win.x + win.w &&
+            my > win.y && my < win.y + win.h) {
+            
+            // Focus this window
+            global.window_focus = win.id;
+            
+            // Bring to front
+            array_delete(global.windows, i, 1);
+            array_push(global.windows, win);
+            break;
+        }
+    }
+}
+	
+for (var i = array_length(global.windows) - 1; i >= 0; i--)
+    {
+        var win = global.windows[i];
+        if (!win.visible) continue;
+
+        var pressed = mouse_check_button_pressed(mb_left);
+        var held = mouse_check_button(mb_left);
+        var released = mouse_check_button_released(mb_left);
+
+        // --- TITLE BAR AREA ---
+        var titlebar_y1 = win.y;
+        var titlebar_y2 = win.y + 16;
+
+        // --- CLOSE BUTTON RECT ---
+        var close_x1 = win.x + win.w;
+        var close_y1 = win.y;
+        var close_x2 = close_x1 + 4;
+        var close_y2 = close_y1 + 4;
+
+        // Click on close button?
+        if (pressed && point_in_rectangle(mx, my, close_x1, close_y1, close_x2, close_y2))
+        {
+            win.visible = false;
+            array_delete(global.windows, i, 1);
+            if (array_length(global.windows) > 0)
+                global.window_focus = global.windows[array_length(global.windows) - 1].id;
+            else
+                global.window_focus = -1;
+            return; // stop processing, window list changed
+        }
+
+        // Clicked on title bar (bring to focus or start drag)
+        if (pressed && point_in_rectangle(mx, my, win.x, titlebar_y1, win.x + win.w, titlebar_y2))
+        {
+            global.window_focus = win.id;
+            win.dragging = true;
+            win.drag_offset_x = mx - win.x;
+            win.drag_offset_y = my - win.y;
+            
+            // Bring to front
+            var w = global.windows[i];
+            array_delete(global.windows, i, 1);
+            array_push(global.windows, w);
+            return;
+        }
+
+        // Drag logic
+        if (win.dragging)
+        {
+            if (held)
+            {
+                win.x = mx - win.drag_offset_x;
+                win.y = my - win.drag_offset_y;
+            }
+            else if (released)
+            {
+                win.dragging = false;
+            }
+        }
+
+        // --- Custom per-window update ---
+        if (is_undefined(win.update_func) == false)
+        {
+            win.update_func(win);
+        }
+    }
+}
+#endregion
+
+#region DRAW WINDOWS
+function scr_window_draw()
+{
+    for (var i = 0; i < array_length(global.windows); i++)
+    {
+        var win = global.windows[i];
+        if (!win.visible) continue;
+
+        draw_sprite(win.sprite, 0, win.x, win.y);
+
+        // Title bar (yellow if focused)
+       // var col = (win.id == global.window_focus) ? c_yellow : c_gray;
+       // draw_rectangle_color(win.x, win.y, win.x + win.w + 16, win.y + 16, col, col, col, col, false);
+        draw_text(win.x + 8, win.y + 2, win.name);
+
+        // Close button (X)
+        var close_x1 = win.x + win.w;
+        var close_y1 = win.y;
+        draw_rectangle_color(close_x1, close_y1, close_x1 + 4, close_y1 + 4, c_dkgray, c_dkgray, c_dkgray, c_dkgray, false);
+        draw_text(close_x1, close_y1, "X");
+
+        // Run per-window draw
+        if (is_undefined(win.draw_func) == false)
+        {
+            win.draw_func(win);
+        }
+    }
+}
+#endregion
+
+#endregion
+
+var new_win = scr_window_create("Entity Info", 0, 0, 160, 120, true);
+var new_win2 = scr_window_create("Entity Info 2", 200,200, 64, 64, true);
+var ent_win = scr_window_create("ENTITIES",20,20,72,64,false);
+
+//Assign behavior
+new_win.draw_func = function(win) {
+draw_text(win.x + 8, win.y + 8, "Entity");
+draw_text(win.x + 8, win.y + 24, "Name: ");
+};
+
+//Assign behavior
+ent_win.draw_func = function(win) {
+};
+#endregion
+
+
 
 	//various states
 	inIntro=false;
@@ -451,11 +628,6 @@
 		y=0;
 		name="";
 		sprite=spr_null;
-		opt1="";
-		opt2="";
-		opt3="";
-		opt4="";
-		opt5="";
 		var1=0;
 		var2=0;
 		var3=0;
@@ -472,7 +644,7 @@
 	
 		#region DRAW EVENT
 		function draw_entity() {
-		if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15
+		if _type>=0 && _type<=6 ^^ _type>=9 && _type<=15 //only apply theme palette to blocks and flag
 		pal_swap_set(spr_theme_pal,obj_system.level_theme-1,false);
 	
 		draw_sprite(sprite,0,x,y);
@@ -626,9 +798,9 @@
 	
 	function map_list_display()
 		{
+
 			if load_window_opened==false
 			mappick=true;
-			
 			
 			draw_sprite(spr_map_list_window,0,map_list_window_x,map_list_window_y);
 			var mpin=scr_file_listbox(map_list_window_x+8,map_list_window_y+8,map_list,10,map_list_window_w,10,map_list_scroller,"MAP LIST");
@@ -636,10 +808,17 @@
 			// Only update the selection if user actually clicked
 			if mpin != undefined && mappick==true
 				{
-				frommap=1;
-				map_index = mpin.index;
-				load_window_opened=true;
-				mappick=false;
+				if (fromtele)
+					{
+					
+					}
+				else
+					{
+					frommap=1;
+					map_index = mpin.index;
+					load_window_opened=true;
+					mappick=false;
+					}
 				}
 		
 			var close_butn = scr_text_button(map_list_window_x + map_list_window_w - string_width("CLOSE")-6, map_list_window_y + map_list_window_h - 5, "CLOSE");
@@ -648,7 +827,7 @@
 				map_list_window_visible = false;
 				}
 			
-			var map_butn = scr_text_button(map_list_window_x + map_list_window_w/2 - string_width("MAP")-6, map_list_window_y + map_list_window_h - 5, "MAP");
+			var map_butn = scr_text_button(map_list_window_x + 6, map_list_window_y + map_list_window_h - 5, "MAP");
 			if (map_butn.clicked) 
 				{
 				get_map_list();
@@ -670,12 +849,13 @@
 		level_list_scroller=scrollbar_create(1,spr_scrollbar,true);
 		level_selected=undefined;
 		load_window_opened=false;
+		within_level_list_window=false;
 		#endregion
 
 		#region DRAW LEVEL LIST WINDOW AND CONTENTS
 		function draw_level_list() 
 			{
-			if (load_window_opened)
+			if (load_window_opened) && (within_level_list_window)
 				{
 				draw_sprite(spr_level_list_window, 0, level_list_window_x, level_list_window_y);
 
@@ -847,6 +1027,14 @@
 	spr_entity_info_window=scr_create_window(entity_info_window_w,entity_info_window_h,false);
 	within_entity_info_window=false;
 	entity_info_window_visible=false;
+	#endregion
+	
+	#region TELEPORT LEVEL WINDOW
+	tele_lvl_window_x=0;
+	tele_lvl_window_y=0;
+	tele_lvl_window_w=320;
+	tele_lvl_window_h=224;
+	spr_tele_lvl_window=scr_create_window(tele_lvl_window_w,tele_lvl_window_h,false);
 	#endregion
 
 	#region COLLISION VISUALS

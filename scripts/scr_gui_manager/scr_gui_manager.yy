@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_gui_manager",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_gui_manager",
+  "parent":{
+    "name":"gui_manager",
+    "path":"folders/Scripts/GUI/gui_manager.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

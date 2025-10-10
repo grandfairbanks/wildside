@@ -3,6 +3,16 @@
 
 #region EDITOR
 
+#region NEW GUI SYSTEM TEST
+
+#region WINDOWS
+
+// Step Event
+scr_window_update();
+#endregion
+
+#endregion
+
 	#region TOGGLE DEBUG
 	if keyboard_check(vk_control) && keyboard_check_pressed(ord("D"))
 		{
@@ -137,7 +147,7 @@
 		}
 	#endregion
 	
-	#region OPEN MAP LIST SCREEN
+	#region OPEN MAP LIST WINDOW
 	// Check if Ctrl is held AND S is pressed
 	if ((keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) 
 	&& keyboard_check_pressed(ord("M"))) 
@@ -145,10 +155,12 @@
 		map_list_window_visible=true;
 		}
 	#endregion
-	
-	#region MAP LIST SCREEN FUNCTIONS
+
+	#region MAP LIST WINDOW FUNCTIONS
 	if (within_map_list_window)
 		{
+		canPlace=false;
+		canPick=false;
 		}
 	#endregion
 
@@ -163,114 +175,16 @@
 		}
 	#endregion
 	
-#endregion
-
-
-
-#region GAME
-
-	#region END LEVEL FUNCTIONS
-	if (inGame)
-		{
-	
-		}
-	
-	if (endlvl_active) 
-		{
-		//layer_set_visible(collision_layer,true);
-		end_level();
-		}
-	#endregion
-
-#endregion
-
-
-#region Zoom
-
-#endregion
-
-
-
-#region WILDSIDE DOORS TEST (INTRO)
-
-if (keyboard_check(vk_left))
-	{
-	if (inIntro)
-		{
-		if left_door_x>90
-		left_door_x-=1;
-		layer_sprite_x(left_door_sprite,left_door_x);
-	
-		if right_door_x<190
-		right_door_x+=1;
-		layer_sprite_x(right_door_sprite,right_door_x);
-		}
-	}
-	
-if (keyboard_check(vk_right))
-	{
-	if (inIntro)
-		{
-		if left_door_x<124
-		left_door_x+=1;
-		layer_sprite_x(left_door_sprite,left_door_x);
-	
-		if right_door_x>156
-		right_door_x-=1;
-		layer_sprite_x(right_door_sprite,right_door_x);
-		}
-	}
-#endregion
-
-#region FADE TEST
-if (keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) && keyboard_check_pressed(ord("F"))
-	{
-	if !(fade_active)
-		{
-		fade_active=true;
-		audio_play_sound(Teleport,1,false)
-		alarm[1]=180;
-		}
-	else
-		{	
-		}
-	}
-	
-if (fade_active)
-	{
-	fade_alpha+=0.1;
-	}
-#endregion
-
-#region DESTROY INTRO SUFF AND CHANGE PROGRAM STATE
-if (keyboard_check_pressed(vk_end))
-	{
-	if (inIntro==true)
-		{
-		inIntro=false;
-		layer_tilemap_destroy(ws_tileset)
-		layer_destroy(ws_layer);
-		layer_destroy(ws_bkg_layer);
-		layer_destroy(inside_layer);
-		layer_destroy(door_layer);
-		inEditor=true;
-		}
-	}
-#endregion
-
-canPlace=true;
-canPick=false;
-
 	#region DETECT IF MOUSE IS AT MAP LIST WINDOW
-	if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),map_list_window_x,map_list_window_y,map_list_window_x+(map_list_window_w+15),map_list_window_y+(map_list_window_h+15))
-		{
-		within_map_list_window=true;	
-		}
-	else
-		{
-		within_map_list_window=false;
-		}
-	#endregion
+if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),map_list_window_x,map_list_window_y,map_list_window_x+(map_list_window_w+15),map_list_window_y+(map_list_window_h+15))
+	{
+	within_map_list_window=true;	
+	}
+else
+	{
+	within_map_list_window=false;
+	}
+#endregion
 
 #region LEVEL INFO WINDOW
 	#region DETECT IF MOUSE IS AT LEVEL INFO WINDOW
@@ -375,6 +289,17 @@ canPick=false;
 	#endregion
 #endregion
 
+	#region DETECT IF MOUSE IS AT LOAD LEVEL WINDOW
+	if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),level_list_window_x,level_list_window_y,level_list_window_x+(level_list_window_w+15),level_list_window_y+(level_list_window_h+15))
+		{
+		within_level_list_window=true;	
+		}
+	else
+		{
+		within_level_list_window=false;
+		}
+	#endregion
+
 #region TILE WINDOW
 
 #region DETECT IF MOUSE IS AT TILE WINDOW
@@ -451,6 +376,7 @@ if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),theme_pa
 #endregion
 
 #region OBJECT WINDOW
+
 #region DETECT IF MOUSE IS AT OBJECT WINDOW
 if point_in_rectangle(device_mouse_x_to_gui(0),device_mouse_y_to_gui(0),entity_window_x,entity_window_y,entity_window_x+(entity_window_w+15),entity_window_y+(entity_window_h+15))
 	{
@@ -559,6 +485,99 @@ else
 	}
 
 #endregion
+	
+#endregion
+
+#region GAME
+
+	#region END LEVEL FUNCTIONS
+	if (inGame)
+		{
+	
+		}
+	
+	if (endlvl_active) 
+		{
+		//layer_set_visible(collision_layer,true);
+		end_level();
+		}
+	#endregion
+
+#endregion
+
+#region Zoom
+
+#endregion
+
+#region WILDSIDE DOORS TEST (INTRO)
+
+if (keyboard_check(vk_left))
+	{
+	if (inIntro)
+		{
+		if left_door_x>90
+		left_door_x-=1;
+		layer_sprite_x(left_door_sprite,left_door_x);
+	
+		if right_door_x<190
+		right_door_x+=1;
+		layer_sprite_x(right_door_sprite,right_door_x);
+		}
+	}
+	
+if (keyboard_check(vk_right))
+	{
+	if (inIntro)
+		{
+		if left_door_x<124
+		left_door_x+=1;
+		layer_sprite_x(left_door_sprite,left_door_x);
+	
+		if right_door_x>156
+		right_door_x-=1;
+		layer_sprite_x(right_door_sprite,right_door_x);
+		}
+	}
+#endregion
+
+#region FADE TEST
+if (keyboard_check(vk_control) || keyboard_check(vk_lcontrol) || keyboard_check(vk_rcontrol)) && keyboard_check_pressed(ord("F"))
+	{
+	if !(fade_active)
+		{
+		fade_active=true;
+		audio_play_sound(Teleport,1,false)
+		alarm[1]=180;
+		}
+	else
+		{	
+		}
+	}
+	
+if (fade_active)
+	{
+	fade_alpha+=0.1;
+	}
+#endregion
+
+#region DESTROY INTRO SUFF AND CHANGE PROGRAM STATE
+if (keyboard_check_pressed(vk_end))
+	{
+	if (inIntro==true)
+		{
+		inIntro=false;
+		layer_tilemap_destroy(ws_tileset)
+		layer_destroy(ws_layer);
+		layer_destroy(ws_bkg_layer);
+		layer_destroy(inside_layer);
+		layer_destroy(door_layer);
+		inEditor=true;
+		}
+	}
+#endregion
+
+canPlace=true;
+canPick=false;
 
 #region TURN ON COLLISION LAYER IF COLLISION TILES SELECTED
 if (within_entity_window)
